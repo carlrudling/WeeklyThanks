@@ -1,21 +1,29 @@
-//
-//  ContentView.swift
-//  WeeklyThanks
-//
-//  Created by Carl Rudling on 2024-02-23.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @State private var userExists = false
+    // Instantiate the UserViewModel
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationStack {
+            if userExists {
+                // Pass the UserViewModel as an EnvironmentObject to HomeView
+                // HomeView()
+                TestView()
+
+            } else {
+                // Also ensure StartView has access to UserViewModel if needed
+                StartView()
+            }
         }
-        .padding()
+        .onAppear {
+            checkUserExistence()
+        }
+    }
+    
+    private func checkUserExistence() {
+        let users = DataManager.shared.fetchUsers()
+        userExists = !users.isEmpty
     }
 }
 
