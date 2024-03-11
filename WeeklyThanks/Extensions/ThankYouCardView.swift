@@ -49,10 +49,11 @@ struct ThankYouCardView: View {
                         .font(.custom("Chillax", size: 12))
                     Spacer()
                     
-                    DynamicSizeLabel(text: message, maxSize: 16, minSize: 12, textColor: UIColor.white, textAlignment: .center, customFontName: "YourCustomFontName", maxWidth: 200)
+                  //  DynamicSizeLabel(text: message, maxSize: 16, minSize: 12, textColor: UIColor.white, textAlignment: .center, customFontName: "YourCustomFontName", maxWidth: 200)
+                    Text(message)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
-                        .font(.custom("Chillax", size: messageFontSize))
+                        .font(.custom("Chillax", size: 14))
                         .padding()
                     Spacer()
                     Text("/ \(senderName)")
@@ -78,9 +79,11 @@ struct ThankYouCardView: View {
             .padding()
             .frame(width: 360, height: 240)
         }
+        .frame(width: 360, height: 240)
         .scaleEffect(scaleFactor)
     }
 }
+
 
 extension UIView {
     func asImage() -> UIImage {
@@ -90,27 +93,7 @@ extension UIView {
         }
     }
 }
-extension View {
-    func snapshot(afterScreenUpdates: Bool = true) -> UIImage {
-        let controller = UIHostingController(rootView: self)
-        let view = controller.view
-        let targetSize = CGSize(width: 360, height: 240) // Adjust based on your card size
-        view?.bounds = CGRect(origin: .zero, size: targetSize)
-        view?.backgroundColor = .clear
 
-        let window = UIWindow(frame: CGRect(origin: .zero, size: targetSize))
-        window.rootViewController = controller
-        window.isHidden = true
-
-        // Layout and render the view
-        controller.view.layoutIfNeeded()
-
-        let renderer = UIGraphicsImageRenderer(size: targetSize)
-        return renderer.image { _ in
-            view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: afterScreenUpdates)
-        }
-    }
-}
 
 
 

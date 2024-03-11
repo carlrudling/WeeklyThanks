@@ -8,8 +8,8 @@ struct ContentView: View {
         NavigationStack {
             if userExists {
                 // Pass the UserViewModel as an EnvironmentObject to HomeView
-                // HomeView()
-                TestView()
+                 HomeView()
+                //  TestView()
 
             } else {
                 // Also ensure StartView has access to UserViewModel if needed

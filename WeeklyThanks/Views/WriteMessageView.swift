@@ -20,6 +20,7 @@ struct WriteMessageView: View {
                 message = words.prefix(wordLimit).joined(separator: " ")
             }
         }
+    
     private func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
@@ -56,16 +57,16 @@ struct WriteMessageView: View {
                     .foregroundColor(.white) // Set the line color
                     .frame(width: 50 )
                     .padding(.top, -10)
-                /*
+                
                 ZStack {
                     
                     TextEditorBackground()
                         .frame(height: 150) // Ensure this matches the TextEditor frame size for alignment
                         .padding(.top, 10)
-                    TextEditor(text: $userInput)
-                        .onChange(of: userInput) { newValue in
+                    TextEditor(text: $message)
+                        .onChange(of: message) { newValue in
                             if newValue.count > 150 { // Limit to 150 characters
-                                userInput = String(newValue.prefix(150))
+                                message = String(newValue.prefix(150))
                             }
                         }
                         .font(.custom("Chillax", size: 16)) // Adjust font size dynamically
@@ -81,8 +82,6 @@ struct WriteMessageView: View {
                     
                     
                 }
-                 */
-                TextField("message", text: $message)
                 .frame(height: 200)
                 .padding(.horizontal, 20)
                 .padding(.top, 10)
@@ -125,28 +124,25 @@ struct WriteMessageView: View {
                 
                 Button(action: {
                     
-                    // Capture the ThankYouCardView into an image
-                        let renderer = ImageRenderer(content: ThankYouCardView(
-                            scaleFactor: 3.0,
+                    // Define the custom size based on the scaled dimensions of the ThankYouCardView
+                    let customSize = CGSize(width: 360 * 1.2, height: 240 * 1.2) // Adjust based on your actual scale factor and card size
+
+                        // Preparing the ThankYouCardView for snapshot
+                        let cardView = ThankYouCardView(
+                            scaleFactor: 1.0, // Use the appropriate scale factor for UI display
                             message: self.message,
-                            senderName: self.userViewModel.name ?? "",
+                            senderName: self.userViewModel.name,
                             receiverName: self.receiverViewModel.name,
                             cardNumber: self.userViewModel.count + 1,
                             date: Date()
-                        ))
-                        self.bodyImage = renderer.uiImage
+                        )
 
-                        // Check if the image was successfully captured
-                        if let _ = self.bodyImage {
-                            // Prepare the message composer
-                            self.recipients = [self.receiverViewModel.telephoneNumber]
+                        // Capturing a high-quality snapshot of the card view
+                        self.bodyImage = cardView.snapshot(with: customSize, scale: 3.0) // Use the custom size and adjust scale factor as needed
 
-                            // Only show the message composer if the image capture was successful
-                            self.showingMessageComposer = true
-                        } else {
-                            // Handle the error: image capture was not successful
-                            print("Image capture failed.")
-                        }
+                        self.recipients = [self.receiverViewModel.telephoneNumber]
+                        self.showingMessageComposer = true
+                    
                 }) {
                     HStack {
                         Image(systemName: "paperplane") // Replace with your icon
@@ -183,31 +179,92 @@ struct WriteMessageView: View {
             }
         }
         .sheet(isPresented: $showingMessageComposer) {
-                    MessageComposerView(recipients: recipients, bodyImage: bodyImage) { messageSent in
-                        // Handle the message sent confirmation or error
-                    }
+            
+            if let bodyImage {
+                MessageComposerView(recipients: recipients, bodyImage: bodyImage) { messageSent in
+                    // Handle the message sent confirmation or error
                 }
-       
+            }
+        }
         
     }
     
 }
+/*
 // Ensure you have this extension correctly implemented in your project
 extension View {
-    func snapshot() -> UIImage {
+    func snapshot(with size: CGSize? = nil, highQuality: Bool = true) -> UIImage {
         let controller = UIHostingController(rootView: self)
         let view = controller.view
-        let targetSize = controller.view.intrinsicContentSize
-        view?.bounds = CGRect(x: 0, y: 0, width: targetSize.width, height: targetSize.height)
+
+        // Determine the target size: use provided size or intrinsic content size if nil
+        let targetSize = size ?? controller.view.intrinsicContentSize
+        view?.bounds = CGRect(origin: .zero, size: targetSize)
         view?.backgroundColor = .clear
-        let renderer = UIGraphicsImageRenderer(size: targetSize)
+
+        // Setup the window to render the controller's view
+        let window = UIWindow(frame: CGRect(origin: .zero, size: targetSize))
+        window.rootViewController = controller
+        window.isHidden = false
+
+        // Configure the renderer with high quality if requested
+        let scale = highQuality ? UIScreen.main.scale * 3 : UIScreen.main.scale // Adjust multiplier for higher quality
+        let options = UIGraphicsImageRendererFormat()
+        options.scale = scale
+
+        let renderer = UIGraphicsImageRenderer(size: targetSize, format: options)
         return renderer.image { _ in
-            view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
+            view?.drawHierarchy(in: CGRect(origin: .zero, size: targetSize), afterScreenUpdates: true)
+        }
+    }
+}
+
+*/
+
+extension View {
+    func snapshot(with size: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage {
+        let controller = UIHostingController(rootView: self)
+        let view = controller.view
+
+        view?.bounds = CGRect(origin: .zero, size: size)
+        view?.backgroundColor = .clear
+
+        // Make sure the window is large enough to host your view
+        let window = UIWindow(frame: CGRect(origin: .zero, size: size))
+        window.rootViewController = controller
+        window.isHidden = true
+
+        // Rendering the controller's view into an image
+        let rendererFormat = UIGraphicsImageRendererFormat.default()
+        rendererFormat.opaque = false
+        rendererFormat.scale = scale
+
+        let renderer = UIGraphicsImageRenderer(size: size, format: rendererFormat)
+        return renderer.image { _ in
+            view?.drawHierarchy(in: CGRect(origin: .zero, size: size), afterScreenUpdates: true)
         }
     }
 }
 
 
+/*
+extension View {
+    func snapshot() -> UIImage {
+        let controller = UIHostingController(rootView: self)
+        let view = controller.view
+
+        let targetSize = controller.view.intrinsicContentSize
+        view?.bounds = CGRect(origin: .zero, size: targetSize)
+        view?.backgroundColor = .clear
+
+        let renderer = UIGraphicsImageRenderer(size: targetSize)
+
+        return renderer.image { _ in
+            view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
+        }
+    }
+}
+*/
 struct WriteMessageView_Previews: PreviewProvider {
     static var previews: some View {
         WriteMessageView()

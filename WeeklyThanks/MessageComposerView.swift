@@ -48,7 +48,7 @@ struct MessageComposerView: UIViewControllerRepresentable {
 struct MessageComposerView: UIViewControllerRepresentable {
     var recipients: [String]?
     var body: String?
-    var bodyImage: UIImage? // The image you want to send
+    var bodyImage: UIImage
     let completion: (_ messageSent: Bool) -> Void
 
     func makeUIViewController(context: Context) -> MFMessageComposeViewController {
@@ -58,8 +58,10 @@ struct MessageComposerView: UIViewControllerRepresentable {
         composer.body = body
 
         // Attach the image if available
-        if let image = bodyImage, let imageData = image.jpegData(compressionQuality: 1.0) {
-            composer.addAttachmentData(imageData, typeIdentifier: "public.jpeg", filename: "capturedImage.jpg")
+        // Attach the image directly since it's no longer optional
+        
+        if let imageData = bodyImage.pngData() {
+            composer.addAttachmentData(imageData, typeIdentifier: "public.png", filename: "capturedImage.png")
         }
 
         return composer
