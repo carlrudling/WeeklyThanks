@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ManuallyOrContactView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var receiverViewModel: ReceiverViewModel
 
     var body: some View {
         VStack {
@@ -32,6 +33,9 @@ struct ManuallyOrContactView: View {
                         .frame(width: 300, height: 50)
                         .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
 
+                }
+                .onTapGesture {
+                    receiverViewModel.cleanValues()
                 }
            
                 Spacer()

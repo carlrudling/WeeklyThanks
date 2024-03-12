@@ -13,6 +13,7 @@ struct WriteMessageView: View {
       @EnvironmentObject var receiverViewModel: ReceiverViewModel
     
     
+    
     // Function to trim userInput to 30 words
         func trimText(to wordLimit: Int) {
             let words = message.split { $0.isWhitespace }.map(String.init)
@@ -178,14 +179,33 @@ struct WriteMessageView: View {
                 }
             }
         }
+//        .sheet(isPresented: $showingMessageComposer) {
+//            
+//            if let bodyImage {
+//                MessageComposerView(recipients: recipients, bodyImage: bodyImage) { messageSent in
+//                    // Handle the message sent confirmation or error
+//                }
+//            }
+//        }
         .sheet(isPresented: $showingMessageComposer) {
-            
-            if let bodyImage {
-                MessageComposerView(recipients: recipients, bodyImage: bodyImage) { messageSent in
-                    // Handle the message sent confirmation or error
+            if let unwrappedImage = bodyImage {
+                MessageComposerView(recipients: recipients, bodyImage: unwrappedImage) { messageSent in
+                    if messageSent {
+                        // The message was sent successfully
+                        print("Message was sent successfully.")
+                        self.userViewModel.incrementMessageCount() // Increment the user's message count
+
+                    } else {
+                        // The message was not sent (cancelled or failed)
+                        print("Message was not sent.")
+                        // Here, you might want to handle the case of a failed message sending attempt.
+                        // This could include showing an error message to the user or logging the failure.
+                    }
                 }
             }
         }
+
+
         
     }
     

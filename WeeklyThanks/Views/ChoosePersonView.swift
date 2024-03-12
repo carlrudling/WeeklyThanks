@@ -1,10 +1,3 @@
-//
-//  ChoosePersonView.swift
-//  WeeklyThanks
-//
-//  Created by Carl Rudling on 2024-02-23.
-//
-
 import SwiftUI
 
 struct ChoosePersonView: View {
@@ -13,6 +6,7 @@ struct ChoosePersonView: View {
 
     private var dataManager = DataManager.shared // Accessing the shared instance
     @EnvironmentObject var receiverViewModel: ReceiverViewModel
+    @State private var navigateToWriteMessage = false
 
     var body: some View {
         VStack {
@@ -29,22 +23,20 @@ struct ChoosePersonView: View {
             } else {
                 ScrollView {
                     ForEach(receivers, id: \.self) { receiver in
-                        NavigationLink(destination: WriteMessageView()) {
+                        Button(action: {
+                            receiverViewModel.name = receiver.name ?? ""
+                            receiverViewModel.userNickname = receiver.userNickname ?? ""
+                            receiverViewModel.telephoneNumber = receiver.telephoneNumber ?? ""
+                            navigateToWriteMessage = true
+                        }) {
                             Text(receiver.name ?? "Unknown Receiver")
                                 .font(.custom("Chillax", size: 16))
                                 .foregroundColor(.white)
                                 .padding()
-                                        
-                                 }
-                        .onTapGesture {
-                            receiver.name = receiverViewModel.name
-                            receiver.userNickname = receiverViewModel.userNickname
-                            receiver.telephoneNumber = receiverViewModel.telephoneNumber
                         }
-
                     }
-                }
-            }
+                } // This closes the ScrollView
+            } // This closes the else clause
             
             Spacer()
             
@@ -55,7 +47,6 @@ struct ChoosePersonView: View {
                     .frame(width: 300, height: 50)
                     .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
                     .padding(.bottom, 40)
-
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -76,7 +67,12 @@ struct ChoosePersonView: View {
                 }
             }
         }
-
+        .background(
+            NavigationLink(destination: WriteMessageView(), isActive: $navigateToWriteMessage) {
+                EmptyView()
+            }
+            .hidden()
+        )
     }
 }
 

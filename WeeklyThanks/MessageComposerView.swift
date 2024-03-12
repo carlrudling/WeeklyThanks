@@ -73,6 +73,18 @@ struct MessageComposerView: UIViewControllerRepresentable {
         Coordinator(completion: completion)
     }
 
+//    class Coordinator: NSObject, MFMessageComposeViewControllerDelegate {
+//        let completion: (_ messageSent: Bool) -> Void
+//
+//        init(completion: @escaping (_ messageSent: Bool) -> Void) {
+//            self.completion = completion
+//        }
+//
+//        func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+//            controller.dismiss(animated: true, completion: nil)
+//            completion(result == .sent)
+//        }
+//    }
     class Coordinator: NSObject, MFMessageComposeViewControllerDelegate {
         let completion: (_ messageSent: Bool) -> Void
 
@@ -82,7 +94,15 @@ struct MessageComposerView: UIViewControllerRepresentable {
 
         func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
             controller.dismiss(animated: true, completion: nil)
-            completion(result == .sent)
+            // Check the result to see if the message was sent
+            if result == .sent {
+                print("Message was sent successfully.")
+                completion(true) // Call the completion handler with true to indicate success
+            } else {
+                print("Message was not sent.")
+                completion(false) // Call the completion handler with false to indicate failure
+            }
         }
     }
+
 }

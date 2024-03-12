@@ -4,41 +4,47 @@ import Contacts
 struct ContactsView: View {
     @State private var contacts: [CNContact] = []
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var receiverViewModel: ReceiverViewModel
+    @State private var navigateToaddMembersView: Bool = false
 
-    private let contactsManager = ContactsManager() // Instance of ContactsManager
-    
-    init() {
-        // Customize the appearance of the list and its rows
-        UITableView.appearance().backgroundColor = .clear // Make UITableView background clear
-        UITableViewCell.appearance().backgroundColor = .clear // Make UITableViewCell background clear
-    }
-    
+    private let contactsManager = ContactsManager()
+
     var body: some View {
         ZStack {
-            // Set your gradient or custom background here
             LinearGradient(gradient: Gradient(colors: [.backgroundLight, .backgroundDark]), startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all) // Apply edgesIgnoringSafeArea to the
+                .edgesIgnoringSafeArea(.all)
             Color.black.opacity(0.4)
                 .edgesIgnoringSafeArea(.all)
-            
-            
-            
-            
-            
-            // Now the List
-            List(contacts, id: \.identifier) { contact in
-                VStack(alignment: .leading) {
-                    Text(contact.givenName + " " + contact.familyName)
-                        .foregroundColor(.white) // Customize text color
-                    ForEach(contact.phoneNumbers, id: \.value.stringValue) { phoneNumber in
-                        Text(phoneNumber.value.stringValue)
-                            .foregroundColor(.white) // Customize text color
+
+            ScrollView {
+                VStack {
+                    ForEach(contacts, id: \.identifier) { contact in
+                        Button(action: {
+                            if let phoneNumber = contact.phoneNumbers.first?.value.stringValue {
+                                receiverViewModel.name = "\(contact.givenName)"
+                                receiverViewModel.telephoneNumber = phoneNumber
+                                navigateToaddMembersView = true
+                            }
+                        }) {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text("\(contact.givenName) \(contact.familyName)")
+                                        .foregroundColor(.white)
+                                    Text(contact.phoneNumbers.first?.value.stringValue ?? "")
+                                        .foregroundColor(.gray)
+                                }
+                                Spacer()
+                            }
+                            .padding()
+                            .background(Color.black.opacity(0.2))
+                            .cornerRadius(10)
+                            .padding(.horizontal)
+                            .padding(.vertical, 2)
+                        }
                     }
                 }
-                .listRowBackground(Color.clear) // Make individual row background clear
+                .padding(.top, 10)
             }
-            .listStyle(PlainListStyle()) // Use PlainListStyle for more control over styling
-            .padding(.top, 20)
         }
         .onAppear {
             contactsManager.requestAccessToContacts { granted in
@@ -53,17 +59,19 @@ struct ContactsView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
-                    Image(systemName: "chevron.backward")
-                        .foregroundColor(.white)
-                        .padding(12)
+                    Image(systemName: "chevron.backward").foregroundColor(.white).padding(12)
                 }
             }
             ToolbarItem(placement: .principal) {
-                                Text("Contacts") // Additional text in the toolbar
-                                    .font(.custom("Chillax", size: 25))
-                                    .foregroundColor(.white)
-                            }
+                Text("Contacts").font(.custom("Chillax", size: 25)).foregroundColor(.white)
+            }
         }
+        .background(
+            NavigationLink(destination: AddNewMemberView(), isActive: $navigateToaddMembersView) {
+                EmptyView()
+            }
+            .hidden()
+        )
     }
 }
 

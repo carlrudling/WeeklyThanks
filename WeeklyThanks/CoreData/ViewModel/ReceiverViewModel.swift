@@ -8,7 +8,7 @@ class ReceiverViewModel: ObservableObject {
     @Published var receivers: [Receiver] = []
     @Published var name: String = ""
     @Published var userNickname: String = ""
-    @Published var telephoneNumber:String = ""
+    @Published var telephoneNumber: String = ""
 
     init() {
         fetchReceivers()
@@ -48,6 +48,12 @@ class ReceiverViewModel: ObservableObject {
         dataManager.deleteReceiver(receiver)
         // After deletion, re-fetch receivers to update UI
         fetchReceivers()
+    }
+    
+    func cleanValues() {
+        name = ""
+        userNickname = ""
+        telephoneNumber = ""
     }
 
 }

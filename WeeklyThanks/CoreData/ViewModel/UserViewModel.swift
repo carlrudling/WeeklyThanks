@@ -13,6 +13,17 @@ class UserViewModel: ObservableObject {
         fetchCurrentUser()
     }
 
+    func incrementMessageCount() {
+          guard let user = currentUser else { return }
+
+          // Increment the message count
+          user.count += 1
+          self.count += 1 // Update the published property as well
+          
+          // Save changes
+          dataManager.saveContext()
+      }
+    
     func fetchCurrentUser() {
         let users = dataManager.fetchUsers()
         // Assuming you're interested in the first user for simplicity
