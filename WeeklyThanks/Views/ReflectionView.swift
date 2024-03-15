@@ -1,9 +1,4 @@
-//
-//  ReflectionView.swift
-//  WeeklyThanks
-//
-//  Created by Carl Rudling on 2024-02-23.
-//
+
 
 import SwiftUI
 
