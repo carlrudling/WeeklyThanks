@@ -8,6 +8,7 @@ struct WriteMessageView: View {
       @State private var recipients = [""]
       @State private var bodyImage: UIImage?
       @State private var keyboardIsShown: Bool = false
+      @State private var presentedImage: IdentifiableImage?
 
       @EnvironmentObject var userViewModel: UserViewModel
       @EnvironmentObject var receiverViewModel: ReceiverViewModel
@@ -110,18 +111,7 @@ struct WriteMessageView: View {
                 
                 Spacer()
                 
-                
-                Button(action: {
-                    // Action for the button
-                }) {
-                    Text("Write another")
-                        .font(.custom("Chillax", size: 18))
-                        .foregroundColor(.gray)
-                        .frame(width: 250, height: 40)
-                        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
-                    
-                }
-                .padding(.bottom,15)
+
                 
                 Button(action: {
                     
@@ -138,12 +128,11 @@ struct WriteMessageView: View {
                             date: Date()
                         )
 
-                        // Capturing a high-quality snapshot of the card view
-                        self.bodyImage = cardView.snapshot(with: customSize, scale: 3.0) // Use the custom size and adjust scale factor as needed
-
-                        self.recipients = [self.receiverViewModel.telephoneNumber]
-                        self.showingMessageComposer = true
-                    
+                    // Capturing a high-quality snapshot of the card view
+                    let image = cardView.snapshot(with: customSize, scale: 3.0) // Use the custom size and adjust scale factor as needed
+                        self.presentedImage = IdentifiableImage(image: image)
+                        print("Image is ready. Size: \(image.size.width) x \(image.size.height), Scale: \(image.scale)")
+                        
                 }) {
                     HStack {
                         Image(systemName: "paperplane") // Replace with your icon
@@ -179,67 +168,34 @@ struct WriteMessageView: View {
                 }
             }
         }
-//        .sheet(isPresented: $showingMessageComposer) {
-//            
-//            if let bodyImage {
-//                MessageComposerView(recipients: recipients, bodyImage: bodyImage) { messageSent in
-//                    // Handle the message sent confirmation or error
-//                }
-//            }
-//        }
-        .sheet(isPresented: $showingMessageComposer) {
-            if let unwrappedImage = bodyImage {
-                MessageComposerView(recipients: recipients, bodyImage: unwrappedImage) { messageSent in
-                    if messageSent {
-                        // The message was sent successfully
-                        print("Message was sent successfully.")
-                        self.userViewModel.incrementMessageCount() // Increment the user's message count
+        .onAppear{
+            self.recipients = [self.receiverViewModel.telephoneNumber]
 
-                    } else {
-                        // The message was not sent (cancelled or failed)
-                        print("Message was not sent.")
-                        // Here, you might want to handle the case of a failed message sending attempt.
-                        // This could include showing an error message to the user or logging the failure.
-                    }
+        }
+
+        .sheet(item: $presentedImage, onDismiss: {
+            // Optional: Actions to perform when the sheet is dismissed.
+            print("Sheet dismissed.")
+            
+        }) { identifiableImage in
+            MessageComposerView(recipients: recipients, bodyImage: identifiableImage.image) { messageSent in
+                if messageSent {
+                    print("Message was sent successfully.")
+                    self.userViewModel.incrementMessageCount()
+                } else {
+                    print("Message was not sent.")
                 }
+                // Ensure the sheet is dismissed by resetting the presentedImage
+                self.presentedImage = nil
             }
         }
+
 
 
         
     }
     
 }
-/*
-// Ensure you have this extension correctly implemented in your project
-extension View {
-    func snapshot(with size: CGSize? = nil, highQuality: Bool = true) -> UIImage {
-        let controller = UIHostingController(rootView: self)
-        let view = controller.view
-
-        // Determine the target size: use provided size or intrinsic content size if nil
-        let targetSize = size ?? controller.view.intrinsicContentSize
-        view?.bounds = CGRect(origin: .zero, size: targetSize)
-        view?.backgroundColor = .clear
-
-        // Setup the window to render the controller's view
-        let window = UIWindow(frame: CGRect(origin: .zero, size: targetSize))
-        window.rootViewController = controller
-        window.isHidden = false
-
-        // Configure the renderer with high quality if requested
-        let scale = highQuality ? UIScreen.main.scale * 3 : UIScreen.main.scale // Adjust multiplier for higher quality
-        let options = UIGraphicsImageRendererFormat()
-        options.scale = scale
-
-        let renderer = UIGraphicsImageRenderer(size: targetSize, format: options)
-        return renderer.image { _ in
-            view?.drawHierarchy(in: CGRect(origin: .zero, size: targetSize), afterScreenUpdates: true)
-        }
-    }
-}
-
-*/
 
 extension View {
     func snapshot(with size: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage {
@@ -267,24 +223,7 @@ extension View {
 }
 
 
-/*
-extension View {
-    func snapshot() -> UIImage {
-        let controller = UIHostingController(rootView: self)
-        let view = controller.view
 
-        let targetSize = controller.view.intrinsicContentSize
-        view?.bounds = CGRect(origin: .zero, size: targetSize)
-        view?.backgroundColor = .clear
-
-        let renderer = UIGraphicsImageRenderer(size: targetSize)
-
-        return renderer.image { _ in
-            view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
-        }
-    }
-}
-*/
 struct WriteMessageView_Previews: PreviewProvider {
     static var previews: some View {
         WriteMessageView()
@@ -309,4 +248,10 @@ struct TextEditorBackground: View {
             .stroke(Color.white.opacity(0.5), lineWidth: 1) // Set line color and opacity
         }
     }
+}
+
+
+struct IdentifiableImage: Identifiable {
+    let id = UUID() // Provide a unique ID
+    var image: UIImage
 }

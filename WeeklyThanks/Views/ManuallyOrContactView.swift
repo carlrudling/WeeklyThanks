@@ -3,6 +3,7 @@ import SwiftUI
 struct ManuallyOrContactView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var receiverViewModel: ReceiverViewModel
+    @State private var navigateToAddNewMember = false
 
     var body: some View {
         VStack {
@@ -26,17 +27,20 @@ struct ManuallyOrContactView: View {
                 .padding(.bottom, 10)
                 
                 
-                NavigationLink(destination: AddNewMemberView()) {
-                    Text("Add manually")
-                        .font(.custom("Chillax", size: 18))
-                        .foregroundColor(.gray)
-                        .frame(width: 300, height: 50)
-                        .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
-
-                }
-                .onTapGesture {
-                    receiverViewModel.cleanValues()
-                }
+                Button(action: {
+                             receiverViewModel.cleanValues()
+                             navigateToAddNewMember = true
+                         }) {
+                             Text("Add manually")
+                                 .font(.custom("Chillax", size: 18))
+                                 .foregroundColor(.gray)
+                                 .frame(width: 300, height: 50)
+                                 .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
+                         }
+                         
+                         NavigationLink(destination: AddNewMemberView(), isActive: $navigateToAddNewMember) {
+                             EmptyView()
+                         }
            
                 Spacer()
                 

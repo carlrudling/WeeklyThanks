@@ -95,9 +95,6 @@ extension UIView {
 }
 
 
-
-
-
 struct ThankYouCardView_Previews: PreviewProvider {
     static var previews: some View {
         ThankYouCardView(scaleFactor: 0.9, message: "Your message here", senderName: "Carl", receiverName: "Dad", cardNumber: 5, date: Date())
