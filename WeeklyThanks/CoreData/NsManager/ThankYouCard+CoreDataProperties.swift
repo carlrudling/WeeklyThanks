@@ -2,7 +2,7 @@
 //  ThankYouCard+CoreDataProperties.swift
 //  WeeklyThanks
 //
-//  Created by Carl Rudling on 2024-03-10.
+//  Created by Carl Rudling on 2024-03-18.
 //
 //
 
@@ -20,6 +20,7 @@ extension ThankYouCard {
     @NSManaged public var message: String?
     @NSManaged public var sent: Bool
     @NSManaged public var writeDate: Date?
+    @NSManaged public var count: Int64
     @NSManaged public var receiver: Receiver?
     @NSManaged public var user: User?
 
