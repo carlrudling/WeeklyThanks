@@ -5,6 +5,7 @@ struct ContactsView: View {
     @State private var contacts: [CNContact] = []
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var receiverViewModel: ReceiverViewModel
+    @EnvironmentObject var coordinator: NavigationCoordinator
     @State private var navigateToaddMembersView: Bool = false
 
     private let contactsManager = ContactsManager()
@@ -23,7 +24,9 @@ struct ContactsView: View {
                             if let phoneNumber = contact.phoneNumbers.first?.value.stringValue {
                                 receiverViewModel.name = "\(contact.givenName)"
                                 receiverViewModel.telephoneNumber = phoneNumber
-                                navigateToaddMembersView = true
+//                                navigateToaddMembersView = true
+                                coordinator.push(.addNewMember)
+
                             }
                         }) {
                             HStack {
@@ -66,12 +69,7 @@ struct ContactsView: View {
                 Text("Contacts").font(.custom("Chillax", size: 25)).foregroundColor(.white)
             }
         }
-        .background(
-            NavigationLink(destination: AddNewMemberView(), isActive: $navigateToaddMembersView) {
-                EmptyView()
-            }
-            .hidden()
-        )
+
     }
 }
 

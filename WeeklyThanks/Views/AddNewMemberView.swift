@@ -10,6 +10,7 @@ import SwiftUI
 struct AddNewMemberView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var receiverViewModel: ReceiverViewModel
+    @EnvironmentObject var coordinator: NavigationCoordinator
     @State private var navigateToWriteMessage = false // State to control navigation
     @State private var telephoneNumberString: String = "" // For binding to the TextField
     @State private var keyboardIsShown: Bool = false
@@ -116,7 +117,8 @@ struct AddNewMemberView: View {
                 Button(action: {
                     
                     receiverViewModel.createReceiver(name: receiverViewModel.name, userNickname: receiverViewModel.userNickname, telephoneNumber: receiverViewModel.telephoneNumber)
-                    self.navigateToWriteMessage = true
+                    coordinator.push(.WriteMessage)
+
                 }) {
                     Text("Save")
                         .font(.custom("Chillax", size: 18))
@@ -129,12 +131,7 @@ struct AddNewMemberView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity) // Expand VStack to fill the screen
-        .background(
-            NavigationLink(destination: WriteMessageView(), isActive: $navigateToWriteMessage) {
-                EmptyView()
-            }
-                .hidden() // Hide the navigation link itself
-        )
+
         .background(
             LinearGradient(gradient: Gradient(colors: [.backgroundLight, .backgroundDark]), startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all) // Apply edgesIgnoringSafeArea to the background

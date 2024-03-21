@@ -9,38 +9,59 @@ class ReceiverViewModel: ObservableObject {
     @Published var name: String = ""
     @Published var userNickname: String = ""
     @Published var telephoneNumber: String = ""
+    @Published var currentReceiver: Receiver?
+    @Published var currentReceiverId: UUID? // Holds the ID of the current receiver
 
     init() {
         fetchReceivers()
     }
 
-    // Fetch all receivers from CoreData and update the published receivers array
-    func fetchReceivers() {
+    func fetchReceivers(completion: (() -> Void)? = nil) {
         self.receivers = dataManager.fetchReceivers()
+        completion?()
     }
+
 
     // Create a new receiver entity in CoreData
     func createReceiver(name: String, userNickname: String, telephoneNumber: String) {
-        dataManager.createReceiver(name: name, userNickname: userNickname, telephoneNumber: telephoneNumber) { success in
-            if success {
-                // If creation is successful, re-fetch receivers to update UI
-                self.fetchReceivers()
+        dataManager.createReceiver(name: name, userNickname: userNickname, telephoneNumber: telephoneNumber) { [weak self] success, newReceiverId in
+            if success, let newId = newReceiverId {
+                // If creation is successful, re-fetch receivers to update UI and set the current receiver
+                self?.fetchReceivers {
+                    self?.setCurrentReceiver(by: newId)
+                }
+            } else {
+                print("Failed to create new receiver")
             }
         }
     }
 
-    // Update an existing receiver entity in CoreData
-    func updateReceiver(receiver: Receiver, name: String, userNickname: String, telephoneNumber: String) {
-        // Update receiver's properties
-        receiver.name = name
-        receiver.userNickname = userNickname
-        receiver.telephoneNumber = telephoneNumber
+    
+    func setCurrentReceiver(by id: UUID) {
+        self.currentReceiverId = id
+        guard let receiver = receivers.first(where: { $0.id == id }) else {
+            print("Receiver with ID \(id) not found")
+            return
+        }
+        self.currentReceiver = receiver
+        self.name = receiver.name ?? ""
+        self.userNickname = receiver.userNickname ?? ""
+        self.telephoneNumber = receiver.telephoneNumber ?? ""
+    }
+
+    func updateCurrentReceiver(name: String, userNickname: String, telephoneNumber: String) {
+        guard let id = currentReceiverId,
+              let updatingReceiver = receivers.first(where: { $0.id == id }) else {
+            print("Current receiver is not set or not found")
+            return
+        }
         
-        // Save the changes
-        dataManager.updateReceiver(receiver, withName: name, userNickname: userNickname, telephoneNumber: telephoneNumber)
+        updatingReceiver.name = name
+        updatingReceiver.userNickname = userNickname
+        updatingReceiver.telephoneNumber = telephoneNumber
+        dataManager.updateReceiver(updatingReceiver, withName: name, userNickname: userNickname, telephoneNumber: telephoneNumber)
         
-        // Optionally re-fetch receivers if you need to update the UI
-        fetchReceivers()
+        fetchReceivers() // Refresh data
     }
 
     // Delete a receiver entity from CoreData
@@ -54,6 +75,4 @@ class ReceiverViewModel: ObservableObject {
         name = ""
         userNickname = ""
         telephoneNumber = ""
-    }
-
-}
+    }}

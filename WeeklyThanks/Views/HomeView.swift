@@ -3,13 +3,17 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var thankYouCardViewModel : ThankYouCardViewModel
+    @EnvironmentObject var coordinator: NavigationCoordinator
+
+    @State private var showingSentCardsListView = false
 
     var body: some View {
         VStack{
             
             Text("WeeklyThanks")
                 .font(.custom("LeckerliOne-regular", size: 28))
-                .padding(.top, 80)
+                .padding(.top, 35)
                 .foregroundColor(.white)
             
             
@@ -36,19 +40,20 @@ struct HomeView: View {
             
             Spacer()
             
-            NavigationLink(destination: ChoosePersonView()) {
-                         Text("write a card")
-                             .font(.custom("Chillax", size: 18))
-                             .foregroundColor(.gray)
-                             .frame(width: 300, height: 50)
-                             .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
-                             .padding(.bottom, 40)
 
-                     }
             
-            
-            
-            
+            Button {
+                coordinator.push(.choosePerson) // Navigate to the details screen
+
+            } label: {
+                Text("write a card")
+                    .font(.custom("Chillax", size: 18))
+                    .foregroundColor(.gray)
+                    .frame(width: 300, height: 50)
+                    .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
+                    .padding(.bottom, 40)
+            }
+   
         }
         
         .frame(maxWidth: .infinity, maxHeight: .infinity) // Expand VStack to fill the screen
@@ -58,9 +63,35 @@ struct HomeView: View {
                 .edgesIgnoringSafeArea(.all) // Apply edgesIgnoringSafeArea to the background
         )
         .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    // HERE is WHERE THE ACTION IS
+                    self.showingSentCardsListView = true
+                }
+                    ) {
+                    ZStack{
+                        Image(systemName: "paperplane")
+                            .font(.system(size: 12))
+                            .foregroundColor(.white)
+                            .padding(12)
+                        
+                        Image(systemName: "rectangle")
+                            .font(.system(size: 22))
+                            .foregroundColor(.white)
+                            .padding(12)
+                    }
+                }
+            }
+        }
         .onAppear {
                     userViewModel.fetchCurrentUser()
                 }
+        .sheet(isPresented: $showingSentCardsListView) {
+            // Make sure to inject the necessary EnvironmentObjects or any other dependencies
+            SentCardsListView().environmentObject(thankYouCardViewModel)
+        }
+
         
     }
 }

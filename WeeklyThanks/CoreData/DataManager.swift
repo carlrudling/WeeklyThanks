@@ -24,7 +24,7 @@ class DataManager {
     // MARK: ThankYouCard CRUD Operations
 
     
-    func createThankYouCard(message: String, writeDate: Date, user: User, receiver: Receiver, completion: @escaping (Bool) -> Void) {
+    func createThankYouCard(message: String, writeDate: Date, user: User, receiver: Receiver, count: Int64, completion: @escaping (Bool) -> Void) {
         let context = container.viewContext
         let newCard = ThankYouCard(context: context)
         newCard.id = UUID()
@@ -32,6 +32,7 @@ class DataManager {
         newCard.writeDate = writeDate
         newCard.user = user
         newCard.receiver = receiver
+        newCard.count = count // Set the count attribute
 
         do {
             try context.save()
@@ -42,9 +43,14 @@ class DataManager {
         }
     }
 
+
     
     func fetchThankYouCards() -> [ThankYouCard] {
         let request: NSFetchRequest<ThankYouCard> = ThankYouCard.fetchRequest()
+        // If sorting by date, ensure your cards have a 'writeDate' attribute.
+        let sortDescriptor = NSSortDescriptor(key: "writeDate", ascending: false) // Sort in descending order so latest cards appear first
+        request.sortDescriptors = [sortDescriptor]
+
         let context = container.viewContext
         do {
             return try context.fetch(request)
@@ -53,6 +59,7 @@ class DataManager {
             return []
         }
     }
+
 
     
     func updateCard(card: ThankYouCard, withMessage message: String) {
@@ -151,7 +158,7 @@ class DataManager {
 
     // MARK: Receiver CRUD Operations
 
-    func createReceiver(name: String, userNickname: String, telephoneNumber: String, completion: @escaping (Bool) -> Void) {
+    func createReceiver(name: String, userNickname: String, telephoneNumber: String, completion: @escaping (Bool, UUID?) -> Void) {
         let newReceiver = Receiver(context: container.viewContext)
         newReceiver.id = UUID()
         newReceiver.name = name
@@ -160,12 +167,13 @@ class DataManager {
 
         do {
             try container.viewContext.save()
-            completion(true)
+            completion(true, newReceiver.id) // Return success and the new ID
         } catch {
             print("Error saving Receiver: \(error)")
-            completion(false)
+            completion(false, nil) // Return failure
         }
     }
+
 
     func fetchReceivers() -> [Receiver] {
         let request: NSFetchRequest<Receiver> = Receiver.fetchRequest()

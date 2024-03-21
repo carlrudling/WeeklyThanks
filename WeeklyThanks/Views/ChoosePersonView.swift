@@ -3,6 +3,7 @@ import SwiftUI
 struct ChoosePersonView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var receivers: [Receiver] = [] // Array to hold fetched receivers
+    @EnvironmentObject var coordinator: NavigationCoordinator
 
     private var dataManager = DataManager.shared // Accessing the shared instance
     @EnvironmentObject var receiverViewModel: ReceiverViewModel
@@ -27,7 +28,8 @@ struct ChoosePersonView: View {
                             receiverViewModel.name = receiver.name ?? ""
                             receiverViewModel.userNickname = receiver.userNickname ?? ""
                             receiverViewModel.telephoneNumber = receiver.telephoneNumber ?? ""
-                            navigateToWriteMessage = true
+                            receiverViewModel.currentReceiverId = receiver.id
+                            coordinator.push(.WriteMessage)
                         }) {
                             Text(receiver.name ?? "Unknown Receiver")
                                 .font(.custom("Chillax", size: 16))
@@ -40,7 +42,10 @@ struct ChoosePersonView: View {
             
             Spacer()
             
-            NavigationLink(destination: ManuallyOrContactView()) {
+            
+            Button {
+                coordinator.push(.manuallyOrContact)
+            } label: {
                 Text("Add new one")
                     .font(.custom("Chillax", size: 18))
                     .foregroundColor(.gray)
@@ -48,6 +53,7 @@ struct ChoosePersonView: View {
                     .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
                     .padding(.bottom, 40)
             }
+
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
@@ -67,12 +73,6 @@ struct ChoosePersonView: View {
                 }
             }
         }
-        .background(
-            NavigationLink(destination: WriteMessageView(), isActive: $navigateToWriteMessage) {
-                EmptyView()
-            }
-            .hidden()
-        )
     }
 }
 

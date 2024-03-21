@@ -8,6 +8,7 @@
         <relationship name="thankYouCards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ThankYouCard" inverseName="receiver" inverseEntity="ThankYouCard"/>
     </entity>
     <entity name="ThankYouCard" representedClassName=".ThankYouCard" syncable="YES">
+        <attribute name="count" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="message" optional="YES" attributeType="String"/>
         <attribute name="sent" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>

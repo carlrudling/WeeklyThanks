@@ -12,7 +12,11 @@ struct WriteMessageView: View {
 
       @EnvironmentObject var userViewModel: UserViewModel
       @EnvironmentObject var receiverViewModel: ReceiverViewModel
-    
+      @EnvironmentObject var thankYouCardViewModel : ThankYouCardViewModel
+      @EnvironmentObject var coordinator: NavigationCoordinator
+
+      @State private var showingEditReceiverView = false
+
     
     
     // Function to trim userInput to 30 words
@@ -47,8 +51,15 @@ struct WriteMessageView: View {
                     .frame(width: 300, height: 300)
             }
             VStack {
-                ThankYouCardView(scaleFactor: 0.9, message: message, senderName: receiverViewModel.userNickname ?? userViewModel.name, receiverName: receiverViewModel.name, cardNumber: userViewModel.count + 1, date: Date())
-                    .padding(.bottom, 15)
+                
+                if receiverViewModel.userNickname != "" {
+                    ThankYouCardView(scaleFactor: 0.9, message: message, senderName: receiverViewModel.userNickname, receiverName: receiverViewModel.name, cardNumber: userViewModel.count + 1, date: Date())
+                        .padding(.bottom, 15)
+                    
+                } else {
+                    ThankYouCardView(scaleFactor: 0.9, message: message, senderName: userViewModel.name, receiverName: receiverViewModel.name, cardNumber: userViewModel.count + 1, date: Date())
+                        .padding(.bottom, 15)
+                }
                 
                 
                 Text("To \(receiverViewModel.name)")
@@ -97,10 +108,15 @@ struct WriteMessageView: View {
                 }
                 
                 VStack{
-                    
-                    Text("/ Carl")
-                        .foregroundColor(.white)
-                        .font(.custom("Chillax", size: 14))
+                    if receiverViewModel.userNickname != "" {
+                        Text("/ \(receiverViewModel.userNickname)")
+                            .foregroundColor(.white)
+                            .font(.custom("Chillax", size: 14))
+                    } else {
+                        Text("/ \(userViewModel.name)")
+                            .foregroundColor(.white)
+                            .font(.custom("Chillax", size: 14))
+                    }
                     Rectangle()
                         .frame(height: 1) // Make the rectangle thin, like a line
                         .foregroundColor(.white) // Set the line color
@@ -151,6 +167,7 @@ struct WriteMessageView: View {
                 }
                 .padding(.bottom, 20)
             }
+
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity) // Expand VStack to fill the screen
       
@@ -167,29 +184,74 @@ struct WriteMessageView: View {
                         .padding(12)
                 }
             }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { showingEditReceiverView = true }) {
+                    Image(systemName: "pencil")
+                        .foregroundColor(.white)
+                        .padding(12)
+                }
+            }
         }
-        .onAppear{
+        .onAppear {
             self.recipients = [self.receiverViewModel.telephoneNumber]
+            
+            // Check if there's a currentReceiverId before attempting to set the current receiver
+            if let currentReceiverId = receiverViewModel.currentReceiverId {
+                receiverViewModel.setCurrentReceiver(by: currentReceiverId)
+            } else {
+                print("Current Receiver ID is nil")
+            }
 
+            if userViewModel.currentUser == nil {
+                print("User is nil")
+            }
+            if receiverViewModel.currentReceiver == nil {
+                print("Receiver is nil")
+            }
         }
 
-        .sheet(item: $presentedImage, onDismiss: {
-            // Optional: Actions to perform when the sheet is dismissed.
+    .sheet(item: $presentedImage, onDismiss: {
             print("Sheet dismissed.")
-            
         }) { identifiableImage in
             MessageComposerView(recipients: recipients, bodyImage: identifiableImage.image) { messageSent in
                 if messageSent {
                     print("Message was sent successfully.")
                     self.userViewModel.incrementMessageCount()
-                } else {
-                    print("Message was not sent.")
-                }
-                // Ensure the sheet is dismissed by resetting the presentedImage
-                self.presentedImage = nil
-            }
-        }
+                    if let user = self.userViewModel.currentUser, let receiver = self.receiverViewModel.currentReceiver {
+                                 thankYouCardViewModel.createThankYouCard(
+                                     message: self.message,
+                                     writeDate: Date(), // Current date
+                                     user: user, // Safely unwrapped User
+                                     receiver: receiver,
+                                     count: Int64(self.userViewModel.count + 1),// Safely unwrapped Receiver
+                                     completion: { success in
+                                         // Handle success or failure
+                                         if success {
+                                             print("Card saved successfully")
+                                             // Perform additional actions, like navigating away or showing a success message
+                                         } else {
+                                             print("Failed to save the card")
+                                             // Handle failure, such as showing an error message
+                                         }
+                                     }
+                                 )
+                                 coordinator.push(.afterSentCard)
+                             } else {
+                                 // Handle the case where user or receiver is nil
+                                 print("User or Receiver is nil, cannot save the card.")
+                             }
+                         } else {
+                             print("Message was not sent.")
+                         }
+                         // Reset the presentedImage to dismiss the sheet
+                         self.presentedImage = nil
+                     }
+                 }
 
+        .sheet(isPresented: $showingEditReceiverView) {
+            // Make sure to inject the necessary EnvironmentObjects or any other dependencies
+            EditReceiverView().environmentObject(receiverViewModel)
+        }
 
 
         

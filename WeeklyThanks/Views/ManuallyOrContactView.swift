@@ -4,6 +4,7 @@ struct ManuallyOrContactView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var receiverViewModel: ReceiverViewModel
     @State private var navigateToAddNewMember = false
+    @EnvironmentObject var coordinator: NavigationCoordinator
 
     var body: some View {
         VStack {
@@ -16,20 +17,24 @@ struct ManuallyOrContactView: View {
             Spacer()
           
             VStack{
-                NavigationLink(destination: ContactsView()) {
+
+                Button(action: {
+                    coordinator.push(.Contacts)
+
+                }, label: {
                     Text("Add from contacts")
                         .font(.custom("Chillax", size: 18))
                         .foregroundColor(.gray)
                         .frame(width: 300, height: 50)
                         .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
-
-                }
+                })
                 .padding(.bottom, 10)
                 
                 
                 Button(action: {
                              receiverViewModel.cleanValues()
-                             navigateToAddNewMember = true
+                            coordinator.push(.addNewMember)
+
                          }) {
                              Text("Add manually")
                                  .font(.custom("Chillax", size: 18))
@@ -38,10 +43,6 @@ struct ManuallyOrContactView: View {
                                  .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
                          }
                          
-                         NavigationLink(destination: AddNewMemberView(), isActive: $navigateToAddNewMember) {
-                             EmptyView()
-                         }
-           
                 Spacer()
                 
                 

@@ -10,11 +10,11 @@
 		D3000E5C2B99157500CF4CE8 /* MessageComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3000E5B2B99157500CF4CE8 /* MessageComposerView.swift */; };
 		D3000E5F2B9A116300CF4CE8 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3000E5E2B9A116300CF4CE8 /* UserViewModel.swift */; };
 		D3000E612B9A550E00CF4CE8 /* ReceiverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3000E602B9A550E00CF4CE8 /* ReceiverViewModel.swift */; };
+		D30446842BAB50D8008FDACB /* SentCardsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30446832BAB50D8008FDACB /* SentCardsListView.swift */; };
 		D32C42942B8935AF002FC0B9 /* WeeklyThanksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32C42932B8935AF002FC0B9 /* WeeklyThanksApp.swift */; };
 		D32C42962B8935AF002FC0B9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32C42952B8935AF002FC0B9 /* ContentView.swift */; };
 		D32C42982B8935B1002FC0B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D32C42972B8935B1002FC0B9 /* Assets.xcassets */; };
 		D32C429B2B8935B1002FC0B9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D32C429A2B8935B1002FC0B9 /* Preview Assets.xcassets */; };
-		D32C42A22B893730002FC0B9 /* ReflectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32C42A12B893730002FC0B9 /* ReflectionView.swift */; };
 		D32C42A42B893FB1002FC0B9 /* ChoosePersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32C42A32B893FB1002FC0B9 /* ChoosePersonView.swift */; };
 		D32C42A62B8942E2002FC0B9 /* AddNewMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32C42A52B8942E2002FC0B9 /* AddNewMemberView.swift */; };
 		D32C42A82B89F6F8002FC0B9 /* ThankYouCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32C42A72B89F6F8002FC0B9 /* ThankYouCardView.swift */; };
@@ -28,8 +28,6 @@
 		D35118912B912EC80013BDA0 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35118902B912EC80013BDA0 /* DataManager.swift */; };
 		D3650FD62B9E07D300506E87 /* Receiver+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3650FD02B9E07D300506E87 /* Receiver+CoreDataClass.swift */; };
 		D3650FD72B9E07D300506E87 /* Receiver+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3650FD12B9E07D300506E87 /* Receiver+CoreDataProperties.swift */; };
-		D3650FD82B9E07D300506E87 /* ThankYouCard+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3650FD22B9E07D300506E87 /* ThankYouCard+CoreDataClass.swift */; };
-		D3650FD92B9E07D300506E87 /* ThankYouCard+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3650FD32B9E07D300506E87 /* ThankYouCard+CoreDataProperties.swift */; };
 		D3650FDA2B9E07D300506E87 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3650FD42B9E07D300506E87 /* User+CoreDataClass.swift */; };
 		D3650FDB2B9E07D300506E87 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3650FD52B9E07D300506E87 /* User+CoreDataProperties.swift */; };
 		D38076782B913650006484B2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38076772B913650006484B2 /* HomeView.swift */; };
@@ -37,18 +35,23 @@
 		D380767C2B913FC7006484B2 /* AddNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D380767B2B913FC7006484B2 /* AddNameView.swift */; };
 		D380767F2B950B3B006484B2 /* ContactsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D380767E2B950B3B006484B2 /* ContactsManager.swift */; };
 		D38076812B950BC2006484B2 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38076802B950BC2006484B2 /* ContactView.swift */; };
+		D39A27DE2BA48A6A00BFFED9 /* AfterSentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27DD2BA48A6A00BFFED9 /* AfterSentCardView.swift */; };
+		D39A27E02BA882EC00BFFED9 /* EditReceiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27DF2BA882EC00BFFED9 /* EditReceiverView.swift */; };
+		D39A27E22BA88EA300BFFED9 /* ThankYouCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27E12BA88EA300BFFED9 /* ThankYouCardViewModel.swift */; };
+		D39A27E52BA8918600BFFED9 /* ThankYouCard+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27E32BA8918600BFFED9 /* ThankYouCard+CoreDataClass.swift */; };
+		D39A27E62BA8918600BFFED9 /* ThankYouCard+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27E42BA8918600BFFED9 /* ThankYouCard+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D3000E5B2B99157500CF4CE8 /* MessageComposerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageComposerView.swift; sourceTree = "<group>"; };
 		D3000E5E2B9A116300CF4CE8 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		D3000E602B9A550E00CF4CE8 /* ReceiverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverViewModel.swift; sourceTree = "<group>"; };
+		D30446832BAB50D8008FDACB /* SentCardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentCardsListView.swift; sourceTree = "<group>"; };
 		D32C42902B8935AF002FC0B9 /* WeeklyThanks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeeklyThanks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D32C42932B8935AF002FC0B9 /* WeeklyThanksApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyThanksApp.swift; sourceTree = "<group>"; };
 		D32C42952B8935AF002FC0B9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D32C42972B8935B1002FC0B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D32C429A2B8935B1002FC0B9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		D32C42A12B893730002FC0B9 /* ReflectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionView.swift; sourceTree = "<group>"; };
 		D32C42A32B893FB1002FC0B9 /* ChoosePersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePersonView.swift; sourceTree = "<group>"; };
 		D32C42A52B8942E2002FC0B9 /* AddNewMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewMemberView.swift; sourceTree = "<group>"; };
 		D32C42A72B89F6F8002FC0B9 /* ThankYouCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThankYouCardView.swift; sourceTree = "<group>"; };
@@ -63,8 +66,6 @@
 		D35118902B912EC80013BDA0 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		D3650FD02B9E07D300506E87 /* Receiver+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Receiver+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D3650FD12B9E07D300506E87 /* Receiver+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Receiver+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		D3650FD22B9E07D300506E87 /* ThankYouCard+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThankYouCard+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D3650FD32B9E07D300506E87 /* ThankYouCard+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThankYouCard+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D3650FD42B9E07D300506E87 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D3650FD52B9E07D300506E87 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D38076772B913650006484B2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -72,6 +73,11 @@
 		D380767B2B913FC7006484B2 /* AddNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNameView.swift; sourceTree = "<group>"; };
 		D380767E2B950B3B006484B2 /* ContactsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsManager.swift; sourceTree = "<group>"; };
 		D38076802B950BC2006484B2 /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
+		D39A27DD2BA48A6A00BFFED9 /* AfterSentCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterSentCardView.swift; sourceTree = "<group>"; };
+		D39A27DF2BA882EC00BFFED9 /* EditReceiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReceiverView.swift; sourceTree = "<group>"; };
+		D39A27E12BA88EA300BFFED9 /* ThankYouCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThankYouCardViewModel.swift; sourceTree = "<group>"; };
+		D39A27E32BA8918600BFFED9 /* ThankYouCard+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThankYouCard+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D39A27E42BA8918600BFFED9 /* ThankYouCard+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThankYouCard+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +96,7 @@
 			children = (
 				D3000E5E2B9A116300CF4CE8 /* UserViewModel.swift */,
 				D3000E602B9A550E00CF4CE8 /* ReceiverViewModel.swift */,
+				D39A27E12BA88EA300BFFED9 /* ThankYouCardViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -151,12 +158,14 @@
 			children = (
 				D380767D2B913FCE006484B2 /* Start */,
 				D32C42A32B893FB1002FC0B9 /* ChoosePersonView.swift */,
-				D32C42A12B893730002FC0B9 /* ReflectionView.swift */,
 				D32C42A52B8942E2002FC0B9 /* AddNewMemberView.swift */,
 				D351186A2B8BA0820013BDA0 /* ManuallyOrContactView.swift */,
 				D351186C2B8BA1EB0013BDA0 /* WriteMessageView.swift */,
+				D39A27DF2BA882EC00BFFED9 /* EditReceiverView.swift */,
 				D38076772B913650006484B2 /* HomeView.swift */,
+				D30446832BAB50D8008FDACB /* SentCardsListView.swift */,
 				D38076802B950BC2006484B2 /* ContactView.swift */,
+				D39A27DD2BA48A6A00BFFED9 /* AfterSentCardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -178,8 +187,8 @@
 			children = (
 				D3650FD02B9E07D300506E87 /* Receiver+CoreDataClass.swift */,
 				D3650FD12B9E07D300506E87 /* Receiver+CoreDataProperties.swift */,
-				D3650FD22B9E07D300506E87 /* ThankYouCard+CoreDataClass.swift */,
-				D3650FD32B9E07D300506E87 /* ThankYouCard+CoreDataProperties.swift */,
+				D39A27E32BA8918600BFFED9 /* ThankYouCard+CoreDataClass.swift */,
+				D39A27E42BA8918600BFFED9 /* ThankYouCard+CoreDataProperties.swift */,
 				D3650FD42B9E07D300506E87 /* User+CoreDataClass.swift */,
 				D3650FD52B9E07D300506E87 /* User+CoreDataProperties.swift */,
 			);
@@ -269,15 +278,17 @@
 			files = (
 				D3650FD72B9E07D300506E87 /* Receiver+CoreDataProperties.swift in Sources */,
 				D35118762B9119870013BDA0 /* AppDataModel.xcdatamodeld in Sources */,
+				D39A27E62BA8918600BFFED9 /* ThankYouCard+CoreDataProperties.swift in Sources */,
 				D351186D2B8BA1EB0013BDA0 /* WriteMessageView.swift in Sources */,
 				D3000E612B9A550E00CF4CE8 /* ReceiverViewModel.swift in Sources */,
 				D32C42A42B893FB1002FC0B9 /* ChoosePersonView.swift in Sources */,
 				D380767C2B913FC7006484B2 /* AddNameView.swift in Sources */,
+				D39A27E52BA8918600BFFED9 /* ThankYouCard+CoreDataClass.swift in Sources */,
 				D32C42962B8935AF002FC0B9 /* ContentView.swift in Sources */,
-				D32C42A22B893730002FC0B9 /* ReflectionView.swift in Sources */,
-				D3650FD92B9E07D300506E87 /* ThankYouCard+CoreDataProperties.swift in Sources */,
-				D3650FD82B9E07D300506E87 /* ThankYouCard+CoreDataClass.swift in Sources */,
+				D39A27DE2BA48A6A00BFFED9 /* AfterSentCardView.swift in Sources */,
 				D3650FDB2B9E07D300506E87 /* User+CoreDataProperties.swift in Sources */,
+				D30446842BAB50D8008FDACB /* SentCardsListView.swift in Sources */,
+				D39A27E22BA88EA300BFFED9 /* ThankYouCardViewModel.swift in Sources */,
 				D351186F2B8D3B4F0013BDA0 /* DynamicSizeLabel.swift in Sources */,
 				D35118912B912EC80013BDA0 /* DataManager.swift in Sources */,
 				D38076812B950BC2006484B2 /* ContactView.swift in Sources */,
@@ -293,6 +304,7 @@
 				D380767F2B950B3B006484B2 /* ContactsManager.swift in Sources */,
 				D3000E5F2B9A116300CF4CE8 /* UserViewModel.swift in Sources */,
 				D38076782B913650006484B2 /* HomeView.swift in Sources */,
+				D39A27E02BA882EC00BFFED9 /* EditReceiverView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
