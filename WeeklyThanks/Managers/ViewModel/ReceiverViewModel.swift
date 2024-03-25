@@ -7,7 +7,6 @@ class ReceiverViewModel: ObservableObject {
     private let dataManager = DataManager.shared
     @Published var receivers: [Receiver] = []
     @Published var name: String = ""
-    @Published var userNickname: String = ""
     @Published var telephoneNumber: String = ""
     @Published var currentReceiver: Receiver?
     @Published var currentReceiverId: UUID? // Holds the ID of the current receiver
@@ -23,8 +22,8 @@ class ReceiverViewModel: ObservableObject {
 
 
     // Create a new receiver entity in CoreData
-    func createReceiver(name: String, userNickname: String, telephoneNumber: String) {
-        dataManager.createReceiver(name: name, userNickname: userNickname, telephoneNumber: telephoneNumber) { [weak self] success, newReceiverId in
+    func createReceiver(name: String, telephoneNumber: String) {
+        dataManager.createReceiver(name: name, telephoneNumber: telephoneNumber) { [weak self] success, newReceiverId in
             if success, let newId = newReceiverId {
                 // If creation is successful, re-fetch receivers to update UI and set the current receiver
                 self?.fetchReceivers {
@@ -45,11 +44,10 @@ class ReceiverViewModel: ObservableObject {
         }
         self.currentReceiver = receiver
         self.name = receiver.name ?? ""
-        self.userNickname = receiver.userNickname ?? ""
         self.telephoneNumber = receiver.telephoneNumber ?? ""
     }
 
-    func updateCurrentReceiver(name: String, userNickname: String, telephoneNumber: String) {
+    func updateCurrentReceiver(name: String, telephoneNumber: String) {
         guard let id = currentReceiverId,
               let updatingReceiver = receivers.first(where: { $0.id == id }) else {
             print("Current receiver is not set or not found")
@@ -57,9 +55,8 @@ class ReceiverViewModel: ObservableObject {
         }
         
         updatingReceiver.name = name
-        updatingReceiver.userNickname = userNickname
         updatingReceiver.telephoneNumber = telephoneNumber
-        dataManager.updateReceiver(updatingReceiver, withName: name, userNickname: userNickname, telephoneNumber: telephoneNumber)
+        dataManager.updateReceiver(updatingReceiver, withName: name, telephoneNumber: telephoneNumber)
         
         fetchReceivers() // Refresh data
     }
@@ -73,6 +70,5 @@ class ReceiverViewModel: ObservableObject {
     
     func cleanValues() {
         name = ""
-        userNickname = ""
         telephoneNumber = ""
     }}

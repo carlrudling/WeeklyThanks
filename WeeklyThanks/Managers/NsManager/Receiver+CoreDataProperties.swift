@@ -2,7 +2,7 @@
 //  Receiver+CoreDataProperties.swift
 //  WeeklyThanks
 //
-//  Created by Carl Rudling on 2024-03-10.
+//  Created by Carl Rudling on 2024-03-25.
 //
 //
 
@@ -19,7 +19,6 @@ extension Receiver {
     @NSManaged public var id: UUID?
     @NSManaged public var name: String?
     @NSManaged public var telephoneNumber: String?
-    @NSManaged public var userNickname: String?
     @NSManaged public var thankYouCards: NSSet?
 
 }

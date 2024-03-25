@@ -4,7 +4,6 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="telephoneNumber" optional="YES" attributeType="String"/>
-        <attribute name="userNickname" optional="YES" attributeType="String"/>
         <relationship name="thankYouCards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ThankYouCard" inverseName="receiver" inverseEntity="ThankYouCard"/>
     </entity>
     <entity name="ThankYouCard" representedClassName=".ThankYouCard" syncable="YES">
@@ -12,6 +11,7 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="message" optional="YES" attributeType="String"/>
         <attribute name="sent" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="theme" optional="YES" attributeType="String"/>
         <attribute name="writeDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="receiver" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Receiver" inverseName="thankYouCards" inverseEntity="Receiver"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="thankYouCards" inverseEntity="User"/>

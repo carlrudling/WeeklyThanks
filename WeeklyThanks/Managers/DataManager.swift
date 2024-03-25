@@ -24,7 +24,7 @@ class DataManager {
     // MARK: ThankYouCard CRUD Operations
 
     
-    func createThankYouCard(message: String, writeDate: Date, user: User, receiver: Receiver, count: Int64, completion: @escaping (Bool) -> Void) {
+    func createThankYouCard(message: String, writeDate: Date, user: User, receiver: Receiver, count: Int64, theme: String, completion: @escaping (Bool) -> Void) {
         let context = container.viewContext
         let newCard = ThankYouCard(context: context)
         newCard.id = UUID()
@@ -33,6 +33,7 @@ class DataManager {
         newCard.user = user
         newCard.receiver = receiver
         newCard.count = count // Set the count attribute
+        newCard.theme = theme
 
         do {
             try context.save()
@@ -158,11 +159,10 @@ class DataManager {
 
     // MARK: Receiver CRUD Operations
 
-    func createReceiver(name: String, userNickname: String, telephoneNumber: String, completion: @escaping (Bool, UUID?) -> Void) {
+    func createReceiver(name: String, telephoneNumber: String, completion: @escaping (Bool, UUID?) -> Void) {
         let newReceiver = Receiver(context: container.viewContext)
         newReceiver.id = UUID()
         newReceiver.name = name
-        newReceiver.userNickname = userNickname
         newReceiver.telephoneNumber = telephoneNumber
 
         do {
@@ -186,9 +186,8 @@ class DataManager {
         }
     }
 
-    func updateReceiver(_ receiver: Receiver, withName name: String, userNickname: String, telephoneNumber: String) {
+    func updateReceiver(_ receiver: Receiver, withName name: String, telephoneNumber: String) {
         receiver.name = name
-        receiver.userNickname = userNickname
         receiver.telephoneNumber = telephoneNumber
         
         do {
