@@ -22,7 +22,7 @@ struct ChoosePersonView: View {
                     .foregroundColor(.white)
                     .font(.custom("Chillax", size: 16))
             } else {
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     ForEach(receivers, id: \.self) { receiver in
                         Button(action: {
                             receiverViewModel.name = receiver.name ?? ""
@@ -37,7 +37,7 @@ struct ChoosePersonView: View {
                                 .padding()
                         }
                     }
-                } // This closes the ScrollView
+                }
             } // This closes the else clause
             
             Spacer()

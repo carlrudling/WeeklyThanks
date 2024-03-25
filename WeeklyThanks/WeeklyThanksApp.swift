@@ -4,6 +4,7 @@ import SwiftUI
 @main
 struct WeeklyThanksApp: App {
     
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var coordinator = NavigationCoordinator()
 
     

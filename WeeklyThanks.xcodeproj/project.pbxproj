@@ -11,6 +11,9 @@
 		D3000E5F2B9A116300CF4CE8 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3000E5E2B9A116300CF4CE8 /* UserViewModel.swift */; };
 		D3000E612B9A550E00CF4CE8 /* ReceiverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3000E602B9A550E00CF4CE8 /* ReceiverViewModel.swift */; };
 		D30446842BAB50D8008FDACB /* SentCardsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30446832BAB50D8008FDACB /* SentCardsListView.swift */; };
+		D30446862BACD914008FDACB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30446852BACD914008FDACB /* NotificationManager.swift */; };
+		D30446882BADB3AD008FDACB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30446872BADB3AD008FDACB /* AppDelegate.swift */; };
+		D304468A2BADB5DA008FDACB /* WeUseNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30446892BADB5DA008FDACB /* WeUseNotificationsView.swift */; };
 		D32C42942B8935AF002FC0B9 /* WeeklyThanksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32C42932B8935AF002FC0B9 /* WeeklyThanksApp.swift */; };
 		D32C42962B8935AF002FC0B9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32C42952B8935AF002FC0B9 /* ContentView.swift */; };
 		D32C42982B8935B1002FC0B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D32C42972B8935B1002FC0B9 /* Assets.xcassets */; };
@@ -47,6 +50,9 @@
 		D3000E5E2B9A116300CF4CE8 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		D3000E602B9A550E00CF4CE8 /* ReceiverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverViewModel.swift; sourceTree = "<group>"; };
 		D30446832BAB50D8008FDACB /* SentCardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentCardsListView.swift; sourceTree = "<group>"; };
+		D30446852BACD914008FDACB /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		D30446872BADB3AD008FDACB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D30446892BADB5DA008FDACB /* WeUseNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeUseNotificationsView.swift; sourceTree = "<group>"; };
 		D32C42902B8935AF002FC0B9 /* WeeklyThanks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeeklyThanks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D32C42932B8935AF002FC0B9 /* WeeklyThanksApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyThanksApp.swift; sourceTree = "<group>"; };
 		D32C42952B8935AF002FC0B9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -178,6 +184,8 @@
 				D35118742B9119870013BDA0 /* AppDataModel.xcdatamodeld */,
 				D35118902B912EC80013BDA0 /* DataManager.swift */,
 				D380767E2B950B3B006484B2 /* ContactsManager.swift */,
+				D30446852BACD914008FDACB /* NotificationManager.swift */,
+				D30446872BADB3AD008FDACB /* AppDelegate.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -200,6 +208,7 @@
 			children = (
 				D38076792B913911006484B2 /* StartView.swift */,
 				D380767B2B913FC7006484B2 /* AddNameView.swift */,
+				D30446892BADB5DA008FDACB /* WeUseNotificationsView.swift */,
 			);
 			path = Start;
 			sourceTree = "<group>";
@@ -288,6 +297,7 @@
 				D39A27DE2BA48A6A00BFFED9 /* AfterSentCardView.swift in Sources */,
 				D3650FDB2B9E07D300506E87 /* User+CoreDataProperties.swift in Sources */,
 				D30446842BAB50D8008FDACB /* SentCardsListView.swift in Sources */,
+				D30446862BACD914008FDACB /* NotificationManager.swift in Sources */,
 				D39A27E22BA88EA300BFFED9 /* ThankYouCardViewModel.swift in Sources */,
 				D351186F2B8D3B4F0013BDA0 /* DynamicSizeLabel.swift in Sources */,
 				D35118912B912EC80013BDA0 /* DataManager.swift in Sources */,
@@ -296,7 +306,9 @@
 				D3000E5C2B99157500CF4CE8 /* MessageComposerView.swift in Sources */,
 				D380767A2B913911006484B2 /* StartView.swift in Sources */,
 				D351186B2B8BA0820013BDA0 /* ManuallyOrContactView.swift in Sources */,
+				D304468A2BADB5DA008FDACB /* WeUseNotificationsView.swift in Sources */,
 				D32C42AA2B89FD37002FC0B9 /* Colors.swift in Sources */,
+				D30446882BADB3AD008FDACB /* AppDelegate.swift in Sources */,
 				D32C42A62B8942E2002FC0B9 /* AddNewMemberView.swift in Sources */,
 				D3650FDA2B9E07D300506E87 /* User+CoreDataClass.swift in Sources */,
 				D32C42942B8935AF002FC0B9 /* WeeklyThanksApp.swift in Sources */,

@@ -3,11 +3,12 @@ import SwiftUI
 
 struct AddNameView: View {
     @State private var inputText: String = ""
-    @State private var navigateToHome = false // State to control navigation
+    @State private var navigateToUseNotification = false // State to control navigation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var keyboardIsShown: Bool = false
     @EnvironmentObject var userViewModel: UserViewModel
-    
+    @EnvironmentObject var coordinator: NavigationCoordinator
+
     
     private func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -63,23 +64,30 @@ struct AddNameView: View {
                 
                 Spacer()
                 
-                Button(action: {
-                    userViewModel.createUser(name: inputText)
-                    self.navigateToHome = true // Trigger navigation
-                }) {
-                    Text("Start")
-                        .font(.custom("Chillax", size: 18))
-                        .foregroundColor(.gray)
-                        .frame(width: 300, height: 50)
-                        .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
-                        .padding(.bottom, 40)
-                }
-                .background(
-                    NavigationLink(destination: HomeView(), isActive: $navigateToHome) {
-                        EmptyView()
-                    }
-                        .hidden() // Hide the navigation link itself
-                )
+                
+                NavigationLink(destination: WeUseNotificationsView(name: inputText)) {
+                             Text("Next")
+                                 .font(.custom("Chillax", size: 18))
+                                 .foregroundColor(.gray)
+                                 .frame(width: 300, height: 50)
+                                 .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
+                                 .padding(.bottom, 40)
+                         }
+//                Button(action: {
+//                    userViewModel.createUser(name: inputText)
+//                    self.navigateToUseNotification = true // Trigger navigation
+//                    userViewModel.checkUserExistence()
+//                    coordinator.push(.home)
+//
+//
+//                }) {
+//                    Text("Start")
+//                        .font(.custom("Chillax", size: 18))
+//                        .foregroundColor(.gray)
+//                        .frame(width: 300, height: 50)
+//                        .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
+//                        .padding(.bottom, 40)
+//                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

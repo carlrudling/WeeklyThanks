@@ -12,7 +12,7 @@ struct MessageComposerView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> MFMessageComposeViewController {
         let composer = MFMessageComposeViewController()
         composer.messageComposeDelegate = context.coordinator
-        composer.recipients = ["0707106032"]
+        composer.recipients = recipients
         composer.body = body
 
         // Attach the image if available

@@ -216,7 +216,6 @@ struct WriteMessageView: View {
             MessageComposerView(recipients: recipients, bodyImage: identifiableImage.image) { messageSent in
                 if messageSent {
                     print("Message was sent successfully.")
-                    self.userViewModel.incrementMessageCount()
                     if let user = self.userViewModel.currentUser, let receiver = self.receiverViewModel.currentReceiver {
                                  thankYouCardViewModel.createThankYouCard(
                                      message: self.message,
@@ -229,12 +228,14 @@ struct WriteMessageView: View {
                                          if success {
                                              print("Card saved successfully")
                                              // Perform additional actions, like navigating away or showing a success message
+                                             NotificationManager.shared.cardSent()
                                          } else {
                                              print("Failed to save the card")
                                              // Handle failure, such as showing an error message
                                          }
                                      }
                                  )
+                                self.userViewModel.incrementMessageCount()
                                  coordinator.push(.afterSentCard)
                              } else {
                                  // Handle the case where user or receiver is nil

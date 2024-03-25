@@ -8,11 +8,17 @@ class UserViewModel: ObservableObject {
     @Published var count: Int = 0
     @Published var email: String = ""
     @Published var password: String = ""
+    @Published var userExists: Bool = false
 
     init() {
         fetchCurrentUser()
     }
 
+    func checkUserExistence() {
+            let users = DataManager.shared.fetchUsers()
+            userExists = !users.isEmpty
+        }
+    
     func incrementMessageCount() {
           guard let user = currentUser else { return }
 
@@ -43,6 +49,7 @@ class UserViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     // Update ViewModel state as needed
                     self.fetchCurrentUser() // This will fetch the new user and update the ViewModel
+                    self.userExists = true
                 }
             }
         }
