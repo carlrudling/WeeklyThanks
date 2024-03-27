@@ -2,7 +2,7 @@
 //  User+CoreDataProperties.swift
 //  WeeklyThanks
 //
-//  Created by Carl Rudling on 2024-03-10.
+//  Created by Carl Rudling on 2024-03-27.
 //
 //
 
@@ -21,6 +21,8 @@ extension User {
     @NSManaged public var id: UUID?
     @NSManaged public var name: String?
     @NSManaged public var password: String?
+    @NSManaged public var sendCardGoal: Int64
+    @NSManaged public var goalWeekStrike: Int64
     @NSManaged public var thankYouCards: NSSet?
 
 }
