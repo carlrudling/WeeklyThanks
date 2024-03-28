@@ -24,6 +24,7 @@ extension User {
     @NSManaged public var password: String?
     @NSManaged public var sendCardGoal: Int64
     @NSManaged public var sentCardsThisWeek: Int64
+    @NSManaged public var lastSentCard: Date?
     @NSManaged public var thankYouCards: NSSet?
 
 }
