@@ -81,36 +81,13 @@ struct EditReceiverView: View {
                             keyboardIsShown = true
                         }
                     
-                    
-                    
-                    
-                    Text("Optional, \ndoes the person have a nickname of you?")
-                        .font(.custom("Chillax", size: 14))
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                    
-                    
-                    TextField("", text: $receiverViewModel.userNickname)
-                        .background(.white.opacity(0.2))
-                        .cornerRadius(8)
-                        .frame(width: 150)
-                        .foregroundColor(.white)
-                        .font(.custom("Chillax", size: 20))
-                        .cornerRadius(8)
-                        .frame(width: 150)
-                        .multilineTextAlignment(.center)
-                        .onTapGesture {
-                            // When tapping on the TextField, indicate that the keyboard is shown
-                            keyboardIsShown = true
-                        }
-                    
-                    
                 }
+                Spacer()
                 Spacer()
                 
                 Button(action: {
                     
-                    receiverViewModel.updateCurrentReceiver(name: receiverViewModel.name, userNickname: receiverViewModel.userNickname, telephoneNumber: receiverViewModel.telephoneNumber)
+                    receiverViewModel.updateCurrentReceiver(name: receiverViewModel.name, telephoneNumber: receiverViewModel.telephoneNumber)
                        // Proceed with any other actions, like dismissing the view
                        self.presentationMode.wrappedValue.dismiss()
 
@@ -134,7 +111,6 @@ struct EditReceiverView: View {
         .onAppear {
             if let currentReceiver = receiverViewModel.currentReceiver {
                 receiverViewModel.name = currentReceiver.name ?? ""
-                receiverViewModel.userNickname = currentReceiver.userNickname ?? ""
                 receiverViewModel.telephoneNumber = currentReceiver.telephoneNumber ?? ""
             }
         }

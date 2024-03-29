@@ -27,12 +27,29 @@ struct WriteMessageView: View {
             }
         }
     
+    
     private func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
  
- 
+    private func refreshData() {
+        self.recipients = [self.receiverViewModel.telephoneNumber]
+        
+        // Check if there's a currentReceiverId before attempting to set the current receiver
+        if let currentReceiverId = receiverViewModel.currentReceiverId {
+            receiverViewModel.setCurrentReceiver(by: currentReceiverId)
+        } else {
+            print("Current Receiver ID is nil")
+        }
+        
+        if userViewModel.currentUser == nil {
+            print("User is nil")
+        }
+        if receiverViewModel.currentReceiver == nil {
+            print("Receiver is nil")
+        }
+    }
 
     var body: some View {
         
@@ -52,14 +69,8 @@ struct WriteMessageView: View {
             }
             VStack {
                 
-                if receiverViewModel.userNickname != "" {
-                    ThankYouCardView(scaleFactor: 0.9, message: message, senderName: receiverViewModel.userNickname, receiverName: receiverViewModel.name, cardNumber: userViewModel.count + 1, date: Date())
-                        .padding(.bottom, 15)
-                    
-                } else {
                     ThankYouCardView(scaleFactor: 0.9, message: message, senderName: userViewModel.name, receiverName: receiverViewModel.name, cardNumber: userViewModel.count + 1, date: Date())
                         .padding(.bottom, 15)
-                }
                 
                 
                 Text("To \(receiverViewModel.name)")
@@ -108,15 +119,9 @@ struct WriteMessageView: View {
                 }
                 
                 VStack{
-                    if receiverViewModel.userNickname != "" {
-                        Text("/ \(receiverViewModel.userNickname)")
-                            .foregroundColor(.white)
-                            .font(.custom("Chillax", size: 14))
-                    } else {
                         Text("/ \(userViewModel.name)")
                             .foregroundColor(.white)
                             .font(.custom("Chillax", size: 14))
-                    }
                     Rectangle()
                         .frame(height: 1) // Make the rectangle thin, like a line
                         .foregroundColor(.white) // Set the line color
@@ -193,21 +198,8 @@ struct WriteMessageView: View {
             }
         }
         .onAppear {
-            self.recipients = [self.receiverViewModel.telephoneNumber]
             
-            // Check if there's a currentReceiverId before attempting to set the current receiver
-            if let currentReceiverId = receiverViewModel.currentReceiverId {
-                receiverViewModel.setCurrentReceiver(by: currentReceiverId)
-            } else {
-                print("Current Receiver ID is nil")
-            }
-
-            if userViewModel.currentUser == nil {
-                print("User is nil")
-            }
-            if receiverViewModel.currentReceiver == nil {
-                print("Receiver is nil")
-            }
+            refreshData()
         }
 
     .sheet(item: $presentedImage, onDismiss: {
@@ -222,13 +214,13 @@ struct WriteMessageView: View {
                                      writeDate: Date(), // Current date
                                      user: user, // Safely unwrapped User
                                      receiver: receiver,
-                                     count: Int64(self.userViewModel.count + 1),// Safely unwrapped Receiver
+                                     count: Int64(self.userViewModel.count + 1), theme: "normal",// Safely unwrapped Receiver
                                      completion: { success in
                                          // Handle success or failure
                                          if success {
                                              print("Card saved successfully")
                                              // Perform additional actions, like navigating away or showing a success message
-                                             NotificationManager.shared.cardSent()
+                                        
                                          } else {
                                              print("Failed to save the card")
                                              // Handle failure, such as showing an error message
@@ -236,6 +228,8 @@ struct WriteMessageView: View {
                                      }
                                  )
                                 self.userViewModel.incrementMessageCount()
+                                self.userViewModel.incrementWeeklySentCount()
+                                self.userViewModel.updateLastSentCardDate()
                                  coordinator.push(.afterSentCard)
                              } else {
                                  // Handle the case where user or receiver is nil
@@ -249,10 +243,15 @@ struct WriteMessageView: View {
                      }
                  }
 
-        .sheet(isPresented: $showingEditReceiverView) {
+        .sheet(isPresented: $showingEditReceiverView, onDismiss: {
+            // Actions to perform after the sheet is dismissed
+            // For example, refresh data in your receiverViewModel or perform UI updates
+            refreshData() // Assuming you have a method like this to refresh data
+        }) {
             // Make sure to inject the necessary EnvironmentObjects or any other dependencies
             EditReceiverView().environmentObject(receiverViewModel)
         }
+
 
 
         

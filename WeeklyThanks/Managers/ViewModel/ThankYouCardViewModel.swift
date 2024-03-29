@@ -30,3 +30,4 @@ class ThankYouCardViewModel: ObservableObject {
         thankYouCards = dataManager.fetchThankYouCards()
     }
 }
+

@@ -26,6 +26,21 @@ struct ThankYouCardView: View {
            return formatter.string(from: date)
        }
     
+    private func ordinalSuffix(for cardNumber: Int) -> String {
+        if cardNumber == 1 {
+            return "st"
+        }
+        if cardNumber == 2 {
+            return "nd"
+        }
+        if cardNumber == 3 {
+            return "rd"
+        } else {
+            return "th"
+        }
+    }
+    
+    
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [.cardColorLight, .cardColorDark]), startPoint: .top, endPoint: .bottom)
@@ -64,9 +79,9 @@ struct ThankYouCardView: View {
                 Spacer()
 
                 HStack {
-                    Text("\(cardNumber)th")
+                    Text("\(cardNumber)\(ordinalSuffix(for: cardNumber))")
                         .foregroundColor(.white)
-                        .font(.system(size: 14))
+                        .font(.custom("Chillax", size: 14))
                     Image(systemName: "heart.fill")
                         .foregroundColor(Color.buttonColorLight)
                         .font(.custom("Chillax", size: 14))

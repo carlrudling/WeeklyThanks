@@ -37,19 +37,12 @@ struct ContentView: View {
         }
         .onAppear {
             userViewModel.checkUserExistence()
-//            NotificationManager.shared.setupNotifications()
+            userViewModel.checkAndResetWeeklySentCountIfNeeded()
 
         }
     }
 }
-    
-//    private func checkUserExistence() {
-//        let users = DataManager.shared.fetchUsers()
-//        userExists = !users.isEmpty
-//        if userExists {
-//            print("User Exist")
-//        }
-//    }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

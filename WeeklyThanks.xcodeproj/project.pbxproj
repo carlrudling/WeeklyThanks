@@ -29,20 +29,22 @@
 		D351186F2B8D3B4F0013BDA0 /* DynamicSizeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D351186E2B8D3B4F0013BDA0 /* DynamicSizeLabel.swift */; };
 		D35118762B9119870013BDA0 /* AppDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D35118742B9119870013BDA0 /* AppDataModel.xcdatamodeld */; };
 		D35118912B912EC80013BDA0 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35118902B912EC80013BDA0 /* DataManager.swift */; };
-		D3650FD62B9E07D300506E87 /* Receiver+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3650FD02B9E07D300506E87 /* Receiver+CoreDataClass.swift */; };
-		D3650FD72B9E07D300506E87 /* Receiver+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3650FD12B9E07D300506E87 /* Receiver+CoreDataProperties.swift */; };
-		D3650FDA2B9E07D300506E87 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3650FD42B9E07D300506E87 /* User+CoreDataClass.swift */; };
-		D3650FDB2B9E07D300506E87 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3650FD52B9E07D300506E87 /* User+CoreDataProperties.swift */; };
 		D38076782B913650006484B2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38076772B913650006484B2 /* HomeView.swift */; };
 		D380767A2B913911006484B2 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38076792B913911006484B2 /* StartView.swift */; };
 		D380767C2B913FC7006484B2 /* AddNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D380767B2B913FC7006484B2 /* AddNameView.swift */; };
 		D380767F2B950B3B006484B2 /* ContactsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D380767E2B950B3B006484B2 /* ContactsManager.swift */; };
 		D38076812B950BC2006484B2 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38076802B950BC2006484B2 /* ContactView.swift */; };
+		D3883A362BB1D8170039FD51 /* ThankYouCard+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883A342BB1D8170039FD51 /* ThankYouCard+CoreDataClass.swift */; };
+		D3883A372BB1D8170039FD51 /* ThankYouCard+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883A352BB1D8170039FD51 /* ThankYouCard+CoreDataProperties.swift */; };
+		D3883A3A2BB21D930039FD51 /* Receiver+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883A382BB21D930039FD51 /* Receiver+CoreDataClass.swift */; };
+		D3883A3B2BB21D930039FD51 /* Receiver+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883A392BB21D930039FD51 /* Receiver+CoreDataProperties.swift */; };
+		D3883A3D2BB4BC730039FD51 /* ChooseGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883A3C2BB4BC730039FD51 /* ChooseGoalView.swift */; };
+		D3883A432BB4CBE60039FD51 /* EditUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883A422BB4CBE60039FD51 /* EditUserView.swift */; };
+		D38CB7A02BB624D100EE16CE /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38CB79E2BB624D100EE16CE /* User+CoreDataClass.swift */; };
+		D38CB7A12BB624D100EE16CE /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38CB79F2BB624D100EE16CE /* User+CoreDataProperties.swift */; };
 		D39A27DE2BA48A6A00BFFED9 /* AfterSentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27DD2BA48A6A00BFFED9 /* AfterSentCardView.swift */; };
 		D39A27E02BA882EC00BFFED9 /* EditReceiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27DF2BA882EC00BFFED9 /* EditReceiverView.swift */; };
 		D39A27E22BA88EA300BFFED9 /* ThankYouCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27E12BA88EA300BFFED9 /* ThankYouCardViewModel.swift */; };
-		D39A27E52BA8918600BFFED9 /* ThankYouCard+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27E32BA8918600BFFED9 /* ThankYouCard+CoreDataClass.swift */; };
-		D39A27E62BA8918600BFFED9 /* ThankYouCard+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27E42BA8918600BFFED9 /* ThankYouCard+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,20 +72,22 @@
 		D351186E2B8D3B4F0013BDA0 /* DynamicSizeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicSizeLabel.swift; sourceTree = "<group>"; };
 		D35118752B9119870013BDA0 /* AppDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppDataModel.xcdatamodel; sourceTree = "<group>"; };
 		D35118902B912EC80013BDA0 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		D3650FD02B9E07D300506E87 /* Receiver+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Receiver+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D3650FD12B9E07D300506E87 /* Receiver+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Receiver+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		D3650FD42B9E07D300506E87 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D3650FD52B9E07D300506E87 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D38076772B913650006484B2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D38076792B913911006484B2 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		D380767B2B913FC7006484B2 /* AddNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNameView.swift; sourceTree = "<group>"; };
 		D380767E2B950B3B006484B2 /* ContactsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsManager.swift; sourceTree = "<group>"; };
 		D38076802B950BC2006484B2 /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
+		D3883A342BB1D8170039FD51 /* ThankYouCard+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThankYouCard+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D3883A352BB1D8170039FD51 /* ThankYouCard+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThankYouCard+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D3883A382BB21D930039FD51 /* Receiver+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Receiver+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D3883A392BB21D930039FD51 /* Receiver+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Receiver+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D3883A3C2BB4BC730039FD51 /* ChooseGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGoalView.swift; sourceTree = "<group>"; };
+		D3883A422BB4CBE60039FD51 /* EditUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserView.swift; sourceTree = "<group>"; };
+		D38CB79E2BB624D100EE16CE /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D38CB79F2BB624D100EE16CE /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D39A27DD2BA48A6A00BFFED9 /* AfterSentCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterSentCardView.swift; sourceTree = "<group>"; };
 		D39A27DF2BA882EC00BFFED9 /* EditReceiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReceiverView.swift; sourceTree = "<group>"; };
 		D39A27E12BA88EA300BFFED9 /* ThankYouCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThankYouCardViewModel.swift; sourceTree = "<group>"; };
-		D39A27E32BA8918600BFFED9 /* ThankYouCard+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThankYouCard+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D39A27E42BA8918600BFFED9 /* ThankYouCard+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThankYouCard+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +134,7 @@
 				D35118602B8B8B360013BDA0 /* Chillax-Regular.otf */,
 				D32C42AD2B8A1319002FC0B9 /* Info.plist */,
 				D32C42AB2B89FD43002FC0B9 /* Extensions */,
-				D35118632B8B8E000013BDA0 /* CoreData */,
+				D35118632B8B8E000013BDA0 /* Managers */,
 				D35118622B8B8DEF0013BDA0 /* Views */,
 				D32C42952B8935AF002FC0B9 /* ContentView.swift */,
 				D3000E5B2B99157500CF4CE8 /* MessageComposerView.swift */,
@@ -169,6 +173,7 @@
 				D351186C2B8BA1EB0013BDA0 /* WriteMessageView.swift */,
 				D39A27DF2BA882EC00BFFED9 /* EditReceiverView.swift */,
 				D38076772B913650006484B2 /* HomeView.swift */,
+				D3883A422BB4CBE60039FD51 /* EditUserView.swift */,
 				D30446832BAB50D8008FDACB /* SentCardsListView.swift */,
 				D38076802B950BC2006484B2 /* ContactView.swift */,
 				D39A27DD2BA48A6A00BFFED9 /* AfterSentCardView.swift */,
@@ -176,7 +181,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		D35118632B8B8E000013BDA0 /* CoreData */ = {
+		D35118632B8B8E000013BDA0 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				D3000E5D2B9A114F00CF4CE8 /* ViewModel */,
@@ -187,18 +192,18 @@
 				D30446852BACD914008FDACB /* NotificationManager.swift */,
 				D30446872BADB3AD008FDACB /* AppDelegate.swift */,
 			);
-			path = CoreData;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		D351188F2B912E6F0013BDA0 /* NsManager */ = {
 			isa = PBXGroup;
 			children = (
-				D3650FD02B9E07D300506E87 /* Receiver+CoreDataClass.swift */,
-				D3650FD12B9E07D300506E87 /* Receiver+CoreDataProperties.swift */,
-				D39A27E32BA8918600BFFED9 /* ThankYouCard+CoreDataClass.swift */,
-				D39A27E42BA8918600BFFED9 /* ThankYouCard+CoreDataProperties.swift */,
-				D3650FD42B9E07D300506E87 /* User+CoreDataClass.swift */,
-				D3650FD52B9E07D300506E87 /* User+CoreDataProperties.swift */,
+				D3883A342BB1D8170039FD51 /* ThankYouCard+CoreDataClass.swift */,
+				D3883A352BB1D8170039FD51 /* ThankYouCard+CoreDataProperties.swift */,
+				D38CB79E2BB624D100EE16CE /* User+CoreDataClass.swift */,
+				D38CB79F2BB624D100EE16CE /* User+CoreDataProperties.swift */,
+				D3883A382BB21D930039FD51 /* Receiver+CoreDataClass.swift */,
+				D3883A392BB21D930039FD51 /* Receiver+CoreDataProperties.swift */,
 			);
 			path = NsManager;
 			sourceTree = "<group>";
@@ -208,6 +213,7 @@
 			children = (
 				D38076792B913911006484B2 /* StartView.swift */,
 				D380767B2B913FC7006484B2 /* AddNameView.swift */,
+				D3883A3C2BB4BC730039FD51 /* ChooseGoalView.swift */,
 				D30446892BADB5DA008FDACB /* WeUseNotificationsView.swift */,
 			);
 			path = Start;
@@ -285,38 +291,40 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3650FD72B9E07D300506E87 /* Receiver+CoreDataProperties.swift in Sources */,
 				D35118762B9119870013BDA0 /* AppDataModel.xcdatamodeld in Sources */,
-				D39A27E62BA8918600BFFED9 /* ThankYouCard+CoreDataProperties.swift in Sources */,
 				D351186D2B8BA1EB0013BDA0 /* WriteMessageView.swift in Sources */,
 				D3000E612B9A550E00CF4CE8 /* ReceiverViewModel.swift in Sources */,
+				D3883A432BB4CBE60039FD51 /* EditUserView.swift in Sources */,
 				D32C42A42B893FB1002FC0B9 /* ChoosePersonView.swift in Sources */,
 				D380767C2B913FC7006484B2 /* AddNameView.swift in Sources */,
-				D39A27E52BA8918600BFFED9 /* ThankYouCard+CoreDataClass.swift in Sources */,
 				D32C42962B8935AF002FC0B9 /* ContentView.swift in Sources */,
 				D39A27DE2BA48A6A00BFFED9 /* AfterSentCardView.swift in Sources */,
-				D3650FDB2B9E07D300506E87 /* User+CoreDataProperties.swift in Sources */,
 				D30446842BAB50D8008FDACB /* SentCardsListView.swift in Sources */,
 				D30446862BACD914008FDACB /* NotificationManager.swift in Sources */,
 				D39A27E22BA88EA300BFFED9 /* ThankYouCardViewModel.swift in Sources */,
 				D351186F2B8D3B4F0013BDA0 /* DynamicSizeLabel.swift in Sources */,
 				D35118912B912EC80013BDA0 /* DataManager.swift in Sources */,
 				D38076812B950BC2006484B2 /* ContactView.swift in Sources */,
-				D3650FD62B9E07D300506E87 /* Receiver+CoreDataClass.swift in Sources */,
 				D3000E5C2B99157500CF4CE8 /* MessageComposerView.swift in Sources */,
 				D380767A2B913911006484B2 /* StartView.swift in Sources */,
+				D3883A3B2BB21D930039FD51 /* Receiver+CoreDataProperties.swift in Sources */,
 				D351186B2B8BA0820013BDA0 /* ManuallyOrContactView.swift in Sources */,
 				D304468A2BADB5DA008FDACB /* WeUseNotificationsView.swift in Sources */,
 				D32C42AA2B89FD37002FC0B9 /* Colors.swift in Sources */,
+				D3883A3D2BB4BC730039FD51 /* ChooseGoalView.swift in Sources */,
 				D30446882BADB3AD008FDACB /* AppDelegate.swift in Sources */,
+				D3883A3A2BB21D930039FD51 /* Receiver+CoreDataClass.swift in Sources */,
+				D3883A372BB1D8170039FD51 /* ThankYouCard+CoreDataProperties.swift in Sources */,
 				D32C42A62B8942E2002FC0B9 /* AddNewMemberView.swift in Sources */,
-				D3650FDA2B9E07D300506E87 /* User+CoreDataClass.swift in Sources */,
+				D38CB7A12BB624D100EE16CE /* User+CoreDataProperties.swift in Sources */,
 				D32C42942B8935AF002FC0B9 /* WeeklyThanksApp.swift in Sources */,
 				D32C42A82B89F6F8002FC0B9 /* ThankYouCardView.swift in Sources */,
+				D3883A362BB1D8170039FD51 /* ThankYouCard+CoreDataClass.swift in Sources */,
 				D380767F2B950B3B006484B2 /* ContactsManager.swift in Sources */,
 				D3000E5F2B9A116300CF4CE8 /* UserViewModel.swift in Sources */,
 				D38076782B913650006484B2 /* HomeView.swift in Sources */,
 				D39A27E02BA882EC00BFFED9 /* EditReceiverView.swift in Sources */,
+				D38CB7A02BB624D100EE16CE /* User+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

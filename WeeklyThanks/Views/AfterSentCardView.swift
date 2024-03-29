@@ -6,6 +6,7 @@ import SwiftUI
 struct AfterSentCardView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var coordinator: NavigationCoordinator
+    @EnvironmentObject var userViewModel: UserViewModel
     @State private var navigateToWriteMessageView = false
     @State private var navigateToChoosePersonView = false
 
@@ -73,6 +74,17 @@ struct AfterSentCardView: View {
             LinearGradient(gradient: Gradient(colors: [.backgroundLight, .backgroundDark]), startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all) // Apply edgesIgnoringSafeArea to the background
         )
+        .onAppear{
+            print(userViewModel.sendCardGoal)
+            print(userViewModel.sentCardsThisWeek)
+            UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+                print("Pending notification requests: \(requests)")
+            }
+            if userViewModel.sentCardsThisWeek >= userViewModel.sendCardGoal {
+                           // Call the notification method
+                           NotificationManager.shared.congratulateForReachingGoal()
+                       }
+        }
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

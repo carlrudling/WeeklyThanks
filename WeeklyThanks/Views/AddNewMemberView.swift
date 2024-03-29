@@ -42,7 +42,7 @@ struct AddNewMemberView: View {
                     .padding(.horizontal, 100)
                     .multilineTextAlignment(.center)
                     .font(.custom("Chillax", size: 16))
-                    .padding(.vertical, 80)
+                    .padding(.vertical, 60)
                     .foregroundColor(.white)
                 
                 VStack{
@@ -90,33 +90,13 @@ struct AddNewMemberView: View {
                     
                     
                     
-                    Text("Optional, \ndoes the person have a nickname of you?")
-                        .font(.custom("Chillax", size: 14))
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                    
-                    
-                    TextField("", text: $receiverViewModel.userNickname)
-                        .background(.white.opacity(0.2))
-                        .cornerRadius(8)
-                        .frame(width: 150)
-                        .foregroundColor(.white)
-                        .font(.custom("Chillax", size: 20))
-                        .cornerRadius(8)
-                        .frame(width: 150)
-                        .multilineTextAlignment(.center)
-                        .onTapGesture {
-                            // When tapping on the TextField, indicate that the keyboard is shown
-                            keyboardIsShown = true
-                        }
-                    
-                    
                 }
                 Spacer()
-                
+                Spacer()
+
                 Button(action: {
                     
-                    receiverViewModel.createReceiver(name: receiverViewModel.name, userNickname: receiverViewModel.userNickname, telephoneNumber: receiverViewModel.telephoneNumber)
+                    receiverViewModel.createReceiver(name: receiverViewModel.name, telephoneNumber: receiverViewModel.telephoneNumber)
                     coordinator.push(.WriteMessage)
 
                 }) {

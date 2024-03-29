@@ -32,6 +32,9 @@ struct ContactsManager {
             try store.enumerateContacts(with: fetchRequest) { (contact, stop) in
                 contacts.append(contact)
             }
+            // Sort the contacts array based on the givenName
+            contacts.sort { $0.givenName < $1.givenName }
+            
             DispatchQueue.main.async {
                 completion(contacts)
             }
@@ -39,6 +42,7 @@ struct ContactsManager {
             print("Failed to fetch contacts: \(error)")
         }
     }
+
 
     
     

@@ -13,11 +13,13 @@ struct WeUseNotificationsView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var coordinator: NavigationCoordinator
     var name: String
+    var sendCardGoal: Int
+
     var body: some View {
         VStack{
             Text("WeeklyThanks")
                 .font(.custom("LeckerliOne-regular", size: 28))
-                .padding(.top, 80)
+                .padding(.top, 35)
                 .foregroundColor(.white)
             
             Text("Stay consistent with\nOne reflection notification per week &\nreminders ones a day, only if you forget. ")
@@ -37,7 +39,7 @@ struct WeUseNotificationsView: View {
             Spacer()
             
             Button(action: {
-                userViewModel.createUser(name: name)
+                userViewModel.createUser(name: name, sendCardGoal: sendCardGoal)
                 userViewModel.checkUserExistence()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     coordinator.push(.home)
@@ -62,6 +64,7 @@ struct WeUseNotificationsView: View {
         )
         .onAppear{
             print(name)
+            print(sendCardGoal)
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -77,5 +80,5 @@ struct WeUseNotificationsView: View {
 }
 
 #Preview {
-    WeUseNotificationsView(name: "Something")
+    WeUseNotificationsView(name: "Something", sendCardGoal: 2)
 }

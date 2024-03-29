@@ -6,9 +6,13 @@ class UserViewModel: ObservableObject {
     @Published var currentUser: User?
     @Published var name: String = ""
     @Published var count: Int = 0
+    @Published var sendCardGoal: Int = 0
+    @Published var goalWeekStrike: Int = 0
+    @Published var sentCardsThisWeek: Int = 0
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var userExists: Bool = false
+    @Published var lastSentCard = Date()
 
     init() {
         fetchCurrentUser()
@@ -30,6 +34,45 @@ class UserViewModel: ObservableObject {
           dataManager.saveContext()
       }
     
+    func incrementWeeklySentCount() {
+          guard let user = currentUser else { return }
+
+          // Increment the message count
+          user.sentCardsThisWeek += 1
+          self.sentCardsThisWeek += 1 // Update the published property as well
+          
+          // Save changes
+          dataManager.saveContext()
+      }
+    
+    func updateLastSentCardDate(date: Date = Date()) {
+        guard let user = currentUser else { return }
+        user.lastSentCard = date
+        dataManager.saveContext()
+    }
+    
+    func checkAndResetWeeklySentCountIfNeeded() {
+        guard let user = currentUser, let lastSentCardDate = user.lastSentCard else { return }
+
+        let calendar = Calendar.current
+        let currentWeek = calendar.component(.weekOfYear, from: Date())
+        let lastSentCardWeek = calendar.component(.weekOfYear, from: lastSentCardDate)
+        if currentWeek != lastSentCardWeek {
+            resetWeeklySentCount()
+        }
+    }
+    
+    func resetWeeklySentCount() {
+          guard let user = currentUser else { return }
+
+          // Increment the message count
+          user.sentCardsThisWeek = 0
+          self.sentCardsThisWeek = 0// Update the published property as well
+          
+          // Save changes
+          dataManager.saveContext()
+      }
+    
     func fetchCurrentUser() {
         let users = dataManager.fetchUsers()
         // Assuming you're interested in the first user for simplicity
@@ -40,11 +83,14 @@ class UserViewModel: ObservableObject {
             self.count = Int(firstUser.count) // Assuming count is stored as Int64 in Core Data
             self.email = firstUser.email ?? ""
             self.password = firstUser.password ?? ""
+            self.sendCardGoal = Int(firstUser.sendCardGoal)
+            self.sentCardsThisWeek = Int(firstUser.sentCardsThisWeek)
+            self.lastSentCard = firstUser.lastSentCard ?? Date()
         }
     }
     
-    func createUser(name: String) {
-        dataManager.createUser(name: name, email: self.email, password: self.password, count: 0) { success in
+    func createUser(name: String, sendCardGoal: Int) {
+        dataManager.createUser(name: name, email: self.email, password: self.password, count: 0, sendCardGoal: sendCardGoal, goalWeekStrike: 0, sentCardsThisWeek: 0, lastSentCard: Date()) { success in
             if success {
                 DispatchQueue.main.async {
                     // Update ViewModel state as needed
@@ -57,18 +103,25 @@ class UserViewModel: ObservableObject {
 
 
 
-    // In UserViewModel
-    func updateUser(name: String? = nil, email: String? = nil, password: String? = nil, incrementCount: Bool = false) {
+    // Updated UserViewModel function
+    func updateUser(name: String? = nil, sendCardGoal: Int? = nil) {
         guard let currentUser = currentUser else { return }
-        if let name = name { currentUser.name = name }
-        if let email = email { currentUser.email = email }
-        if let password = password { currentUser.password = password }
-        if incrementCount { currentUser.count += 1 } // Increment count if specified
+
+        if let name = name {
+            currentUser.name = name
+            self.name = name // Update the ViewModel's published property
+        }
+        
+        if let sendCardGoal = sendCardGoal {
+            currentUser.sendCardGoal = Int64(sendCardGoal) // Assuming Core Data stores this as Int64
+            self.sendCardGoal = sendCardGoal // Update the ViewModel's published property
+        }
 
         // Save the changes
         dataManager.saveContext()
-        fetchCurrentUser() // Optionally refresh the user data in the ViewModel
+        // No need to call fetchCurrentUser() here unless you want to refresh other fields
     }
+
 
 
     

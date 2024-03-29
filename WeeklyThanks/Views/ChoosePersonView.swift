@@ -26,7 +26,6 @@ struct ChoosePersonView: View {
                     ForEach(receivers, id: \.self) { receiver in
                         Button(action: {
                             receiverViewModel.name = receiver.name ?? ""
-                            receiverViewModel.userNickname = receiver.userNickname ?? ""
                             receiverViewModel.telephoneNumber = receiver.telephoneNumber ?? ""
                             receiverViewModel.currentReceiverId = receiver.id
                             coordinator.push(.WriteMessage)

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ChooseStrikeView: View {
+struct ChooseGoalView: View {
     @State private var sendCardGoal: Int? // Make this optional and remove the initial value
     var name: String // Assuming you want to keep passing the name to this view
 
@@ -80,8 +80,8 @@ struct ChooseStrikeView: View {
 }
 
 // Usage example for previews
-struct ChooseStrikeView_Previews: PreviewProvider {
+struct ChooseGoalView_Previews: PreviewProvider {
     static var previews: some View {
-        ChooseStrikeView(name: "Example Name")
+        ChooseGoalView(name: "Example Name")
     }
 }

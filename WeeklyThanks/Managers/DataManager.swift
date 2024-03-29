@@ -90,7 +90,7 @@ class DataManager {
     // MARK: User CRUD Operations
 
     // In DataManager
-    func createUser(name: String, email: String, password: String, count: Int, completion: @escaping (Bool) -> Void) {
+    func createUser(name: String, email: String, password: String, count: Int, sendCardGoal: Int, goalWeekStrike: Int, sentCardsThisWeek: Int, lastSentCard: Date, completion: @escaping (Bool) -> Void) {
         // Your implementation to create a user and handle the count
         // For simplicity, we'll assume your CoreData User entity has a `count` attribute to store this value
         let newUser = User(context: container.viewContext)
@@ -99,6 +99,10 @@ class DataManager {
         newUser.email = email
         newUser.password = password
         newUser.count = Int64(count) // Assuming `count` is stored as Int64 in CoreData
+        newUser.sendCardGoal = Int64(sendCardGoal)
+        newUser.goalWeekStrike = Int64(goalWeekStrike)
+        newUser.sentCardsThisWeek = Int64(sentCardsThisWeek)
+        newUser.lastSentCard = Date()
         
         do {
             try container.viewContext.save()
