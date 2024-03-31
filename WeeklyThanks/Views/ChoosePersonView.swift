@@ -17,7 +17,7 @@ struct ChoosePersonView: View {
                 .foregroundColor(.white)
             
             if receivers.isEmpty {
-                Text("No previous receivers found.")
+                Text("No previous friends found.")
                     .padding()
                     .foregroundColor(.white)
                     .font(.custom("Chillax", size: 16))
@@ -37,7 +37,7 @@ struct ChoosePersonView: View {
                         }
                     }
                 }
-            } // This closes the else clause
+            } 
             
             Spacer()
             
@@ -45,7 +45,7 @@ struct ChoosePersonView: View {
             Button {
                 coordinator.push(.manuallyOrContact)
             } label: {
-                Text("Add new one")
+                Text("Add new friend")
                     .font(.custom("Chillax", size: 18))
                     .foregroundColor(.gray)
                     .frame(width: 300, height: 50)

@@ -23,7 +23,7 @@ class NotificationManager {
     func scheduleMidWeekReminder() {
         let content = UNMutableNotificationContent()
         content.title = "Midweek Check-In"
-        content.body = "Some days have gone now of the week, any cards you want to send?"
+        content.body = "Some days have gone now of the week, any thank you cards you want to send?"
         content.sound = UNNotificationSound.default
 
         var dateComponents = DateComponents()
@@ -44,7 +44,7 @@ class NotificationManager {
     func scheduleEndOfWeekReminder() {
         let content = UNMutableNotificationContent()
         content.title = "Week's End Reminder"
-        content.body = "Week is coming to an end, last chance to reflect and send some cards about the week."
+        content.body = "The Week is coming to an end, last chance to send some thank you cards about the week."
         content.sound = UNNotificationSound.default
         
         var dateComponents = DateComponents()
@@ -65,8 +65,8 @@ class NotificationManager {
 
     func congratulateForReachingGoal() {
         let content = UNMutableNotificationContent()
-        content.title = "Congratulations!"
-        content.body = "Great job! You've reached your weekly goal."
+        content.title = "Thanks for sharing!"
+        content.body = "You've now reached your weekly goal."
         content.sound = UNNotificationSound.default
         content.badge = 1
         // Trigger immediately

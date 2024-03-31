@@ -21,8 +21,7 @@ struct WeUseNotificationsView: View {
                 .font(.custom("LeckerliOne-regular", size: 28))
                 .padding(.top, 35)
                 .foregroundColor(.white)
-            
-            Text("Stay consistent with\nOne reflection notification per week &\nreminders ones a day, only if you forget. ")
+            Text("We send a few friendly reminders each week to help you spread gratitude with some thank you cards.")
                 .font(.custom("Chillax", size: 16))
                 .padding(.horizontal, 40)
                 .padding(.top, 30)

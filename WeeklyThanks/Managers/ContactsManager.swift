@@ -30,7 +30,7 @@ struct ContactsManager {
         
         do {
             try store.enumerateContacts(with: fetchRequest) { (contact, stop) in
-                contacts.append(contact)
+                    contacts.append(contact)
             }
             // Sort the contacts array based on the givenName
             contacts.sort { $0.givenName < $1.givenName }

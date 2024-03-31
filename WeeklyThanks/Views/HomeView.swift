@@ -21,7 +21,7 @@ struct HomeView: View {
                 .foregroundColor(.white)
             
             
-            Text("Reflect over the week. Anything you want to thank someone for? Remember the small things counts.")
+            Text("Reflect on the week. Is there anything you want to thank someone for? Remember, even small things count.")
                 .font(.custom("Chillax", size: 16))
                 .padding(.horizontal, 40)
                 .padding(.top, 30)
@@ -142,12 +142,6 @@ struct HomeView: View {
                         userViewModel.sendCardGoal = Int(currentUser.sendCardGoal)
                         userViewModel.sentCardsThisWeek = Int(currentUser.sentCardsThisWeek)
                     }
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//
-//            // Convert the lastSentCard date to a String
-//            let dateString = formatter.string(from: UserViewModel.lastSentCard)
-            print(userViewModel.lastSentCard)
 
                 }
         .sheet(isPresented: $showingSentCardsListView) {

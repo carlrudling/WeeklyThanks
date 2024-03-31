@@ -1,15 +1,66 @@
-//
-//  ExplanationView.swift
-//  WeeklyThanks
-//
-//  Created by Carl Rudling on 2024-03-31.
-//
+
 
 import SwiftUI
 
 struct ExplanationView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+    var body: some View{
+        VStack{
+            Text("WeeklyThanks")
+                .font(.custom("LeckerliOne-regular", size: 28))
+                .padding(.top, 35)
+                .foregroundColor(.white)
+            
+            ZStack{
+                ThankYouCardView(scaleFactor: 0.3, message: "", senderName: "", receiverName: "", cardNumber: 1, date: Date())
+                    .rotationEffect(.degrees(-15))
+                    .offset(x: -30)
+                ThankYouCardView(scaleFactor: 0.3, message: "", senderName: "", receiverName: "", cardNumber: 1, date: Date())
+                ThankYouCardView(scaleFactor: 0.3, message: "", senderName: "", receiverName: "", cardNumber: 1, date: Date())
+                    .rotationEffect(.degrees(15))
+                    .offset(x: 30)
+            }
+            .padding(.top, -50)
+            
+            Text("Everyone loves a thank you. Start the habit of sending weekly thank you cards to your friends and share your gratitude.")
+                .font(.custom("Chillax", size: 16))
+                .padding(.horizontal, 40)
+                .padding(.top, -40)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.white)
+            
+            
+            Spacer()
+            
+            NavigationLink(destination: AddNameView()) {
+                Text("Next")
+                    .font(.custom("Chillax", size: 18))
+                    .foregroundColor(.gray)
+                    .frame(width: 300, height: 50)
+                    .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
+                    .padding(.bottom, 40)
+            }
+            
+            
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity) // Expand VStack to fill the screen
+        
+        .background(
+            LinearGradient(gradient: Gradient(colors: [.backgroundLight, .backgroundDark]), startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all) // Apply edgesIgnoringSafeArea to the background
+        )
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(.white)
+                        .padding(12)
+                }
+            }
+        }
     }
 }
 

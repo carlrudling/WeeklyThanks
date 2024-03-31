@@ -22,7 +22,7 @@ struct StartView: View {
             
             Spacer()
             
-            NavigationLink(destination: AddNameView()) {
+            NavigationLink(destination: ExplanationView()) {
                          Text("Start")
                              .font(.custom("Chillax", size: 18))
                              .foregroundColor(.gray)
