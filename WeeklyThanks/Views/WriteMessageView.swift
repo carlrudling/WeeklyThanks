@@ -27,6 +27,31 @@ struct WriteMessageView: View {
             }
         }
     
+    @State private var dynamicSize: CGSize = CGSize(width: 360, height: 240) // Default size
+    @State private var sizeForScreenshot: CGSize = CGSize(width: 360, height: 240)
+    @State private var updateViewID = UUID()
+
+    private func calculateDynamicSize(for message: String) -> CGSize {
+        // Your dynamic size calculation logic based on the message
+        // This is just a placeholder logic
+        let lines = CGFloat((message.count / 50) + 1)
+        let height = max(240, lines * 20) // Calculate dynamically
+        let width = max(360, lines * 20)
+
+        return CGSize(width: width, height: height)
+    }
+    
+    private func calculateDynamicSizeForSnapshot(for message: String) -> CGSize {
+        // Your dynamic size calculation logic based on the message
+        // This is just a placeholder logic
+        let lines = CGFloat((message.count / 50) + 1)
+        let height = 240 + lines * 20 // Calculate dynamically based on the number of lines
+        let width = 360 + lines * 20 // Assuming you want to increase width in a similar fashion
+        return CGSize(width: width, height: height)
+    }
+    
+    
+    
     
     private func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -68,9 +93,13 @@ struct WriteMessageView: View {
                     .frame(width: 300, height: 300)
             }
             VStack {
-                
-                    ThankYouCardView(scaleFactor: 0.9, message: message, senderName: userViewModel.name, receiverName: receiverViewModel.name, cardNumber: userViewModel.count + 1, date: Date())
-                        .padding(.bottom, 15)
+//                
+//                    ThankYouCardView(scaleFactor: 0.9, message: message, senderName: userViewModel.name, receiverName: receiverViewModel.name, cardNumber: userViewModel.count + 1, date: Date())
+//                        .padding(.bottom, 15)
+                ThankYouCardView(scaleFactor: 0.9, message: message, senderName: userViewModel.name, receiverName: receiverViewModel.name, cardNumber: userViewModel.count + 1, date: Date())
+                            .id(updateViewID) // Force redraw
+                            .frame(width: dynamicSize.width, height: dynamicSize.height)
+                            .padding(.bottom, 15)
                 
                 
                 Text("To \(receiverViewModel.name)")
@@ -83,21 +112,20 @@ struct WriteMessageView: View {
                     .padding(.top, -10)
                 
                 ZStack {
-                    
-                    TextEditorBackground()
-                        .frame(height: 150) // Ensure this matches the TextEditor frame size for alignment
-                        .padding(.top, 10)
                     TextEditor(text: $message)
                         .onChange(of: message) { newValue in
                             if newValue.count > 150 { // Limit to 150 characters
                                 message = String(newValue.prefix(150))
                             }
+                            self.dynamicSize = calculateDynamicSize(for: message)
+                            self.updateViewID = UUID()
                         }
                         .font(.custom("Chillax", size: 16)) // Adjust font size dynamically
-                        .background(Color.clear)
+                        .background(.white.opacity(0.2))
                         .foregroundColor(.white)
                         .scrollContentBackground(.hidden)
-                        .lineSpacing(6)
+                        .cornerRadius(8)
+                        .foregroundColor(.white)
                         .frame(height: 200)
                         .onTapGesture {
                             // When tapping on the TextField, indicate that the keyboard is shown
@@ -111,12 +139,21 @@ struct WriteMessageView: View {
                 .padding(.top, 10)
                 HStack{
                     Spacer()
-                    Text("Max 150 characters")
-                        .foregroundColor(.white)
-                        .font(.custom("Chillax", size: 14))
-                        .padding(.trailing, 20)
-                        .padding(.top, -60)
+                    if message.count == 0 {
+                        Text("Max 150 characters")
+                            .foregroundColor(.white)
+                            .font(.custom("Chillax", size: 14))
+                            .padding(.trailing, 20)
+                    } else {
+                        HStack{
+                            Text("\(message.count)/150") // Show the current count out of the max characters allowed
+                                .foregroundColor(message.count == 150 ? .red : .white) // Change color to red if over 150 characters, otherwise white
+                                .font(.custom("Chillax", size: 14))
+                                .padding(.trailing, 20)
+                        }
+                    }
                 }
+
                 
                 VStack{
                         Text("/ \(userViewModel.name)")
@@ -128,7 +165,7 @@ struct WriteMessageView: View {
                         .frame(width: 50 )
                         .padding(.top, -10)
                 }
-                .padding(.top, -20)
+                .padding(.top, 10)
                 
                 Spacer()
                 
@@ -136,24 +173,26 @@ struct WriteMessageView: View {
                 
                 Button(action: {
                     
-                    // Define the custom size based on the scaled dimensions of the ThankYouCardView
-                    let customSize = CGSize(width: 360 * 1.2, height: 240 * 1.2) // Adjust based on your actual scale factor and card size
+                    // Update dynamic size based on the current message
+                      self.sizeForScreenshot = self.calculateDynamicSizeForSnapshot(for: self.message)
 
-                        // Preparing the ThankYouCardView for snapshot
-                        let cardView = ThankYouCardView(
-                            scaleFactor: 1.0, // Use the appropriate scale factor for UI display
-                            message: self.message,
-                            senderName: self.userViewModel.name,
-                            receiverName: self.receiverViewModel.name,
-                            cardNumber: self.userViewModel.count + 1,
-                            date: Date()
-                        )
+                    // Prepare ThankYouCardView with the current state
+                          let cardView = ThankYouCardView(
+                              scaleFactor: 1.0,
+                              message: self.message,
+                              senderName: self.userViewModel.name,
+                              receiverName: self.receiverViewModel.name,
+                              cardNumber: self.userViewModel.count + 1,
+                              date: Date()
+                          )
 
-                    // Capturing a high-quality snapshot of the card view
-                    let image = cardView.snapshot(with: customSize, scale: 3.0) // Use the custom size and adjust scale factor as needed
-                        self.presentedImage = IdentifiableImage(image: image)
-                        print("Image is ready. Size: \(image.size.width) x \(image.size.height), Scale: \(image.scale)")
-                        
+                          // Capture the snapshot using the updated dynamic size
+                          let image = cardView.snapshot(with: self.sizeForScreenshot, scale: UIScreen.main.scale)
+                          self.presentedImage = IdentifiableImage(image: image)
+                          
+                          print("Snapshot captured with updated size: Width: \(self.sizeForScreenshot.width), Height: \(self.sizeForScreenshot.height)")
+                      
+
                 }) {
                     HStack {
                         Image(systemName: "paperplane") // Replace with your icon
@@ -198,7 +237,6 @@ struct WriteMessageView: View {
             }
         }
         .onAppear {
-            
             refreshData()
         }
 
@@ -290,25 +328,6 @@ struct WriteMessageView_Previews: PreviewProvider {
     static var previews: some View {
         WriteMessageView()
             .background(Color.black) // Set a contrasting background to see the white lines
-    }
-}
-
-
-struct TextEditorBackground: View {
-    var body: some View {
-        GeometryReader { geometry in
-            Path { path in
-                let lineSpacing: CGFloat = 28 // Adjust line spacing to your preference
-                let lines = Int(geometry.size.height / lineSpacing)
-                
-                for i in 0..<lines {
-                    let y = CGFloat(i) * lineSpacing
-                    path.move(to: CGPoint(x: 0, y: y))
-                    path.addLine(to: CGPoint(x: geometry.size.width, y: y))
-                }
-            }
-            .stroke(Color.white.opacity(0.5), lineWidth: 1) // Set line color and opacity
-        }
     }
 }
 

@@ -8,16 +8,22 @@ struct ThankYouCardView: View {
     let cardNumber: Int
     let date: Date
 
-    // Computed property to calculate font size based on character count
-    private var messageFontSize: CGFloat {
-        let characterCount = message.count
-        if characterCount > 100 {
-            return 12 // Decrease font size to 12 if character count exceeds 100
-        } else if characterCount > 50 {
-            return 14 // Decrease font size to 14 if character count exceeds 50
-        } else {
-            return 16 // Default font size
-        }
+    // Placeholder for dynamic size calculation
+    private var dynamicSize: CGSize {
+        // Base dimensions for the card
+        let baseWidth: CGFloat = 360
+        let baseHeight: CGFloat = 240
+        let extraHeightPerLine: CGFloat = 10
+        let extraWidthPerLine: CGFloat = 10
+        let maxWidth: CGFloat = 480 // Maximum width you want for a card
+        
+        // Estimate lines based on message length. This is simplistic; adjust based on your content and font size
+        let estimatedLines = CGFloat(message.count) / 50 // Example: assuming roughly 50 characters per line
+        let dynamicHeight = baseHeight + (estimatedLines * extraHeightPerLine)
+        
+        let dynamicWidth = baseWidth + (estimatedLines * extraWidthPerLine)
+        
+        return CGSize(width: dynamicWidth, height: dynamicHeight)
     }
 
     private var formattedDate: String {
@@ -44,9 +50,9 @@ struct ThankYouCardView: View {
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [.cardColorLight, .cardColorDark]), startPoint: .top, endPoint: .bottom)
-                .frame(width: 360, height: 240)
-                .cornerRadius(15)
-                .shadow(color: .black.opacity(0.4), radius: 10, x: 0, y: 4)
+                       .frame(width: dynamicSize.width, height: dynamicSize.height)
+                       .cornerRadius(15)
+                       .shadow(color: .black.opacity(0.4), radius: 10, x: 0, y: 4)
 
             VStack {
                 HStack {
@@ -64,12 +70,15 @@ struct ThankYouCardView: View {
                         .font(.custom("Chillax", size: 12))
                     Spacer()
                     
-                  //  DynamicSizeLabel(text: message, maxSize: 16, minSize: 12, textColor: UIColor.white, textAlignment: .center, customFontName: "YourCustomFontName", maxWidth: 200)
-                    Text(message)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                        .font(.custom("Chillax", size: 14))
-                        .padding()
+                    DynamicSizeLabel(
+                                     text: message,
+                                     maxSize: 16, // Adjust as needed
+                                     textColor: UIColor.white,
+                                     textAlignment: .center,
+                                     customFontName: "Chillax",
+                                     maxWidth: 300 // Adjust this based on the card's width or desired text width
+                                 )
+
                     Spacer()
                     Text("/ \(senderName)")
                         .foregroundColor(.white)
@@ -92,10 +101,9 @@ struct ThankYouCardView: View {
                 }
             }
             .padding()
-            .frame(width: 360, height: 240)
         }
-        .frame(width: 360, height: 240)
-        .scaleEffect(scaleFactor)
+        .frame(width: dynamicSize.width, height: dynamicSize.height)
+             .scaleEffect(scaleFactor)
     }
 }
 
