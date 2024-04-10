@@ -4,7 +4,10 @@ import CoreData
 class ThankYouCardViewModel: ObservableObject {
     private let dataManager = DataManager.shared
     @Published var thankYouCards: [ThankYouCard] = []
-    
+    @Published var selectedTheme: String = "normal"
+    @Published var themes: [String] = ["normal", "lotus", "greenFlowers", "omSymbol"]
+    @Published var message: String = ""
+
     func createThankYouCard(message: String, writeDate: Date, user: User, receiver: Receiver, count: Int64, theme: String, completion: @escaping (Bool) -> Void) {
         let context = dataManager.container.viewContext
         let newCard = ThankYouCard(context: context)

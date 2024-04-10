@@ -68,7 +68,7 @@ struct AddNewMemberView: View {
                             keyboardIsShown = true
                         }
                     
-                    Text("Telephonenumber")
+                    Text("Phone number")
                         .font(.custom("Chillax", size: 14))
                         .foregroundColor(.white)
                     

@@ -14,11 +14,11 @@ struct ExplanationView: View {
                 .foregroundColor(.white)
             
             ZStack{
-                ThankYouCardView(scaleFactor: 0.3, message: "", senderName: "", receiverName: "", cardNumber: 1, date: Date())
+                ThankYouCardView(scaleFactor: 0.3, message: "", senderName: "", receiverName: "", cardNumber: 1, date: Date(), theme: "normal")
                     .rotationEffect(.degrees(-15))
                     .offset(x: -30)
-                ThankYouCardView(scaleFactor: 0.3, message: "", senderName: "", receiverName: "", cardNumber: 1, date: Date())
-                ThankYouCardView(scaleFactor: 0.3, message: "", senderName: "", receiverName: "", cardNumber: 1, date: Date())
+                ThankYouCardView(scaleFactor: 0.3, message: "", senderName: "", receiverName: "", cardNumber: 1, date: Date(), theme: "normal")
+                ThankYouCardView(scaleFactor: 0.3, message: "", senderName: "", receiverName: "", cardNumber: 1, date: Date(), theme: "normal")
                     .rotationEffect(.degrees(15))
                     .offset(x: 30)
             }

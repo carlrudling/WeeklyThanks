@@ -2,14 +2,13 @@
 import SwiftUI
 
 struct WriteMessageView: View {
-      @State private var message: String = ""
       @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
       @State private var showingMessageComposer = false
+      @State private var showChangeCardView = false
       @State private var recipients = [""]
       @State private var bodyImage: UIImage?
       @State private var keyboardIsShown: Bool = false
       @State private var presentedImage: IdentifiableImage?
-
       @EnvironmentObject var userViewModel: UserViewModel
       @EnvironmentObject var receiverViewModel: ReceiverViewModel
       @EnvironmentObject var thankYouCardViewModel : ThankYouCardViewModel
@@ -21,9 +20,9 @@ struct WriteMessageView: View {
     
     // Function to trim userInput to 30 words
         func trimText(to wordLimit: Int) {
-            let words = message.split { $0.isWhitespace }.map(String.init)
+            let words = thankYouCardViewModel.message.split { $0.isWhitespace }.map(String.init)
             if words.count > wordLimit {
-                message = words.prefix(wordLimit).joined(separator: " ")
+                thankYouCardViewModel.message = words.prefix(wordLimit).joined(separator: " ")
             }
         }
     
@@ -35,7 +34,7 @@ struct WriteMessageView: View {
         // Your dynamic size calculation logic based on the message
         // This is just a placeholder logic
         let lines = CGFloat((message.count / 50) + 1)
-        let height = max(240, lines * 20) // Calculate dynamically
+        let height = max(240, lines * 100) // Calculate dynamically
         let width = max(360, lines * 20)
 
         return CGSize(width: width, height: height)
@@ -47,7 +46,10 @@ struct WriteMessageView: View {
         let lines = CGFloat((message.count / 50) + 1)
         let height = 240 + lines * 20 // Calculate dynamically based on the number of lines
         let width = 360 + lines * 20 // Assuming you want to increase width in a similar fashion
-        return CGSize(width: width, height: height)
+        let size = CGSize(width: width, height: height)
+           print("Calculated Dynamic Size for Snapshot: \(size)")
+        
+           return size
     }
     
     
@@ -93,13 +95,21 @@ struct WriteMessageView: View {
                     .frame(width: 300, height: 300)
             }
             VStack {
-//                
-//                    ThankYouCardView(scaleFactor: 0.9, message: message, senderName: userViewModel.name, receiverName: receiverViewModel.name, cardNumber: userViewModel.count + 1, date: Date())
-//                        .padding(.bottom, 15)
-                ThankYouCardView(scaleFactor: 0.9, message: message, senderName: userViewModel.name, receiverName: receiverViewModel.name, cardNumber: userViewModel.count + 1, date: Date())
-                            .id(updateViewID) // Force redraw
-                            .frame(width: dynamicSize.width, height: dynamicSize.height)
-                            .padding(.bottom, 15)
+                 
+                    Button {
+                        self.showChangeCardView = true
+                    } label: {
+                        ZStack{
+                            ThankYouCardView(scaleFactor: 0.9, message: thankYouCardViewModel.message, senderName: userViewModel.name, receiverName: receiverViewModel.name, cardNumber: userViewModel.count + 1, date: Date(), theme: thankYouCardViewModel.selectedTheme)
+                                .id(updateViewID) // Force redraw
+                                .frame(width: dynamicSize.width, height: dynamicSize.height)
+                            
+                            Text("Press to change card")
+                                .foregroundColor(.white)
+                                .font(.custom("Chillax", size: 14))
+                                .opacity(thankYouCardViewModel.message == "" ? 1.0 : 0.0)
+                        }
+                    }
                 
                 
                 Text("To \(receiverViewModel.name)")
@@ -112,12 +122,12 @@ struct WriteMessageView: View {
                     .padding(.top, -10)
                 
                 ZStack {
-                    TextEditor(text: $message)
-                        .onChange(of: message) { newValue in
+                    TextEditor(text: $thankYouCardViewModel.message)
+                        .onChange(of: thankYouCardViewModel.message) { newValue in
                             if newValue.count > 150 { // Limit to 150 characters
-                                message = String(newValue.prefix(150))
+                                thankYouCardViewModel.message = String(newValue.prefix(150))
                             }
-                            self.dynamicSize = calculateDynamicSize(for: message)
+                            self.dynamicSize = calculateDynamicSize(for: thankYouCardViewModel.message)
                             self.updateViewID = UUID()
                         }
                         .font(.custom("Chillax", size: 16)) // Adjust font size dynamically
@@ -139,15 +149,15 @@ struct WriteMessageView: View {
                 .padding(.top, 10)
                 HStack{
                     Spacer()
-                    if message.count == 0 {
+                    if thankYouCardViewModel.message.count == 0 {
                         Text("Max 150 characters")
                             .foregroundColor(.white)
                             .font(.custom("Chillax", size: 14))
                             .padding(.trailing, 20)
                     } else {
                         HStack{
-                            Text("\(message.count)/150") // Show the current count out of the max characters allowed
-                                .foregroundColor(message.count == 150 ? .red : .white) // Change color to red if over 150 characters, otherwise white
+                            Text("\(thankYouCardViewModel.message.count)/150") // Show the current count out of the max characters allowed
+                                .foregroundColor(thankYouCardViewModel.message.count == 150 ? .red : .white) // Change color to red if over 150 characters, otherwise white
                                 .font(.custom("Chillax", size: 14))
                                 .padding(.trailing, 20)
                         }
@@ -168,28 +178,29 @@ struct WriteMessageView: View {
                 .padding(.top, 10)
                 
                 Spacer()
-                
 
-                
                 Button(action: {
                     
                     // Update dynamic size based on the current message
-                      self.sizeForScreenshot = self.calculateDynamicSizeForSnapshot(for: self.message)
+                    self.sizeForScreenshot = self.calculateDynamicSizeForSnapshot(for: self.thankYouCardViewModel.message)
+                    print("Size for Screenshot Before Capturing: \(self.sizeForScreenshot)")
 
                     // Prepare ThankYouCardView with the current state
                           let cardView = ThankYouCardView(
                               scaleFactor: 1.0,
-                              message: self.message,
+                              message: self.thankYouCardViewModel.message,
                               senderName: self.userViewModel.name,
                               receiverName: self.receiverViewModel.name,
                               cardNumber: self.userViewModel.count + 1,
-                              date: Date()
+                              date: Date(), theme: thankYouCardViewModel.selectedTheme
                           )
 
+                    
                           // Capture the snapshot using the updated dynamic size
                           let image = cardView.snapshot(with: self.sizeForScreenshot, scale: UIScreen.main.scale)
                           self.presentedImage = IdentifiableImage(image: image)
-                          
+                    print("Snapshot Captured with Size: \(image.size), Scale: \(image.scale)")
+
                           print("Snapshot captured with updated size: Width: \(self.sizeForScreenshot.width), Height: \(self.sizeForScreenshot.height)")
                       
 
@@ -248,11 +259,11 @@ struct WriteMessageView: View {
                     print("Message was sent successfully.")
                     if let user = self.userViewModel.currentUser, let receiver = self.receiverViewModel.currentReceiver {
                                  thankYouCardViewModel.createThankYouCard(
-                                     message: self.message,
+                                    message: self.thankYouCardViewModel.message,
                                      writeDate: Date(), // Current date
                                      user: user, // Safely unwrapped User
                                      receiver: receiver,
-                                     count: Int64(self.userViewModel.count + 1), theme: "normal",// Safely unwrapped Receiver
+                                    count: Int64(self.userViewModel.count + 1), theme: thankYouCardViewModel.selectedTheme,// Safely unwrapped Receiver
                                      completion: { success in
                                          // Handle success or failure
                                          if success {
@@ -269,6 +280,7 @@ struct WriteMessageView: View {
                                 self.userViewModel.incrementWeeklySentCount()
                                 self.userViewModel.updateLastSentCardDate()
                                  coordinator.push(.afterSentCard)
+                                self.thankYouCardViewModel.message = ""
                              } else {
                                  // Handle the case where user or receiver is nil
                                  print("User or Receiver is nil, cannot save the card.")
@@ -289,6 +301,11 @@ struct WriteMessageView: View {
             // Make sure to inject the necessary EnvironmentObjects or any other dependencies
             EditReceiverView().environmentObject(receiverViewModel)
         }
+        
+        .sheet(isPresented: $showChangeCardView) {
+            // Make sure to inject the necessary EnvironmentObjects or any other dependencies
+            ChangeCardThemeView()
+        }
 
 
 
@@ -297,30 +314,61 @@ struct WriteMessageView: View {
     
 }
 
+//extension View {
+//    func snapshot(with size: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage {
+//        let controller = UIHostingController(rootView: self)
+//        let view = controller.view
+//
+//        view?.bounds = CGRect(origin: .zero, size: size)
+//        view?.backgroundColor = .red
+//
+//        // Make sure the window is large enough to host your view
+//        let window = UIWindow(frame: CGRect(origin: .zero, size: size))
+//        window.rootViewController = controller
+//        window.isHidden = true
+//
+//        // Rendering the controller's view into an image
+//        let rendererFormat = UIGraphicsImageRendererFormat.default()
+//        rendererFormat.opaque = false
+//        rendererFormat.scale = scale
+//
+//        let renderer = UIGraphicsImageRenderer(size: size, format: rendererFormat)
+//        return renderer.image { _ in
+//            view?.drawHierarchy(in: CGRect(origin: CGPoint(x: 0, y: -20), size: size), afterScreenUpdates: true)
+//        }
+//    }
+//}
+
 extension View {
     func snapshot(with size: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage {
         let controller = UIHostingController(rootView: self)
-        let view = controller.view
+        controller.view.frame = CGRect(origin: .zero, size: size)
+        controller.view.backgroundColor = .clear
 
-        view?.bounds = CGRect(origin: .zero, size: size)
-        view?.backgroundColor = .clear
-
-        // Make sure the window is large enough to host your view
         let window = UIWindow(frame: CGRect(origin: .zero, size: size))
         window.rootViewController = controller
         window.isHidden = true
 
-        // Rendering the controller's view into an image
+        // Try to force the layout of all subviews immediately
+        controller.view.setNeedsLayout()
+        controller.view.layoutIfNeeded()
+        
         let rendererFormat = UIGraphicsImageRendererFormat.default()
         rendererFormat.opaque = false
         rendererFormat.scale = scale
 
         let renderer = UIGraphicsImageRenderer(size: size, format: rendererFormat)
-        return renderer.image { _ in
-            view?.drawHierarchy(in: CGRect(origin: .zero, size: size), afterScreenUpdates: true)
+        let image = renderer.image { _ in
+            let contextSize = controller.view.bounds.size
+            // Adjust the y-origin if necessary
+            let contextRect = CGRect(x: 0, y: -20, width: contextSize.width, height: contextSize.height + 20)
+            controller.view.drawHierarchy(in: contextRect, afterScreenUpdates: true)
         }
+
+        return image
     }
 }
+
 
 
 

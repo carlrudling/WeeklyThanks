@@ -1,18 +1,42 @@
-//
-//  ChangeCardThemeView.swift
-//  WeeklyThanks
-//
-//  Created by Carl Rudling on 2024-04-08.
-//
-
 import SwiftUI
 
+
 struct ChangeCardThemeView: View {
+    
+    @EnvironmentObject var thankYouCardViewModel : ThankYouCardViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var receiverViewModel: ReceiverViewModel
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            LinearGradient(gradient: Gradient(colors: [.backgroundLight, .backgroundDark]), startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+            
+            ScrollView(showsIndicators: false) {
+                LazyVStack {
+                    ForEach(thankYouCardViewModel.themes, id: \.self) { theme in
+                        ThankYouCardView(
+                            scaleFactor: 0.9,
+                            message: thankYouCardViewModel.message,
+                            senderName: userViewModel.name,
+                            receiverName: receiverViewModel.name,
+                            cardNumber: userViewModel.count + 1,
+                            date: Date(),
+                            theme: theme
+                            
+                        )
+                        .padding(.bottom, 15)
+                        .onTapGesture {
+                            // Set the selected theme when a card is tapped
+                            thankYouCardViewModel.selectedTheme = theme
+                            
+                        }
+                    }
+                }
+                .padding(.top)
+            }
+        }
     }
 }
-
 #Preview {
     ChangeCardThemeView()
 }

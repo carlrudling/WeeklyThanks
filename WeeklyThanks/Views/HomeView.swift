@@ -30,7 +30,7 @@ struct HomeView: View {
             
             HStack{
               
-                if userViewModel.count <= 2 {
+                if userViewModel.count == 1 {
                     Text("\(userViewModel.count) card sent")
                         .font(.custom("Chillax", size: 12))
                         .padding(.top, 5)

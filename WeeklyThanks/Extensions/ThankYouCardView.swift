@@ -7,7 +7,32 @@ struct ThankYouCardView: View {
     let receiverName: String
     let cardNumber: Int
     let date: Date
+    let theme: String
 
+    
+    // Computed property to decide the background based on theme
+    private var themeBackground: some View {
+        switch theme {
+        case "normal":
+            return AnyView(LinearGradient(gradient: Gradient(colors: [.cardColorLight, .cardColorDark]), startPoint: .top, endPoint: .bottom))
+        case "lotus":
+            // Ensure "starNight" is the exact name of your image asset
+            return AnyView(Image("lotus").resizable().scaledToFill())
+        case "greenFlowers":
+            // Ensure "starNight" is the exact name of your image asset
+            return AnyView(Image("greenFlowers").resizable().scaledToFill())
+        case "omSymbol":
+            // Ensure "starNight" is the exact name of your image asset
+            return AnyView(Image("omSymbol").resizable().scaledToFill())
+
+        default:
+            // Default background if no matching theme is found
+            return AnyView(LinearGradient(gradient: Gradient(colors: [.cardColorLight, .cardColorDark]), startPoint: .top, endPoint: .bottom))
+        }
+    }
+
+    
+    
     // Placeholder for dynamic size calculation
     private var dynamicSize: CGSize {
         // Base dimensions for the card
@@ -49,7 +74,7 @@ struct ThankYouCardView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [.cardColorLight, .cardColorDark]), startPoint: .top, endPoint: .bottom)
+                themeBackground
                        .frame(width: dynamicSize.width, height: dynamicSize.height)
                        .cornerRadius(15)
                        .shadow(color: .black.opacity(0.4), radius: 10, x: 0, y: 4)
@@ -120,6 +145,6 @@ extension UIView {
 
 struct ThankYouCardView_Previews: PreviewProvider {
     static var previews: some View {
-        ThankYouCardView(scaleFactor: 0.9, message: "Your message here", senderName: "Carl", receiverName: "Dad", cardNumber: 5, date: Date())
+        ThankYouCardView(scaleFactor: 0.9, message: "Your message here", senderName: "Carl", receiverName: "Dad", cardNumber: 5, date: Date(), theme: "normal")
     }
 }

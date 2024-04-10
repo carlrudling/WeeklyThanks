@@ -47,6 +47,7 @@
 		D39A27DE2BA48A6A00BFFED9 /* AfterSentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27DD2BA48A6A00BFFED9 /* AfterSentCardView.swift */; };
 		D39A27E02BA882EC00BFFED9 /* EditReceiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27DF2BA882EC00BFFED9 /* EditReceiverView.swift */; };
 		D39A27E22BA88EA300BFFED9 /* ThankYouCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27E12BA88EA300BFFED9 /* ThankYouCardViewModel.swift */; };
+		D3FAC5F72BC48666003CABB3 /* ChangeCardThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FAC5F62BC48666003CABB3 /* ChangeCardThemeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,7 @@
 		D39A27DD2BA48A6A00BFFED9 /* AfterSentCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterSentCardView.swift; sourceTree = "<group>"; };
 		D39A27DF2BA882EC00BFFED9 /* EditReceiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReceiverView.swift; sourceTree = "<group>"; };
 		D39A27E12BA88EA300BFFED9 /* ThankYouCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThankYouCardViewModel.swift; sourceTree = "<group>"; };
+		D3FAC5F62BC48666003CABB3 /* ChangeCardThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCardThemeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 				D351186A2B8BA0820013BDA0 /* ManuallyOrContactView.swift */,
 				D351186C2B8BA1EB0013BDA0 /* WriteMessageView.swift */,
 				D39A27DF2BA882EC00BFFED9 /* EditReceiverView.swift */,
+				D3FAC5F62BC48666003CABB3 /* ChangeCardThemeView.swift */,
 				D38076772B913650006484B2 /* HomeView.swift */,
 				D3883A422BB4CBE60039FD51 /* EditUserView.swift */,
 				D30446832BAB50D8008FDACB /* SentCardsListView.swift */,
@@ -324,6 +327,7 @@
 				D3883A372BB1D8170039FD51 /* ThankYouCard+CoreDataProperties.swift in Sources */,
 				D32C42A62B8942E2002FC0B9 /* AddNewMemberView.swift in Sources */,
 				D38CB7A12BB624D100EE16CE /* User+CoreDataProperties.swift in Sources */,
+				D3FAC5F72BC48666003CABB3 /* ChangeCardThemeView.swift in Sources */,
 				D32C42942B8935AF002FC0B9 /* WeeklyThanksApp.swift in Sources */,
 				D32C42A82B89F6F8002FC0B9 /* ThankYouCardView.swift in Sources */,
 				D3883A362BB1D8170039FD51 /* ThankYouCard+CoreDataClass.swift in Sources */,
@@ -465,6 +469,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeeklyThanks/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "WeeklyThanks: Gratitude & Relationship";
 				INFOPLIST_KEY_NSCameraUsageDescription = "\"Our app needs access to your camera to take photos to share.\"";
 				INFOPLIST_KEY_NSContactsUsageDescription = "\"This app requires access to your contacts to allow you to easily select people from your contact list.\"";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "\"Our app needs to save photo library to your photo library.\"";
@@ -504,6 +509,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeeklyThanks/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "WeeklyThanks: Gratitude & Relationship";
 				INFOPLIST_KEY_NSCameraUsageDescription = "\"Our app needs access to your camera to take photos to share.\"";
 				INFOPLIST_KEY_NSContactsUsageDescription = "\"This app requires access to your contacts to allow you to easily select people from your contact list.\"";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "\"Our app needs to save photo library to your photo library.\"";
