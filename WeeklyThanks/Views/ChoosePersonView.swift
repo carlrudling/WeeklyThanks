@@ -2,12 +2,15 @@ import SwiftUI
 
 struct ChoosePersonView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State private var receivers: [Receiver] = [] // Array to hold fetched receivers
+    @State var receivers: [Receiver] = [] // Array to hold fetched receivers
     @EnvironmentObject var coordinator: NavigationCoordinator
 
     private var dataManager = DataManager.shared // Accessing the shared instance
     @EnvironmentObject var receiverViewModel: ReceiverViewModel
     @State private var navigateToWriteMessage = false
+    
+    @State var navigateRemoveReceiverViev = false
+
 
     var body: some View {
         VStack {
@@ -16,14 +19,14 @@ struct ChoosePersonView: View {
                 .padding(.top, 35)
                 .foregroundColor(.white)
             
-            if receivers.isEmpty {
+            if receiverViewModel.receivers.isEmpty {
                 Text("No previous friends found.")
                     .padding()
                     .foregroundColor(.white)
                     .font(.custom("Chillax", size: 16))
             } else {
                 ScrollView(showsIndicators: false) {
-                    ForEach(receivers, id: \.self) { receiver in
+                    ForEach(receiverViewModel.receivers, id: \.self) { receiver in
                         Button(action: {
                             receiverViewModel.name = receiver.name ?? ""
                             receiverViewModel.telephoneNumber = receiver.telephoneNumber ?? ""
@@ -40,6 +43,17 @@ struct ChoosePersonView: View {
             } 
             
             Spacer()
+            
+//            Button {
+//                self.navigateRemoveReceiverViev = true
+//            } label: {
+//                Text("Edit friends")
+//                    .font(.custom("Chillax", size: 18))
+//                    .foregroundColor(.white)
+//                    .frame(width: 300, height: 50)
+//                    .background(RoundedRectangle(cornerRadius: 15).fill(Color.red.opacity(0.5)))
+//                    .padding(.bottom, 10)
+//            }
             
             
             Button {
@@ -61,7 +75,8 @@ struct ChoosePersonView: View {
         )
         .navigationBarBackButtonHidden(true)
         .onAppear {
-            self.receivers = dataManager.fetchReceivers()
+//            self.receivers = dataManager.fetchReceivers()
+            self.receiverViewModel.receivers = dataManager.fetchReceivers()
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -71,6 +86,18 @@ struct ChoosePersonView: View {
                         .padding(12)
                 }
             }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { navigateRemoveReceiverViev = true }) {
+                    Image(systemName: "pencil")
+                        .foregroundColor(.white)
+                        .padding(12)
+                }
+            }
+        }
+
+        .sheet(isPresented: $navigateRemoveReceiverViev) {
+            // Make sure to inject the necessary EnvironmentObjects or any other dependencies
+            RemoveReceiverView(isPresented: $navigateRemoveReceiverViev)
         }
     }
 }

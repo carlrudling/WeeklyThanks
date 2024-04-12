@@ -6,6 +6,9 @@ struct ChangeCardThemeView: View {
     @EnvironmentObject var thankYouCardViewModel : ThankYouCardViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var receiverViewModel: ReceiverViewModel
+    
+    @Binding var isPresented: Bool
+
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [.backgroundLight, .backgroundDark]), startPoint: .top, endPoint: .bottom)
@@ -28,7 +31,8 @@ struct ChangeCardThemeView: View {
                         .onTapGesture {
                             // Set the selected theme when a card is tapped
                             thankYouCardViewModel.selectedTheme = theme
-                            
+                            isPresented = false // <-- This will dismiss the view
+
                         }
                     }
                 }
@@ -37,6 +41,7 @@ struct ChangeCardThemeView: View {
         }
     }
 }
-#Preview {
-    ChangeCardThemeView()
-}
+//#Preview {
+//    
+//    ChangeCardThemeView(isPresented: bool)
+//}

@@ -44,6 +44,7 @@
 		D38CB7A12BB624D100EE16CE /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38CB79F2BB624D100EE16CE /* User+CoreDataProperties.swift */; };
 		D38CB7A32BB85D6000EE16CE /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38CB7A22BB85D6000EE16CE /* Launch Screen.storyboard */; };
 		D38CB7A72BB987ED00EE16CE /* ExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38CB7A62BB987ED00EE16CE /* ExplanationView.swift */; };
+		D3953DB62BC893550010312A /* RemoveReceiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3953DB52BC893550010312A /* RemoveReceiverView.swift */; };
 		D39A27DE2BA48A6A00BFFED9 /* AfterSentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27DD2BA48A6A00BFFED9 /* AfterSentCardView.swift */; };
 		D39A27E02BA882EC00BFFED9 /* EditReceiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27DF2BA882EC00BFFED9 /* EditReceiverView.swift */; };
 		D39A27E22BA88EA300BFFED9 /* ThankYouCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27E12BA88EA300BFFED9 /* ThankYouCardViewModel.swift */; };
@@ -90,6 +91,7 @@
 		D38CB79F2BB624D100EE16CE /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D38CB7A22BB85D6000EE16CE /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		D38CB7A62BB987ED00EE16CE /* ExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationView.swift; sourceTree = "<group>"; };
+		D3953DB52BC893550010312A /* RemoveReceiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveReceiverView.swift; sourceTree = "<group>"; };
 		D39A27DD2BA48A6A00BFFED9 /* AfterSentCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterSentCardView.swift; sourceTree = "<group>"; };
 		D39A27DF2BA882EC00BFFED9 /* EditReceiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReceiverView.swift; sourceTree = "<group>"; };
 		D39A27E12BA88EA300BFFED9 /* ThankYouCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThankYouCardViewModel.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			children = (
 				D380767D2B913FCE006484B2 /* Start */,
 				D32C42A32B893FB1002FC0B9 /* ChoosePersonView.swift */,
+				D3953DB52BC893550010312A /* RemoveReceiverView.swift */,
 				D32C42A52B8942E2002FC0B9 /* AddNewMemberView.swift */,
 				D351186A2B8BA0820013BDA0 /* ManuallyOrContactView.swift */,
 				D351186C2B8BA1EB0013BDA0 /* WriteMessageView.swift */,
@@ -306,6 +309,7 @@
 				D3000E612B9A550E00CF4CE8 /* ReceiverViewModel.swift in Sources */,
 				D3883A432BB4CBE60039FD51 /* EditUserView.swift in Sources */,
 				D32C42A42B893FB1002FC0B9 /* ChoosePersonView.swift in Sources */,
+				D3953DB62BC893550010312A /* RemoveReceiverView.swift in Sources */,
 				D380767C2B913FC7006484B2 /* AddNameView.swift in Sources */,
 				D32C42962B8935AF002FC0B9 /* ContentView.swift in Sources */,
 				D39A27DE2BA48A6A00BFFED9 /* AfterSentCardView.swift in Sources */,

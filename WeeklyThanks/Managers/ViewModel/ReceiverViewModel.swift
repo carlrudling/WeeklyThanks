@@ -22,18 +22,40 @@ class ReceiverViewModel: ObservableObject {
 
 
     // Create a new receiver entity in CoreData
+//    func createReceiver(name: String, telephoneNumber: String) {
+//        dataManager.createReceiver(name: name, telephoneNumber: telephoneNumber) { [weak self] success, newReceiverId in
+//            if success, let newId = newReceiverId {
+//                // If creation is successful, re-fetch receivers to update UI and set the current receiver
+//                self?.fetchReceivers {
+//                    self?.setCurrentReceiver(by: newId)
+//                }
+//            } else {
+//                print("Failed to create new receiver")
+//            }
+//        }
+//    }
+    
     func createReceiver(name: String, telephoneNumber: String) {
-        dataManager.createReceiver(name: name, telephoneNumber: telephoneNumber) { [weak self] success, newReceiverId in
-            if success, let newId = newReceiverId {
-                // If creation is successful, re-fetch receivers to update UI and set the current receiver
-                self?.fetchReceivers {
-                    self?.setCurrentReceiver(by: newId)
+        // Check if a receiver with the given telephone number already exists
+        if let existingReceiver = receivers.first(where: { $0.telephoneNumber == telephoneNumber }) {
+            // Receiver exists, set as current receiver and do not create a new one
+            print("Receiver with telephone number \(telephoneNumber) already exists.")
+            setCurrentReceiver(by: existingReceiver.id ?? UUID())
+        } else {
+            // Receiver does not exist, proceed with creation
+            dataManager.createReceiver(name: name, telephoneNumber: telephoneNumber) { [weak self] success, newReceiverId in
+                if success, let newId = newReceiverId {
+                    // If creation is successful, re-fetch receivers to update UI and set the current receiver
+                    self?.fetchReceivers {
+                        self?.setCurrentReceiver(by: newId)
+                    }
+                } else {
+                    print("Failed to create new receiver")
                 }
-            } else {
-                print("Failed to create new receiver")
             }
         }
     }
+
 
     
     func setCurrentReceiver(by id: UUID) {

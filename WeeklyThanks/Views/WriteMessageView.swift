@@ -34,7 +34,7 @@ struct WriteMessageView: View {
         // Your dynamic size calculation logic based on the message
         // This is just a placeholder logic
         let lines = CGFloat((message.count / 50) + 1)
-        let height = max(240, lines * 100) // Calculate dynamically
+        let height = max(240, lines * 20) // Calculate dynamically
         let width = max(360, lines * 20)
 
         return CGSize(width: width, height: height)
@@ -103,6 +103,7 @@ struct WriteMessageView: View {
                             ThankYouCardView(scaleFactor: 0.9, message: thankYouCardViewModel.message, senderName: userViewModel.name, receiverName: receiverViewModel.name, cardNumber: userViewModel.count + 1, date: Date(), theme: thankYouCardViewModel.selectedTheme)
                                 .id(updateViewID) // Force redraw
                                 .frame(width: dynamicSize.width, height: dynamicSize.height)
+                                .padding(.top, 10)
                             
                             Text("Press to change card")
                                 .foregroundColor(.white)
@@ -304,7 +305,7 @@ struct WriteMessageView: View {
         
         .sheet(isPresented: $showChangeCardView) {
             // Make sure to inject the necessary EnvironmentObjects or any other dependencies
-            ChangeCardThemeView()
+            ChangeCardThemeView(isPresented: $showChangeCardView)
         }
 
 
