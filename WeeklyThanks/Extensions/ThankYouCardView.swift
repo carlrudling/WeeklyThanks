@@ -40,10 +40,10 @@ struct ThankYouCardView: View {
         let baseHeight: CGFloat = 240
         let extraHeightPerLine: CGFloat = 10
         let extraWidthPerLine: CGFloat = 10
-        let maxWidth: CGFloat = 480 // Maximum width you want for a card
         
         // Estimate lines based on message length. This is simplistic; adjust based on your content and font size
-        let estimatedLines = CGFloat(message.count) / 50 // Example: assuming roughly 50 characters per line
+        
+        let estimatedLines = CGFloat((message.count / 50) + 1) // Example: assuming roughly 50 characters per line
         let dynamicHeight = baseHeight + (estimatedLines * extraHeightPerLine)
         
         let dynamicWidth = baseWidth + (estimatedLines * extraWidthPerLine)
@@ -128,7 +128,7 @@ struct ThankYouCardView: View {
             .padding()
         }
         .frame(width: dynamicSize.width, height: dynamicSize.height)
-             .scaleEffect(scaleFactor)
+        .scaleEffect(scaleFactor)
     }
 }
 

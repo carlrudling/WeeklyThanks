@@ -44,8 +44,8 @@ struct WriteMessageView: View {
         // Your dynamic size calculation logic based on the message
         // This is just a placeholder logic
         let lines = CGFloat((message.count / 50) + 1)
-        let height = 240 + lines * 20 // Calculate dynamically based on the number of lines
-        let width = 360 + lines * 20 // Assuming you want to increase width in a similar fashion
+        let height = 240 + 24 + lines * 10 // Calculate dynamically based on the number of lines
+        let width = 360 + 36 + lines * 10 // Assuming you want to increase width in a similar fashion
         let size = CGSize(width: width, height: height)
            print("Calculated Dynamic Size for Snapshot: \(size)")
         
@@ -251,6 +251,9 @@ struct WriteMessageView: View {
         .onAppear {
             refreshData()
         }
+        .onDisappear{
+            thankYouCardViewModel.message = ""
+        }
 
     .sheet(item: $presentedImage, onDismiss: {
             print("Sheet dismissed.")
@@ -315,60 +318,41 @@ struct WriteMessageView: View {
     
 }
 
-//extension View {
-//    func snapshot(with size: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage {
-//        let controller = UIHostingController(rootView: self)
-//        let view = controller.view
-//
-//        view?.bounds = CGRect(origin: .zero, size: size)
-//        view?.backgroundColor = .red
-//
-//        // Make sure the window is large enough to host your view
-//        let window = UIWindow(frame: CGRect(origin: .zero, size: size))
-//        window.rootViewController = controller
-//        window.isHidden = true
-//
-//        // Rendering the controller's view into an image
-//        let rendererFormat = UIGraphicsImageRendererFormat.default()
-//        rendererFormat.opaque = false
-//        rendererFormat.scale = scale
-//
-//        let renderer = UIGraphicsImageRenderer(size: size, format: rendererFormat)
-//        return renderer.image { _ in
-//            view?.drawHierarchy(in: CGRect(origin: CGPoint(x: 0, y: -20), size: size), afterScreenUpdates: true)
-//        }
-//    }
-//}
 
 extension View {
     func snapshot(with size: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage {
-        let controller = UIHostingController(rootView: self)
+        let controller = UIHostingController(rootView: self.edgesIgnoringSafeArea(.all))
         controller.view.frame = CGRect(origin: .zero, size: size)
-        controller.view.backgroundColor = .clear
+        controller.view.backgroundColor = .clear // Set to clear to avoid unwanted backgrounds
 
         let window = UIWindow(frame: CGRect(origin: .zero, size: size))
         window.rootViewController = controller
         window.isHidden = true
 
-        // Try to force the layout of all subviews immediately
+        // Ensure the view is fully laid out
         controller.view.setNeedsLayout()
         controller.view.layoutIfNeeded()
-        
+
         let rendererFormat = UIGraphicsImageRendererFormat.default()
         rendererFormat.opaque = false
         rendererFormat.scale = scale
 
         let renderer = UIGraphicsImageRenderer(size: size, format: rendererFormat)
-        let image = renderer.image { _ in
-            let contextSize = controller.view.bounds.size
-            // Adjust the y-origin if necessary
-            let contextRect = CGRect(x: 0, y: -20, width: contextSize.width, height: contextSize.height + 20)
-            controller.view.drawHierarchy(in: contextRect, afterScreenUpdates: true)
+        let image = renderer.image { context in
+            // Simplified origin calculation for true centering
+            let xOffset = (size.width - controller.view.bounds.width) / 2
+            let yOffset = (size.height - controller.view.bounds.height) / 2
+            let origin = CGPoint(x: xOffset, y: yOffset)
+
+            // Draw the view hierarchy into the context at the calculated origin
+            controller.view.drawHierarchy(in: CGRect(origin: origin, size: controller.view.bounds.size), afterScreenUpdates: true)
         }
 
         return image
     }
 }
+
+
 
 
 
