@@ -2,7 +2,7 @@
 //  ThankYouCard+CoreDataClass.swift
 //  WeeklyThanks
 //
-//  Created by Carl Rudling on 2024-03-25.
+//  Created by Carl Rudling on 2024-04-18.
 //
 //
 
