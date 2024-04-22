@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import CoreData
 
 class UserViewModel: ObservableObject {
@@ -13,7 +14,10 @@ class UserViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var userExists: Bool = false
     @Published var lastSentCard = Date()
+    @Published var profileImage: UIImage?
+    @Published var selfSentCardCount: Int = 0
 
+    
     init() {
         fetchCurrentUser()
     }
@@ -22,6 +26,21 @@ class UserViewModel: ObservableObject {
             let users = DataManager.shared.fetchUsers()
             userExists = !users.isEmpty
         }
+    
+    var hasProfileImage: Bool {
+          return profileImage != nil
+      }
+    
+    func incrementSelfCardCount() {
+          guard let user = currentUser else { return }
+
+          // Increment the message count
+          user.selfSentCardCount += 1
+          self.selfSentCardCount += 1 // Update the published property as well
+          
+          // Save changes
+          dataManager.saveContext()
+      }
     
     func incrementMessageCount() {
           guard let user = currentUser else { return }
@@ -84,21 +103,48 @@ class UserViewModel: ObservableObject {
             self.email = firstUser.email ?? ""
             self.password = firstUser.password ?? ""
             self.sendCardGoal = Int(firstUser.sendCardGoal)
+            self.goalWeekStrike = Int(firstUser.goalWeekStrike)
             self.sentCardsThisWeek = Int(firstUser.sentCardsThisWeek)
             self.lastSentCard = firstUser.lastSentCard ?? Date()
+            self.selfSentCardCount = Int(firstUser.selfSentCardCount)
+
+            // Updating the profile image if it exists in Core Data
+            if let imageData = firstUser.profileImage as Data? {
+                self.profileImage = UIImage(data: imageData)
+            } else {
+                self.profileImage = nil
+            }
+        } else {
+            // Reset or handle the case where no user is found
+            userExists = false
         }
     }
+
     
     func createUser(name: String, sendCardGoal: Int) {
         dataManager.createUser(name: name, email: self.email, password: self.password, count: 0, sendCardGoal: sendCardGoal, goalWeekStrike: 0, sentCardsThisWeek: 0, lastSentCard: Date()) { success in
             if success {
                 DispatchQueue.main.async {
-                    // Update ViewModel state as needed
-                    self.fetchCurrentUser() // This will fetch the new user and update the ViewModel
+                    self.fetchCurrentUser() // Refresh the user info
                     self.userExists = true
                 }
             }
         }
+    }
+
+
+
+
+    func saveProfileImage() {
+        guard let user = currentUser, let imageData = profileImage?.jpegData(compressionQuality: 0.5) else { return }
+        user.profileImage = imageData
+        dataManager.saveContext()
+    }
+
+
+    func loadProfileImage() {
+        guard let imageData = currentUser?.profileImage else { return }
+        self.profileImage = UIImage(data: imageData)
     }
 
 

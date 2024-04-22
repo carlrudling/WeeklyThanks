@@ -4,7 +4,6 @@ import SwiftUI
 struct WriteMessageView: View {
       @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
       @State private var showingMessageComposer = false
-      @State private var showChangeCardView = false
       @State private var recipients = [""]
       @State private var bodyImage: UIImage?
       @State private var keyboardIsShown: Bool = false
@@ -52,9 +51,7 @@ struct WriteMessageView: View {
            return size
     }
     
-    
-    
-    
+  
     private func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
@@ -95,22 +92,13 @@ struct WriteMessageView: View {
                     .frame(width: 300, height: 300)
             }
             VStack {
-                 
-                    Button {
-                        self.showChangeCardView = true
-                    } label: {
-                        ZStack{
-                            ThankYouCardView(scaleFactor: 0.9, message: thankYouCardViewModel.message, senderName: userViewModel.name, receiverName: receiverViewModel.name, cardNumber: userViewModel.count + 1, date: Date(), theme: thankYouCardViewModel.selectedTheme)
-                                .id(updateViewID) // Force redraw
-                                .frame(width: dynamicSize.width, height: dynamicSize.height)
-                                .padding(.top, 10)
-                            
-                            Text("Press to change card")
-                                .foregroundColor(.white)
-                                .font(.custom("Chillax", size: 14))
-                                .opacity(thankYouCardViewModel.message == "" ? 1.0 : 0.0)
-                        }
-                    }
+                ThankYouCardView(scaleFactor: 0.9, message: thankYouCardViewModel.message, senderName: userViewModel.name, receiverName: receiverViewModel.name, cardNumber: userViewModel.count + 1, date: Date(), theme: thankYouCardViewModel.selectedTheme)
+                    .id(updateViewID) // Force redraw
+                    .frame(width: dynamicSize.width, height: dynamicSize.height)
+                    .padding(.vertical, 10)
+                
+                
+                
                 
                 
                 Text("To \(receiverViewModel.name)")
@@ -164,12 +152,12 @@ struct WriteMessageView: View {
                         }
                     }
                 }
-
+                
                 
                 VStack{
-                        Text("/ \(userViewModel.name)")
-                            .foregroundColor(.white)
-                            .font(.custom("Chillax", size: 14))
+                    Text("/ \(userViewModel.name)")
+                        .foregroundColor(.white)
+                        .font(.custom("Chillax", size: 14))
                     Rectangle()
                         .frame(height: 1) // Make the rectangle thin, like a line
                         .foregroundColor(.white) // Set the line color
@@ -179,51 +167,29 @@ struct WriteMessageView: View {
                 .padding(.top, 10)
                 
                 Spacer()
-
+                
                 Button(action: {
                     
-                    // Update dynamic size based on the current message
-                    self.sizeForScreenshot = self.calculateDynamicSizeForSnapshot(for: self.thankYouCardViewModel.message)
-                    print("Size for Screenshot Before Capturing: \(self.sizeForScreenshot)")
-
-                    // Prepare ThankYouCardView with the current state
-                          let cardView = ThankYouCardView(
-                              scaleFactor: 1.0,
-                              message: self.thankYouCardViewModel.message,
-                              senderName: self.userViewModel.name,
-                              receiverName: self.receiverViewModel.name,
-                              cardNumber: self.userViewModel.count + 1,
-                              date: Date(), theme: thankYouCardViewModel.selectedTheme
-                          )
-
+                    coordinator.push(.chooseSendDesign)
                     
-                          // Capture the snapshot using the updated dynamic size
-                          let image = cardView.snapshot(with: self.sizeForScreenshot, scale: UIScreen.main.scale)
-                          self.presentedImage = IdentifiableImage(image: image)
-                    print("Snapshot Captured with Size: \(image.size), Scale: \(image.scale)")
-
-                          print("Snapshot captured with updated size: Width: \(self.sizeForScreenshot.width), Height: \(self.sizeForScreenshot.height)")
-                      
-
                 }) {
                     HStack {
-                        Image(systemName: "paperplane") // Replace with your icon
+                        Image(systemName: "chevron.forward") // Replace with your icon
                             .foregroundColor(.clear)
                         Spacer()
-                        Text("Send")
+                        Text("Choose card design")
                             .font(.custom("Chillax", size: 18))
                             .foregroundColor(.white)
                         Spacer()
-                        Image(systemName: "paperplane") // Replace with your icon
+                        Image(systemName: "chevron.forward") // Replace with your icon
                             .foregroundColor(.white)
                     }
                     .padding() // Apply padding inside the HStack to ensure space around text and icon
                     .frame(width: 250, height: 40)
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.cardColorDark))
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.backgroundDarkBlue))
                 }
                 .padding(.bottom, 20)
             }
-
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity) // Expand VStack to fill the screen
       
@@ -234,7 +200,7 @@ struct WriteMessageView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
+                Button(action: { self.presentationMode.wrappedValue.dismiss(); thankYouCardViewModel.message = "" }) {
                     Image(systemName: "chevron.backward")
                         .foregroundColor(.white)
                         .padding(12)
@@ -251,52 +217,7 @@ struct WriteMessageView: View {
         .onAppear {
             refreshData()
         }
-        .onDisappear{
-            thankYouCardViewModel.message = ""
-        }
-
-    .sheet(item: $presentedImage, onDismiss: {
-            print("Sheet dismissed.")
-        }) { identifiableImage in
-            MessageComposerView(recipients: recipients, bodyImage: identifiableImage.image) { messageSent in
-                if messageSent {
-                    print("Message was sent successfully.")
-                    if let user = self.userViewModel.currentUser, let receiver = self.receiverViewModel.currentReceiver {
-                                 thankYouCardViewModel.createThankYouCard(
-                                    message: self.thankYouCardViewModel.message,
-                                     writeDate: Date(), // Current date
-                                     user: user, // Safely unwrapped User
-                                     receiver: receiver,
-                                    count: Int64(self.userViewModel.count + 1), theme: thankYouCardViewModel.selectedTheme,// Safely unwrapped Receiver
-                                     completion: { success in
-                                         // Handle success or failure
-                                         if success {
-                                             print("Card saved successfully")
-                                             // Perform additional actions, like navigating away or showing a success message
-                                        
-                                         } else {
-                                             print("Failed to save the card")
-                                             // Handle failure, such as showing an error message
-                                         }
-                                     }
-                                 )
-                                self.userViewModel.incrementMessageCount()
-                                self.userViewModel.incrementWeeklySentCount()
-                                self.userViewModel.updateLastSentCardDate()
-                                 coordinator.push(.afterSentCard)
-                                self.thankYouCardViewModel.message = ""
-                             } else {
-                                 // Handle the case where user or receiver is nil
-                                 print("User or Receiver is nil, cannot save the card.")
-                             }
-                         } else {
-                             print("Message was not sent.")
-                         }
-                         // Reset the presentedImage to dismiss the sheet
-                         self.presentedImage = nil
-                     }
-                 }
-
+        
         .sheet(isPresented: $showingEditReceiverView, onDismiss: {
             // Actions to perform after the sheet is dismissed
             // For example, refresh data in your receiverViewModel or perform UI updates
@@ -306,10 +227,6 @@ struct WriteMessageView: View {
             EditReceiverView().environmentObject(receiverViewModel)
         }
         
-        .sheet(isPresented: $showChangeCardView) {
-            // Make sure to inject the necessary EnvironmentObjects or any other dependencies
-            ChangeCardThemeView(isPresented: $showChangeCardView)
-        }
 
 
 
@@ -317,43 +234,6 @@ struct WriteMessageView: View {
     }
     
 }
-
-
-extension View {
-    func snapshot(with size: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage {
-        let controller = UIHostingController(rootView: self.edgesIgnoringSafeArea(.all))
-        controller.view.frame = CGRect(origin: .zero, size: size)
-        controller.view.backgroundColor = .clear // Set to clear to avoid unwanted backgrounds
-
-        let window = UIWindow(frame: CGRect(origin: .zero, size: size))
-        window.rootViewController = controller
-        window.isHidden = true
-
-        // Ensure the view is fully laid out
-        controller.view.setNeedsLayout()
-        controller.view.layoutIfNeeded()
-
-        let rendererFormat = UIGraphicsImageRendererFormat.default()
-        rendererFormat.opaque = false
-        rendererFormat.scale = scale
-
-        let renderer = UIGraphicsImageRenderer(size: size, format: rendererFormat)
-        let image = renderer.image { context in
-            // Simplified origin calculation for true centering
-            let xOffset = (size.width - controller.view.bounds.width) / 2
-            let yOffset = (size.height - controller.view.bounds.height) / 2
-            let origin = CGPoint(x: xOffset, y: yOffset)
-
-            // Draw the view hierarchy into the context at the calculated origin
-            controller.view.drawHierarchy(in: CGRect(origin: origin, size: controller.view.bounds.size), afterScreenUpdates: true)
-        }
-
-        return image
-    }
-}
-
-
-
 
 
 
@@ -365,7 +245,4 @@ struct WriteMessageView_Previews: PreviewProvider {
 }
 
 
-struct IdentifiableImage: Identifiable {
-    let id = UUID() // Provide a unique ID
-    var image: UIImage
-}
+

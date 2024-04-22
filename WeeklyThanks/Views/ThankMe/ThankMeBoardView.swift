@@ -4,18 +4,20 @@ import SwiftUI
 struct ThankMeBoardView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var coordinator: NavigationCoordinator
-
+    @EnvironmentObject var userViewModel: UserViewModel
 
     @State private var textOpacity = 0.0
     @State private var textOffset = 20.0
     
     var body: some View {
         VStack{
-            Text("Thank me board")
+            Text("Thank Me Board")
                 .font(.custom("LeckerliOne-regular", size: 28))
                 .padding(.top, 35)
                 .foregroundColor(.white)
-            Text("Start a habit to thank yourself and build a thank me board filled with self appreciation")
+            
+        
+            Text("Start a habit to thank yourself and build a thank me board filled with self-appreciation.")
                 .font(.custom("Chillax", size: 16))
                 .padding(.horizontal, 40)
                 .padding(.top, 30)
@@ -34,23 +36,35 @@ struct ThankMeBoardView: View {
             Spacer()
             
             Button {
-                coordinator.push(.writeThankMe) // Navigate to the details screen
+                if userViewModel.hasProfileImage {
+                              coordinator.push(.writeThankMe) // Navigate to writing a thank-you card
+                          } else {
+                              coordinator.push(.addProfileImage) // Navigate to add a profile image
+                          }
 
             } label: {
-                Text("write a card")
-                    .font(.custom("Chillax", size: 18))
-                    .foregroundColor(.gray)
+                HStack{
+                    Image(systemName: "pencil")
+                        .font(.custom("Chillax", size: 18))
+                        .foregroundColor(.clear)
+                    Text("write a card")
+                        .font(.custom("Chillax", size: 18))
+                        .foregroundColor(.gray)
+                    Image(systemName: "pencil")
+                        .font(.custom("Chillax", size: 18))
+                        .foregroundColor(.gray)
+                }
                     .frame(width: 300, height: 50)
                     .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
                     .padding(.bottom, 40)
             }
-            
+
             
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
-            LinearGradient(gradient: Gradient(colors: [.backgroundLight, .backgroundDark]), startPoint: .top, endPoint: .bottom)
+            LinearGradient(gradient: Gradient(colors: [.backgroundDarkBlue, .backgroundLightBlue]), startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
         )
         .navigationBarBackButtonHidden(true)

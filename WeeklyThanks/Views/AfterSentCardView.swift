@@ -1,5 +1,6 @@
 
 import SwiftUI
+import StoreKit
 
 
 
@@ -129,10 +130,15 @@ struct AfterSentCardView: View {
             UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
                 print("Pending notification requests: \(requests)")
             }
-            if userViewModel.sentCardsThisWeek >= userViewModel.sendCardGoal {
+            if userViewModel.sentCardsThisWeek == userViewModel.sendCardGoal {
                            // Call the notification method
                            NotificationManager.shared.congratulateForReachingGoal()
                        }
+            if userViewModel.count == 3 || userViewModel.count == 15 {
+                if let windowScene = UIApplication.shared.windows.first?.windowScene {
+                          SKStoreReviewController.requestReview(in: windowScene)
+                      }
+            }
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {

@@ -24,7 +24,7 @@ class DataManager {
     // MARK: ThankYouCard CRUD Operations
 
     
-    func createThankYouCard(message: String, writeDate: Date, user: User, receiver: Receiver, count: Int64, theme: String, completion: @escaping (Bool) -> Void) {
+    func createThankYouCard(message: String, writeDate: Date, user: User, receiver: Receiver, count: Int64, theme: String, sentToSelf: Bool, completion: @escaping (Bool) -> Void) {
         let context = container.viewContext
         let newCard = ThankYouCard(context: context)
         newCard.id = UUID()
@@ -34,6 +34,7 @@ class DataManager {
         newCard.receiver = receiver
         newCard.count = count // Set the count attribute
         newCard.theme = theme
+        newCard.sentToSelf = sentToSelf
 
         do {
             try context.save()
@@ -46,10 +47,18 @@ class DataManager {
 
 
     
-    func fetchThankYouCards() -> [ThankYouCard] {
+    func fetchThankYouCardsSentToSelf() -> [ThankYouCard] {
+        return fetchThankYouCards(with: NSPredicate(format: "sentToSelf == YES"))
+    }
+
+    func fetchThankYouCardsNotSentToSelf() -> [ThankYouCard] {
+        return fetchThankYouCards(with: NSPredicate(format: "sentToSelf == NO || sentToSelf == nil"))
+    }
+
+    private func fetchThankYouCards(with predicate: NSPredicate) -> [ThankYouCard] {
         let request: NSFetchRequest<ThankYouCard> = ThankYouCard.fetchRequest()
-        // If sorting by date, ensure your cards have a 'writeDate' attribute.
-        let sortDescriptor = NSSortDescriptor(key: "writeDate", ascending: false) // Sort in descending order so latest cards appear first
+        request.predicate = predicate
+        let sortDescriptor = NSSortDescriptor(key: "writeDate", ascending: false)
         request.sortDescriptors = [sortDescriptor]
 
         let context = container.viewContext
@@ -90,20 +99,22 @@ class DataManager {
     // MARK: User CRUD Operations
 
     // In DataManager
-    func createUser(name: String, email: String, password: String, count: Int, sendCardGoal: Int, goalWeekStrike: Int, sentCardsThisWeek: Int, lastSentCard: Date, completion: @escaping (Bool) -> Void) {
-        // Your implementation to create a user and handle the count
-        // For simplicity, we'll assume your CoreData User entity has a `count` attribute to store this value
+    func createUser(name: String, email: String, password: String, count: Int, sendCardGoal: Int, goalWeekStrike: Int, sentCardsThisWeek: Int, lastSentCard: Date, selfSentCardCount: Int = 0, profileImage: UIImage? = nil, completion: @escaping (Bool) -> Void) {
         let newUser = User(context: container.viewContext)
         newUser.id = UUID()
         newUser.name = name
         newUser.email = email
         newUser.password = password
-        newUser.count = Int64(count) // Assuming `count` is stored as Int64 in CoreData
+        newUser.count = Int64(count)
         newUser.sendCardGoal = Int64(sendCardGoal)
         newUser.goalWeekStrike = Int64(goalWeekStrike)
         newUser.sentCardsThisWeek = Int64(sentCardsThisWeek)
-        newUser.lastSentCard = Date()
-        
+        newUser.lastSentCard = lastSentCard
+        newUser.selfSentCardCount = Int64(selfSentCardCount)  // Assuming Core Data uses Int64 for counts
+        if let image = profileImage {
+            newUser.profileImage = image.jpegData(compressionQuality: 0.5)
+        }
+
         do {
             try container.viewContext.save()
             completion(true)
@@ -112,6 +123,7 @@ class DataManager {
             completion(false)
         }
     }
+
 
 
     func fetchUsers() -> [User] {
@@ -125,10 +137,19 @@ class DataManager {
         }
     }
 
-    func updateUser(_ user: User, withName name: String, email: String, password: String) {
-        user.name = name
-        user.email = email
-        user.password = password
+    func updateUser(_ user: User, withName name: String?, email: String?, password: String?, profileImage: UIImage?) {
+        if let name = name {
+            user.name = name
+        }
+        if let email = email {
+            user.email = email
+        }
+        if let password = password {
+            user.password = password
+        }
+        if let profileImage = profileImage {
+            user.profileImage = profileImage.jpegData(compressionQuality: 0.5) // Adjust compression quality as needed
+        }
         
         do {
             try container.viewContext.save()
@@ -136,6 +157,7 @@ class DataManager {
             print("Error updating User: \(error)")
         }
     }
+
 
     func deleteUser(_ user: User) {
         container.viewContext.delete(user)

@@ -21,6 +21,12 @@ struct ThankYouCardView: View {
         case "greenFlowers":
             // Ensure "starNight" is the exact name of your image asset
             return AnyView(Image("greenFlowers").resizable().scaledToFill())
+        case "redHearts":
+            // Ensure "starNight" is the exact name of your image asset
+            return AnyView(Image("redHearts").resizable().scaledToFill())
+        case "lotusStones":
+            // Ensure "starNight" is the exact name of your image asset
+            return AnyView(Image("lotusStones").resizable().scaledToFill())
         case "omSymbol":
             // Ensure "starNight" is the exact name of your image asset
             return AnyView(Image("omSymbol").resizable().scaledToFill())

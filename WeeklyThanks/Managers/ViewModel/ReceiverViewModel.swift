@@ -20,20 +20,6 @@ class ReceiverViewModel: ObservableObject {
         completion?()
     }
 
-
-    // Create a new receiver entity in CoreData
-//    func createReceiver(name: String, telephoneNumber: String) {
-//        dataManager.createReceiver(name: name, telephoneNumber: telephoneNumber) { [weak self] success, newReceiverId in
-//            if success, let newId = newReceiverId {
-//                // If creation is successful, re-fetch receivers to update UI and set the current receiver
-//                self?.fetchReceivers {
-//                    self?.setCurrentReceiver(by: newId)
-//                }
-//            } else {
-//                print("Failed to create new receiver")
-//            }
-//        }
-//    }
     
     func createReceiver(name: String, telephoneNumber: String) {
         // Check if a receiver with the given telephone number already exists

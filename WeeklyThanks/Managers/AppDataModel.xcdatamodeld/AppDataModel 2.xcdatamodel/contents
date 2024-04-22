@@ -11,6 +11,7 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="message" optional="YES" attributeType="String"/>
         <attribute name="sent" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="sentToSelf" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="theme" optional="YES" attributeType="String"/>
         <attribute name="writeDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="receiver" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Receiver" inverseName="thankYouCards" inverseEntity="Receiver"/>
@@ -24,6 +25,8 @@
         <attribute name="lastSentCard" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="password" optional="YES" attributeType="String"/>
+        <attribute name="profileImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="selfSentCardCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sendCardGoal" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sentCardsThisWeek" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="thankYouCards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ThankYouCard" inverseName="user" inverseEntity="ThankYouCard"/>

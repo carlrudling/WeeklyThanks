@@ -29,26 +29,32 @@
 		D351186F2B8D3B4F0013BDA0 /* DynamicSizeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D351186E2B8D3B4F0013BDA0 /* DynamicSizeLabel.swift */; };
 		D35118762B9119870013BDA0 /* AppDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D35118742B9119870013BDA0 /* AppDataModel.xcdatamodeld */; };
 		D35118912B912EC80013BDA0 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35118902B912EC80013BDA0 /* DataManager.swift */; };
+		D362381C2BCFCDE300574EBB /* SendFirstCardScreen1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D362381B2BCFCDE300574EBB /* SendFirstCardScreen1View.swift */; };
+		D36238202BCFD40100574EBB /* ThankMeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D362381F2BCFD40000574EBB /* ThankMeBoardView.swift */; };
+		D36238222BCFDD9700574EBB /* WriteThankMeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36238212BCFDD9700574EBB /* WriteThankMeCardView.swift */; };
+		D36238242BCFE48B00574EBB /* ChooseCardDesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36238232BCFE48B00574EBB /* ChooseCardDesignView.swift */; };
+		D36238282BD116B000574EBB /* AddImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36238272BD116B000574EBB /* AddImageView.swift */; };
+		D362382F2BD11D1A00574EBB /* ThankYouCard+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D362382B2BD11D1A00574EBB /* ThankYouCard+CoreDataClass.swift */; };
+		D36238302BD11D1A00574EBB /* ThankYouCard+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D362382C2BD11D1A00574EBB /* ThankYouCard+CoreDataProperties.swift */; };
+		D36238332BD11E5800574EBB /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36238312BD11E5800574EBB /* User+CoreDataClass.swift */; };
+		D36238342BD11E5800574EBB /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36238322BD11E5800574EBB /* User+CoreDataProperties.swift */; };
+		D36238372BD1705100574EBB /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = D36238362BD1705100574EBB /* TOCropViewController */; };
+		D37226732BD6EA65003CB20D /* ChooseDesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37226722BD6EA65003CB20D /* ChooseDesignView.swift */; };
 		D38076782B913650006484B2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38076772B913650006484B2 /* HomeView.swift */; };
 		D380767A2B913911006484B2 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38076792B913911006484B2 /* StartView.swift */; };
 		D380767C2B913FC7006484B2 /* AddNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D380767B2B913FC7006484B2 /* AddNameView.swift */; };
 		D380767F2B950B3B006484B2 /* ContactsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D380767E2B950B3B006484B2 /* ContactsManager.swift */; };
 		D38076812B950BC2006484B2 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38076802B950BC2006484B2 /* ContactView.swift */; };
-		D3883A362BB1D8170039FD51 /* ThankYouCard+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883A342BB1D8170039FD51 /* ThankYouCard+CoreDataClass.swift */; };
-		D3883A372BB1D8170039FD51 /* ThankYouCard+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883A352BB1D8170039FD51 /* ThankYouCard+CoreDataProperties.swift */; };
 		D3883A3A2BB21D930039FD51 /* Receiver+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883A382BB21D930039FD51 /* Receiver+CoreDataClass.swift */; };
 		D3883A3B2BB21D930039FD51 /* Receiver+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883A392BB21D930039FD51 /* Receiver+CoreDataProperties.swift */; };
 		D3883A3D2BB4BC730039FD51 /* ChooseGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883A3C2BB4BC730039FD51 /* ChooseGoalView.swift */; };
 		D3883A432BB4CBE60039FD51 /* EditUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883A422BB4CBE60039FD51 /* EditUserView.swift */; };
-		D38CB7A02BB624D100EE16CE /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38CB79E2BB624D100EE16CE /* User+CoreDataClass.swift */; };
-		D38CB7A12BB624D100EE16CE /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38CB79F2BB624D100EE16CE /* User+CoreDataProperties.swift */; };
 		D38CB7A32BB85D6000EE16CE /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D38CB7A22BB85D6000EE16CE /* Launch Screen.storyboard */; };
 		D38CB7A72BB987ED00EE16CE /* ExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38CB7A62BB987ED00EE16CE /* ExplanationView.swift */; };
 		D3953DB62BC893550010312A /* RemoveReceiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3953DB52BC893550010312A /* RemoveReceiverView.swift */; };
 		D39A27DE2BA48A6A00BFFED9 /* AfterSentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27DD2BA48A6A00BFFED9 /* AfterSentCardView.swift */; };
 		D39A27E02BA882EC00BFFED9 /* EditReceiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27DF2BA882EC00BFFED9 /* EditReceiverView.swift */; };
 		D39A27E22BA88EA300BFFED9 /* ThankYouCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39A27E12BA88EA300BFFED9 /* ThankYouCardViewModel.swift */; };
-		D3FAC5F72BC48666003CABB3 /* ChangeCardThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FAC5F62BC48666003CABB3 /* ChangeCardThemeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,26 +82,32 @@
 		D351186E2B8D3B4F0013BDA0 /* DynamicSizeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicSizeLabel.swift; sourceTree = "<group>"; };
 		D35118752B9119870013BDA0 /* AppDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppDataModel.xcdatamodel; sourceTree = "<group>"; };
 		D35118902B912EC80013BDA0 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		D362381B2BCFCDE300574EBB /* SendFirstCardScreen1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFirstCardScreen1View.swift; sourceTree = "<group>"; };
+		D362381F2BCFD40000574EBB /* ThankMeBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThankMeBoardView.swift; sourceTree = "<group>"; };
+		D36238212BCFDD9700574EBB /* WriteThankMeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteThankMeCardView.swift; sourceTree = "<group>"; };
+		D36238232BCFE48B00574EBB /* ChooseCardDesignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCardDesignView.swift; sourceTree = "<group>"; };
+		D36238262BD0551200574EBB /* AppDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AppDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		D36238272BD116B000574EBB /* AddImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageView.swift; sourceTree = "<group>"; };
+		D362382B2BD11D1A00574EBB /* ThankYouCard+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThankYouCard+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D362382C2BD11D1A00574EBB /* ThankYouCard+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThankYouCard+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D36238312BD11E5800574EBB /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D36238322BD11E5800574EBB /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D37226722BD6EA65003CB20D /* ChooseDesignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseDesignView.swift; sourceTree = "<group>"; };
 		D38076772B913650006484B2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D38076792B913911006484B2 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		D380767B2B913FC7006484B2 /* AddNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNameView.swift; sourceTree = "<group>"; };
 		D380767E2B950B3B006484B2 /* ContactsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsManager.swift; sourceTree = "<group>"; };
 		D38076802B950BC2006484B2 /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
-		D3883A342BB1D8170039FD51 /* ThankYouCard+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThankYouCard+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D3883A352BB1D8170039FD51 /* ThankYouCard+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThankYouCard+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D3883A382BB21D930039FD51 /* Receiver+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Receiver+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D3883A392BB21D930039FD51 /* Receiver+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Receiver+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D3883A3C2BB4BC730039FD51 /* ChooseGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGoalView.swift; sourceTree = "<group>"; };
 		D3883A422BB4CBE60039FD51 /* EditUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserView.swift; sourceTree = "<group>"; };
-		D38CB79E2BB624D100EE16CE /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D38CB79F2BB624D100EE16CE /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D38CB7A22BB85D6000EE16CE /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		D38CB7A62BB987ED00EE16CE /* ExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationView.swift; sourceTree = "<group>"; };
 		D3953DB52BC893550010312A /* RemoveReceiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveReceiverView.swift; sourceTree = "<group>"; };
 		D39A27DD2BA48A6A00BFFED9 /* AfterSentCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterSentCardView.swift; sourceTree = "<group>"; };
 		D39A27DF2BA882EC00BFFED9 /* EditReceiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReceiverView.swift; sourceTree = "<group>"; };
 		D39A27E12BA88EA300BFFED9 /* ThankYouCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThankYouCardViewModel.swift; sourceTree = "<group>"; };
-		D3FAC5F62BC48666003CABB3 /* ChangeCardThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCardThemeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D36238372BD1705100574EBB /* TOCropViewController in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,13 +194,14 @@
 				D32C42A52B8942E2002FC0B9 /* AddNewMemberView.swift */,
 				D351186A2B8BA0820013BDA0 /* ManuallyOrContactView.swift */,
 				D351186C2B8BA1EB0013BDA0 /* WriteMessageView.swift */,
+				D37226722BD6EA65003CB20D /* ChooseDesignView.swift */,
 				D39A27DF2BA882EC00BFFED9 /* EditReceiverView.swift */,
-				D3FAC5F62BC48666003CABB3 /* ChangeCardThemeView.swift */,
 				D38076772B913650006484B2 /* HomeView.swift */,
 				D3883A422BB4CBE60039FD51 /* EditUserView.swift */,
 				D30446832BAB50D8008FDACB /* SentCardsListView.swift */,
 				D38076802B950BC2006484B2 /* ContactView.swift */,
 				D39A27DD2BA48A6A00BFFED9 /* AfterSentCardView.swift */,
+				D36238252BCFE49300574EBB /* ThankMe */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -209,14 +223,25 @@
 		D351188F2B912E6F0013BDA0 /* NsManager */ = {
 			isa = PBXGroup;
 			children = (
-				D3883A342BB1D8170039FD51 /* ThankYouCard+CoreDataClass.swift */,
-				D3883A352BB1D8170039FD51 /* ThankYouCard+CoreDataProperties.swift */,
-				D38CB79E2BB624D100EE16CE /* User+CoreDataClass.swift */,
-				D38CB79F2BB624D100EE16CE /* User+CoreDataProperties.swift */,
+				D36238312BD11E5800574EBB /* User+CoreDataClass.swift */,
+				D36238322BD11E5800574EBB /* User+CoreDataProperties.swift */,
+				D362382B2BD11D1A00574EBB /* ThankYouCard+CoreDataClass.swift */,
+				D362382C2BD11D1A00574EBB /* ThankYouCard+CoreDataProperties.swift */,
 				D3883A382BB21D930039FD51 /* Receiver+CoreDataClass.swift */,
 				D3883A392BB21D930039FD51 /* Receiver+CoreDataProperties.swift */,
 			);
 			path = NsManager;
+			sourceTree = "<group>";
+		};
+		D36238252BCFE49300574EBB /* ThankMe */ = {
+			isa = PBXGroup;
+			children = (
+				D362381F2BCFD40000574EBB /* ThankMeBoardView.swift */,
+				D36238272BD116B000574EBB /* AddImageView.swift */,
+				D36238212BCFDD9700574EBB /* WriteThankMeCardView.swift */,
+				D36238232BCFE48B00574EBB /* ChooseCardDesignView.swift */,
+			);
+			path = ThankMe;
 			sourceTree = "<group>";
 		};
 		D380767D2B913FCE006484B2 /* Start */ = {
@@ -227,6 +252,7 @@
 				D380767B2B913FC7006484B2 /* AddNameView.swift */,
 				D3883A3C2BB4BC730039FD51 /* ChooseGoalView.swift */,
 				D30446892BADB5DA008FDACB /* WeUseNotificationsView.swift */,
+				D362381B2BCFCDE300574EBB /* SendFirstCardScreen1View.swift */,
 			);
 			path = Start;
 			sourceTree = "<group>";
@@ -247,6 +273,9 @@
 			dependencies = (
 			);
 			name = WeeklyThanks;
+			packageProductDependencies = (
+				D36238362BD1705100574EBB /* TOCropViewController */,
+			);
 			productName = WeeklyThanks;
 			productReference = D32C42902B8935AF002FC0B9 /* WeeklyThanks.app */;
 			productType = "com.apple.product-type.application";
@@ -275,6 +304,9 @@
 				Base,
 			);
 			mainGroup = D32C42872B8935AF002FC0B9;
+			packageReferences = (
+				D36238352BD1705100574EBB /* XCRemoteSwiftPackageReference "TOCropViewController" */,
+			);
 			productRefGroup = D32C42912B8935AF002FC0B9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -310,37 +342,42 @@
 				D3883A432BB4CBE60039FD51 /* EditUserView.swift in Sources */,
 				D32C42A42B893FB1002FC0B9 /* ChoosePersonView.swift in Sources */,
 				D3953DB62BC893550010312A /* RemoveReceiverView.swift in Sources */,
+				D36238282BD116B000574EBB /* AddImageView.swift in Sources */,
 				D380767C2B913FC7006484B2 /* AddNameView.swift in Sources */,
 				D32C42962B8935AF002FC0B9 /* ContentView.swift in Sources */,
+				D36238242BCFE48B00574EBB /* ChooseCardDesignView.swift in Sources */,
 				D39A27DE2BA48A6A00BFFED9 /* AfterSentCardView.swift in Sources */,
 				D30446842BAB50D8008FDACB /* SentCardsListView.swift in Sources */,
 				D30446862BACD914008FDACB /* NotificationManager.swift in Sources */,
 				D39A27E22BA88EA300BFFED9 /* ThankYouCardViewModel.swift in Sources */,
+				D36238202BCFD40100574EBB /* ThankMeBoardView.swift in Sources */,
 				D351186F2B8D3B4F0013BDA0 /* DynamicSizeLabel.swift in Sources */,
 				D35118912B912EC80013BDA0 /* DataManager.swift in Sources */,
 				D38076812B950BC2006484B2 /* ContactView.swift in Sources */,
+				D36238342BD11E5800574EBB /* User+CoreDataProperties.swift in Sources */,
 				D3000E5C2B99157500CF4CE8 /* MessageComposerView.swift in Sources */,
+				D36238302BD11D1A00574EBB /* ThankYouCard+CoreDataProperties.swift in Sources */,
 				D380767A2B913911006484B2 /* StartView.swift in Sources */,
 				D3883A3B2BB21D930039FD51 /* Receiver+CoreDataProperties.swift in Sources */,
 				D351186B2B8BA0820013BDA0 /* ManuallyOrContactView.swift in Sources */,
+				D37226732BD6EA65003CB20D /* ChooseDesignView.swift in Sources */,
 				D304468A2BADB5DA008FDACB /* WeUseNotificationsView.swift in Sources */,
+				D36238332BD11E5800574EBB /* User+CoreDataClass.swift in Sources */,
 				D32C42AA2B89FD37002FC0B9 /* Colors.swift in Sources */,
 				D3883A3D2BB4BC730039FD51 /* ChooseGoalView.swift in Sources */,
 				D30446882BADB3AD008FDACB /* AppDelegate.swift in Sources */,
 				D3883A3A2BB21D930039FD51 /* Receiver+CoreDataClass.swift in Sources */,
-				D3883A372BB1D8170039FD51 /* ThankYouCard+CoreDataProperties.swift in Sources */,
+				D362381C2BCFCDE300574EBB /* SendFirstCardScreen1View.swift in Sources */,
+				D362382F2BD11D1A00574EBB /* ThankYouCard+CoreDataClass.swift in Sources */,
 				D32C42A62B8942E2002FC0B9 /* AddNewMemberView.swift in Sources */,
-				D38CB7A12BB624D100EE16CE /* User+CoreDataProperties.swift in Sources */,
-				D3FAC5F72BC48666003CABB3 /* ChangeCardThemeView.swift in Sources */,
+				D36238222BCFDD9700574EBB /* WriteThankMeCardView.swift in Sources */,
 				D32C42942B8935AF002FC0B9 /* WeeklyThanksApp.swift in Sources */,
 				D32C42A82B89F6F8002FC0B9 /* ThankYouCardView.swift in Sources */,
-				D3883A362BB1D8170039FD51 /* ThankYouCard+CoreDataClass.swift in Sources */,
 				D380767F2B950B3B006484B2 /* ContactsManager.swift in Sources */,
 				D3000E5F2B9A116300CF4CE8 /* UserViewModel.swift in Sources */,
 				D38076782B913650006484B2 /* HomeView.swift in Sources */,
 				D39A27E02BA882EC00BFFED9 /* EditReceiverView.swift in Sources */,
 				D38CB7A72BB987ED00EE16CE /* ExplanationView.swift in Sources */,
-				D38CB7A02BB624D100EE16CE /* User+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,7 +504,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"WeeklyThanks/Preview Content\"";
 				DEVELOPMENT_TEAM = 45Z98QXDZ5;
 				ENABLE_PREVIEWS = YES;
@@ -488,7 +525,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mevima.WeeklyThanks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -507,7 +544,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"WeeklyThanks/Preview Content\"";
 				DEVELOPMENT_TEAM = 45Z98QXDZ5;
 				ENABLE_PREVIEWS = YES;
@@ -528,7 +565,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mevima.WeeklyThanks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -564,13 +601,33 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		D36238352BD1705100574EBB /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TimOliver/TOCropViewController.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D36238362BD1705100574EBB /* TOCropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D36238352BD1705100574EBB /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = TOCropViewController;
+		};
+/* End XCSwiftPackageProductDependency section */
+
 /* Begin XCVersionGroup section */
 		D35118742B9119870013BDA0 /* AppDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				D36238262BD0551200574EBB /* AppDataModel 2.xcdatamodel */,
 				D35118752B9119870013BDA0 /* AppDataModel.xcdatamodel */,
 			);
-			currentVersion = D35118752B9119870013BDA0 /* AppDataModel.xcdatamodel */;
+			currentVersion = D36238262BD0551200574EBB /* AppDataModel 2.xcdatamodel */;
 			path = AppDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

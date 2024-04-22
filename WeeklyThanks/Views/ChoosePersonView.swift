@@ -44,17 +44,6 @@ struct ChoosePersonView: View {
             
             Spacer()
             
-//            Button {
-//                self.navigateRemoveReceiverViev = true
-//            } label: {
-//                Text("Edit friends")
-//                    .font(.custom("Chillax", size: 18))
-//                    .foregroundColor(.white)
-//                    .frame(width: 300, height: 50)
-//                    .background(RoundedRectangle(cornerRadius: 15).fill(Color.red.opacity(0.5)))
-//                    .padding(.bottom, 10)
-//            }
-            
             
             Button {
                 coordinator.push(.manuallyOrContact)

@@ -76,16 +76,42 @@ struct HomeView: View {
 
             
             Spacer()
-            
+            Button {
+                coordinator.push(.thankMeBoard) // Navigate to the details screen
+
+            } label: {
+                HStack{
+                    Image(systemName: "sparkles")
+                        .font(.custom("Chillax", size: 18))
+                        .foregroundColor(.clear)
+                    Text("thank me board")
+                        .font(.custom("Chillax", size: 18))
+                        .foregroundColor(.white)
+                    Image(systemName: "sparkles")
+                        .font(.custom("Chillax", size: 18))
+                        .foregroundColor(.white)
+                }
+                .frame(width: 300, height: 50)
+                .background(RoundedRectangle(cornerRadius: 15).fill(Color.backgroundDarkBlue))
+                .padding(.bottom, 10)
+            }
 
             
             Button {
                 coordinator.push(.choosePerson) // Navigate to the details screen
 
             } label: {
-                Text("write a card")
-                    .font(.custom("Chillax", size: 18))
-                    .foregroundColor(.gray)
+                HStack{
+                    Image(systemName: "pencil")
+                        .font(.custom("Chillax", size: 18))
+                        .foregroundColor(.clear)
+                    Text("write a card")
+                        .font(.custom("Chillax", size: 18))
+                        .foregroundColor(.gray)
+                    Image(systemName: "pencil")
+                        .font(.custom("Chillax", size: 18))
+                        .foregroundColor(.gray)
+                }
                     .frame(width: 300, height: 50)
                     .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
                     .padding(.bottom, 40)
@@ -120,7 +146,6 @@ struct HomeView: View {
 
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
-                    // HERE is WHERE THE ACTION IS
                     self.showingSentCardsListView = true
                 }
                     ) {

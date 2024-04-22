@@ -28,7 +28,7 @@ struct SentCardsListView: View {
             }
        }
         .onAppear {
-            thankYouCardViewModel.fetchThankYouCards()
+            thankYouCardViewModel.fetchThankYouCardsNotSentToSelf()
             
         }
     }

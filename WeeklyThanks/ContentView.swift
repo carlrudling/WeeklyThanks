@@ -27,6 +27,16 @@ struct ContentView: View {
                             WriteMessageView()
                         case .afterSentCard:
                             AfterSentCardView()
+                        case .writeThankMe:
+                            WriteThankMeCardView()
+                        case .chooseDesign:
+                            ChooseCardDesignView()
+                        case .thankMeBoard:
+                            ThankMeBoardView()
+                        case .addProfileImage:
+                            AddImageView()
+                        case .chooseSendDesign:
+                            ChooseDesignView()
                         }
                     }
                 
@@ -75,5 +85,10 @@ enum Screen {
     case addNewMember
     case WriteMessage
     case afterSentCard
+    case chooseDesign
+    case writeThankMe
+    case thankMeBoard
+    case addProfileImage
+    case chooseSendDesign
     
 }
