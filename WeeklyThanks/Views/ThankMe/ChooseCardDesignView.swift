@@ -52,24 +52,48 @@ struct ChooseCardDesignView: View {
                 Spacer()
                 
                 Button(action: {
-                    coordinator.push(.thankMeBoard)
                     
+                    
+                    if let user = self.userViewModel.currentUser {
+                        thankYouCardViewModel.createThankYouCard(
+                           message: self.thankYouCardViewModel.message,
+                            writeDate: Date(), // Current date
+                            user: user, // Safely unwrapped User
+                            receiver: nil,
+                           count: Int64(self.userViewModel.selfSentCardCount + 1), theme: thankYouCardViewModel.selectedTheme, sentToSelf: true,// Safely unwrapped Receiver
+                            completion: { success in
+                                // Handle success or failure
+                                if success {
+                                    print("Card saved successfully")
+                                    // Perform additional actions, like navigating away or showing a success message
+                               
+                                } else {
+                                    print("Failed to save the card")
+                                    // Handle failure, such as showing an error message
+                                }
+                            }
+                        )
+                       self.userViewModel.incrementSelfSentCardCount()
+                       self.thankYouCardViewModel.message = ""
+                        coordinator.push(.thankMeBoard)
+
+                    }
                     
                 }) {
                     HStack {
-                        Image(systemName: "chevron.forward") // Replace with your icon
+                        Image(systemName: "pin.fill") // Replace with your icon
                             .foregroundColor(.clear)
                         Spacer()
-                        Text("Choose card design")
+                        Text("Pin on board")
                             .font(.custom("Chillax", size: 18))
                             .foregroundColor(.white)
                         Spacer()
-                        Image(systemName: "chevron.forward") // Replace with your icon
+                        Image(systemName: "pin.fill") // Replace with your icon
                             .foregroundColor(.white)
                     }
                     .padding() // Apply padding inside the HStack to ensure space around text and icon
                     .frame(width: 250, height: 40)
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.backgroundDarkBlue))
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.cardColorDark))
                 }
                 .padding(.bottom, 20)
             }

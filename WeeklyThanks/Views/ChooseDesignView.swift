@@ -1,9 +1,3 @@
-//
-//  ChooseDesignView.swift
-//  WeeklyThanks
-//
-//  Created by Carl Rudling on 2024-04-22.
-//
 
 import SwiftUI
 
@@ -160,30 +154,30 @@ struct ChooseDesignView: View {
                     if messageSent {
                         print("Message was sent successfully.")
                         if let user = self.userViewModel.currentUser, let receiver = self.receiverViewModel.currentReceiver {
-                                     thankYouCardViewModel.createThankYouCard(
-                                        message: self.thankYouCardViewModel.message,
-                                         writeDate: Date(), // Current date
-                                         user: user, // Safely unwrapped User
-                                         receiver: receiver,
-                                        count: Int64(self.userViewModel.count + 1), theme: thankYouCardViewModel.selectedTheme, sentToSelf: false,// Safely unwrapped Receiver
-                                         completion: { success in
-                                             // Handle success or failure
-                                             if success {
-                                                 print("Card saved successfully")
-                                                 // Perform additional actions, like navigating away or showing a success message
-                                            
-                                             } else {
-                                                 print("Failed to save the card")
-                                                 // Handle failure, such as showing an error message
-                                             }
-                                         }
-                                     )
-                                    self.userViewModel.incrementMessageCount()
-                                    self.userViewModel.incrementWeeklySentCount()
-                                    self.userViewModel.updateLastSentCardDate()
-                                     coordinator.push(.afterSentCard)
-                                    self.thankYouCardViewModel.message = ""
-                                 } else {
+                            thankYouCardViewModel.createThankYouCard(
+                               message: self.thankYouCardViewModel.message,
+                                writeDate: Date(), // Current date
+                                user: user, // Safely unwrapped User
+                                receiver: receiver,
+                               count: Int64(self.userViewModel.count + 1), theme: thankYouCardViewModel.selectedTheme, sentToSelf: false,// Safely unwrapped Receiver
+                                completion: { success in
+                                    // Handle success or failure
+                                    if success {
+                                        print("Card saved successfully")
+                                        // Perform additional actions, like navigating away or showing a success message
+                                   
+                                    } else {
+                                        print("Failed to save the card")
+                                        // Handle failure, such as showing an error message
+                                    }
+                                }
+                            )
+                           self.userViewModel.incrementMessageCount()
+                           self.userViewModel.incrementWeeklySentCount()
+                           self.userViewModel.updateLastSentCardDate()
+                            coordinator.push(.afterSentCard)
+                           self.thankYouCardViewModel.message = ""
+                        } else {
                                      // Handle the case where user or receiver is nil
                                      print("User or Receiver is nil, cannot save the card.")
                                  }

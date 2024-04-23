@@ -53,6 +53,18 @@ class UserViewModel: ObservableObject {
           dataManager.saveContext()
       }
     
+    func incrementSelfSentCardCount() {
+          guard let user = currentUser else { return }
+
+          // Increment the message count
+          user.selfSentCardCount += 1
+          self.selfSentCardCount += 1 // Update the published property as well
+          
+          // Save changes
+          dataManager.saveContext()
+      }
+    
+    
     func incrementWeeklySentCount() {
           guard let user = currentUser else { return }
 

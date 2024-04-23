@@ -8,17 +8,17 @@ class ThankYouCardViewModel: ObservableObject {
     @Published var themes: [String] = ["normal", "lotus", "greenFlowers", "omSymbol", "redHearts", "lotusStones"]
     @Published var message: String = ""
 
-    func createThankYouCard(message: String, writeDate: Date, user: User, receiver: Receiver, count: Int64, theme: String, sentToSelf: Bool, completion: @escaping (Bool) -> Void) {
+    func createThankYouCard(message: String, writeDate: Date, user: User, receiver: Receiver?, count: Int64, theme: String, sentToSelf: Bool, completion: @escaping (Bool) -> Void) {
         let context = dataManager.container.viewContext
         let newCard = ThankYouCard(context: context)
         newCard.id = UUID()
         newCard.message = message
         newCard.writeDate = writeDate
         newCard.user = user
-        newCard.receiver = receiver
+        newCard.receiver = receiver  // Receiver can now be nil
         newCard.count = count
         newCard.theme = theme
-        newCard.sentToSelf = sentToSelf // Set the new boolean attribute
+        newCard.sentToSelf = sentToSelf
 
         do {
             try context.save()
@@ -28,6 +28,7 @@ class ThankYouCardViewModel: ObservableObject {
             completion(false)
         }
     }
+
 
 
     
