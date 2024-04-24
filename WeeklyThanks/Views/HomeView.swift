@@ -9,8 +9,29 @@ struct HomeView: View {
     @State private var showingSentCardsListView = false
     @State private var showingEditUserView = false
 
+    //    ANIMATIONS
+    @State private var isAnimating = false
+    @State private var timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
+    @State private var movePencil = false
+    @State private var showDots = false
+    @State private var quoteOpacity = 0.0
+    @State private var quoteOffset = 20.0
     
-  
+    private func startAnimationSequence() {
+           withAnimation(.easeInOut(duration: 0.5)) {
+               movePencil.toggle()  // Move the pencil
+               showDots.toggle()  // Show or hide the dots
+
+           }
+           DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+               withAnimation(.easeInOut(duration: 0.5)) {
+                   movePencil = false
+                   showDots = false
+               }
+           }
+       }
+
+
 
     var body: some View {
         VStack{
@@ -27,6 +48,15 @@ struct HomeView: View {
                 .padding(.top, 30)
                 .multilineTextAlignment(.center)
                 .foregroundColor(.white)
+                .opacity(quoteOpacity)
+                .offset(y: quoteOffset) // Adjust the value as needed to move the text up
+                .onAppear {
+                    // Start the animations when the view appears
+                    withAnimation(.easeOut(duration: 2)) {
+                        quoteOpacity = 1.0 // Fade in to full opacity
+                        quoteOffset = 0.0 // Move up to its original position
+                    }
+                }
             
             HStack{
               
@@ -90,10 +120,17 @@ struct HomeView: View {
                     Image(systemName: "sparkles")
                         .font(.custom("Chillax", size: 18))
                         .foregroundColor(.white)
+                        .scaleEffect(isAnimating ? 1.5 : 1.0)
+                        .animation(.easeInOut(duration: 0.8).repeatCount(3, autoreverses: true), value: isAnimating)
+
+                      
                 }
                 .frame(width: 300, height: 50)
                 .background(RoundedRectangle(cornerRadius: 15).fill(Color.backgroundDarkBlue))
                 .padding(.bottom, 10)
+                .onAppear {
+                    isAnimating = true
+                }
             }
 
             
@@ -108,13 +145,20 @@ struct HomeView: View {
                     Text("write a card")
                         .font(.custom("Chillax", size: 18))
                         .foregroundColor(.gray)
+                    
+                    Text(showDots ? "..." : "")
+                           .font(.custom("Chillax", size: 18))
+                           .opacity(showDots ? 1 : 0)
+                    
                     Image(systemName: "pencil")
                         .font(.custom("Chillax", size: 18))
                         .foregroundColor(.gray)
+
                 }
                     .frame(width: 300, height: 50)
                     .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
                     .padding(.bottom, 40)
+                   
             }
    
         }
@@ -169,6 +213,16 @@ struct HomeView: View {
                     }
 
                 }
+        .onReceive(timer) { _ in
+            startAnimationSequence()
+            isAnimating = true
+            withAnimation(.easeInOut(duration: 0.6).repeatCount(3, autoreverses: true)) {
+                isAnimating = false
+            }
+        }
+       
+
+
         .sheet(isPresented: $showingSentCardsListView) {
             // Make sure to inject the necessary EnvironmentObjects or any other dependencies
             SentCardsListView().environmentObject(thankYouCardViewModel)

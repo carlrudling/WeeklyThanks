@@ -8,12 +8,33 @@ struct ThankMeBoardView: View {
     @EnvironmentObject var thankYouCardViewModel : ThankYouCardViewModel
 
 
-    @State private var textOpacity = 0.0
-    @State private var textOffset = 20.0
+
     
     private let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     private let currentDate = Date()  // Capture the current date once when the view is loaded
 
+    
+    //    ANIMATIONS
+    @State private var textOpacity = 0.0
+    @State private var textOffset = 20.0
+    @State private var isAnimating = false
+    @State private var timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
+    @State private var movePencil = false
+    @State private var showDots = false
+    
+    private func startAnimationSequence() {
+           withAnimation(.easeInOut(duration: 0.5)) {
+               movePencil.toggle()  // Move the pencil
+               showDots.toggle()  // Show or hide the dots
+
+           }
+           DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+               withAnimation(.easeInOut(duration: 0.5)) {
+                   movePencil = false
+                   showDots = false
+               }
+           }
+       }
     
     var body: some View {
         VStack{
@@ -48,10 +69,13 @@ struct ThankMeBoardView: View {
                             Spacer()
                             Text(currentDate.formatted(as: "MMMM")) // Current Month in full letters
                                 .font(.custom("Chillax", size: 16))
+                                .foregroundStyle(Color.white)
                             
                             Spacer()
                             Text(currentDate.formatted(as: "yyyy")) // Current Year
                                 .font(.custom("Chillax", size: 12))
+                                .foregroundStyle(Color.white)
+
                             
                         }
                         .padding(.horizontal, 10)
@@ -99,6 +123,9 @@ struct ThankMeBoardView: View {
                         Text("write a card")
                             .font(.custom("Chillax", size: 18))
                             .foregroundColor(.gray)
+                        Text(showDots ? "..." : "")
+                               .font(.custom("Chillax", size: 18))
+                               .opacity(showDots ? 1 : 0)
                         Image(systemName: "pencil")
                             .font(.custom("Chillax", size: 18))
                             .foregroundColor(.gray)
@@ -128,6 +155,13 @@ struct ThankMeBoardView: View {
                    // Fetch the cards intended for self-appreciation
                    thankYouCardViewModel.fetchThankYouCardsSentToSelf()
                }
+        .onReceive(timer) { _ in
+            startAnimationSequence()
+            isAnimating = true
+            withAnimation(.easeInOut(duration: 0.6).repeatCount(3, autoreverses: true)) {
+                isAnimating = false
+            }
+        }
     }
 }
 
