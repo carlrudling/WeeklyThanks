@@ -88,7 +88,8 @@ struct WriteThankMeCardView: View {
                         if thankYouCardViewModel.message.isEmpty {
                             Text("Ex: Worked towards your goals, done something kind, taken care of yourself?")
                                 .font(.custom("Chillax", size: 14))
-                                .foregroundColor(Color(UIColor.placeholderText))
+//                                .foregroundColor(Color(UIColor.placeholderText))
+                                .foregroundColor(.white.opacity(0.8))
                                 .padding(4)
                             
                         }
@@ -102,7 +103,6 @@ struct WriteThankMeCardView: View {
                             }
                             .font(.custom("Chillax", size: 16)) // Adjust font size dynamically
                             .background(.white.opacity(0.2))
-                            .foregroundColor(.white)
                             .scrollContentBackground(.hidden)
                             .cornerRadius(8)
                             .foregroundColor(.white)
@@ -156,6 +156,7 @@ struct WriteThankMeCardView: View {
                         .padding() // Apply padding inside the HStack to ensure space around text and icon
                         .frame(width: 250, height: 40)
                         .background(RoundedRectangle(cornerRadius: 10).fill(Color.backgroundDarkBlue))
+                        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 2)
                     }
                     .padding(.bottom, 20)
                 }

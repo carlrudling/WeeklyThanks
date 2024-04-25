@@ -7,18 +7,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Set up the notification center delegate
         UNUserNotificationCenter.current().delegate = self
         
+        // Initialize notification setup
+        refreshNotifications()
+        
         return true
     }
 
-    private func requestNotificationAuthorization() {
-        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
-        UNUserNotificationCenter.current().requestAuthorization(options: options) { granted, error in
-            if granted {
-                print("Notification permission granted.")
-            } else if let error = error {
-                print("Notification permission denied because: \(error.localizedDescription).")
-            }
-        }
+    func refreshNotifications() {
+        // Remove old notifications
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["midWeekReminder", "endOfWeekReminder"])
+
+        // Re-schedule notifications
+        NotificationManager.shared.scheduleMidWeekReminder()
+        NotificationManager.shared.scheduleEndOfWeekReminder()
     }
 
     // MARK: UNUserNotificationCenterDelegate Methods
@@ -35,17 +36,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         switch identifier {
         case "weeklyReminder":
             print("Handle weekly reminder action.")
-            // Here, implement any specific logic you need when the user interacts with the weekly reminder notification
             break
         case "midWeekReminder":
             print("Handle mid-week reminder action.")
-            // Similar handling for mid-week reminders
             break
         case "endOfWeekReminder":
             print("Handle end-of-week reminder action.")
-            // And for the end-of-week reminder
             break
-        // Add more cases as needed
         default:
             break
         }

@@ -10,8 +10,9 @@ struct ChoosePersonView: View {
     @State private var navigateToWriteMessage = false
     
     @State var navigateRemoveReceiverViev = false
-
-
+    @State private var quoteOpacity = 0.0
+    @State private var quoteOffset = 20.0
+    
     var body: some View {
         VStack {
             Text("WeeklyThanks")
@@ -37,6 +38,15 @@ struct ChoosePersonView: View {
                                 .font(.custom("Chillax", size: 16))
                                 .foregroundColor(.white)
                                 .padding()
+                                .opacity(quoteOpacity)
+                                .offset(y: quoteOffset) // Adjust the value as needed to move the text up
+                                .onAppear {
+                                    // Start the animations when the view appears
+                                    withAnimation(.easeOut(duration: 2)) {
+                                        quoteOpacity = 1.0 // Fade in to full opacity
+                                        quoteOffset = 0.0 // Move up to its original position
+                                    }
+                                }
                         }
                     }
                 }
@@ -53,6 +63,7 @@ struct ChoosePersonView: View {
                     .foregroundColor(.gray)
                     .frame(width: 300, height: 50)
                     .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
+                    .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 2)
                     .padding(.bottom, 40)
             }
 

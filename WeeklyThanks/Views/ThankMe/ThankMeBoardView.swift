@@ -8,7 +8,8 @@ struct ThankMeBoardView: View {
     @EnvironmentObject var thankYouCardViewModel : ThankYouCardViewModel
 
 
-
+    @State private var selectedCard: ThankYouCard?
+    @State private var showCarousel = false
     
     private let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     private let currentDate = Date()  // Capture the current date once when the view is loaded
@@ -39,11 +40,33 @@ struct ThankMeBoardView: View {
     var body: some View {
         VStack{
         ScrollView{
-            Text("Thank Me Board")
-                .font(.custom("LeckerliOne-regular", size: 28))
-                .padding(.vertical, 35)
-                .foregroundColor(.white)
+          
+                Text("Thank Me Board")
+                    .font(.custom("LeckerliOne-regular", size: 28))
+                    .padding(.vertical, 10)
+                    .foregroundColor(.white)
             
+            if let profileImage = userViewModel.profileImage {
+                ZStack{
+                    Image(systemName: "circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 120, height: 120)
+                        .foregroundColor(.white)
+                    Image(uiImage: profileImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 110, height: 110)
+                        .clipShape(Circle()) // Display the selected image as a circle
+                }
+                .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 4)
+            } else {
+                Image(systemName: "photo.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 110, height: 110)
+                    .foregroundColor(.white.opacity(1.0))
+            }
                 
                 if thankYouCardViewModel.thankYouCards.isEmpty {
                     Text("Start a habit to thank yourself and build a thank me board filled with self-appreciation.")
@@ -100,6 +123,10 @@ struct ThankMeBoardView: View {
                                             textOffset = 0.0
                                         }
                                     }
+                                    .onTapGesture {
+                                            selectedCard = card
+                                            showCarousel = true
+                                    }
                                 }
                             }
                             .padding(.horizontal, 10)
@@ -132,6 +159,7 @@ struct ThankMeBoardView: View {
                     }
                     .frame(width: 300, height: 50)
                     .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
+                    .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 2)
                     .padding(.bottom, 40)
                 }
                 
@@ -141,7 +169,9 @@ struct ThankMeBoardView: View {
             LinearGradient(gradient: Gradient(colors: [.backgroundDarkBlue, .backgroundLightBlue]), startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
         )
-        .navigationBarBackButtonHidden(true)
+        .sheet(isPresented: $showCarousel) {
+                    CarouselView(selectedCard: $selectedCard, cards: thankYouCardViewModel.thankYouCards)
+                }        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
@@ -175,4 +205,34 @@ extension Date {
 
 #Preview {
     ThankMeBoardView()
+}
+
+
+struct CarouselView: View {
+    @Binding var selectedCard: ThankYouCard?
+    var cards: [ThankYouCard]
+
+    var body: some View {
+        TabView(selection: $selectedCard) {
+            ForEach(cards, id: \.self) { card in
+                ThankYouCardView(
+                    scaleFactor: 0.9, // Full scale for carousel view
+                    message: card.message ?? "",
+                    senderName: card.user?.name ?? "",
+                    receiverName: card.receiver?.name ?? "",
+                    cardNumber: Int(card.count),
+                    date: card.writeDate ?? Date(),
+                    theme: card.theme ?? ""
+                )
+                .tag(card) // Tag each card view with its corresponding ThankYouCard object
+                .padding()
+            }
+        }
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            LinearGradient(gradient: Gradient(colors: [.backgroundDarkBlue, .backgroundLightBlue]), startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+        )
+    }
 }

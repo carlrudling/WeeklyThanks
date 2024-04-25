@@ -7,7 +7,10 @@ struct EditUserView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @State private var name: String = "" // For binding to the TextField
     @State private var keyboardIsShown: Bool = false
-
+    @State private var showingImagePicker = false
+    @State private var showingCropView = false
+    
+    
     private func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
@@ -35,11 +38,59 @@ struct EditUserView: View {
                     .padding(.horizontal, 100)
                     .multilineTextAlignment(.center)
                     .font(.custom("Chillax", size: 16))
-                    .padding(.vertical, 80)
+                    .padding(.vertical, 15)
                     .foregroundColor(.white)
                 
-                VStack{
-                    
+                Button(action: {
+                    self.showingImagePicker = true
+                }) {
+                    if let image = userViewModel.profileImage {
+                        ZStack{
+                            Image(systemName: "circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 140, height: 140)
+                                .foregroundColor(.white)
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 130, height: 130)
+                                .clipShape(Circle()) // Display the selected image as a circle
+                            
+                            Image(systemName: "photo.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 130, height: 130)
+                                .foregroundColor(.white.opacity(0.3))
+                            
+                        }
+                        .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 4)
+
+
+                    } else {
+                        ZStack{
+                            
+                            Image(systemName: "photo.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 130, height: 130)
+                                .foregroundColor(.white.opacity(0.6))
+                                .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 4)
+                            Text("Choose image")
+                                .font(.custom("Chillax", size: 16))
+                                .foregroundColor(.gray)
+                        }
+                    }
+                }
+                .padding()
+                .sheet(isPresented: $showingImagePicker, onDismiss: {
+                    if userViewModel.profileImage != nil {
+                        self.showingCropView = true
+                    }
+                }) {
+                    ImagePicker(selectedImage: $userViewModel.profileImage)
+                }
+
                     
                     // Optionally, use the input text somewhere
                     Text("Name")
@@ -79,13 +130,15 @@ struct EditUserView: View {
                             }
                         }
                     }.padding(.bottom, 20)
-                }
+                
+                
+                
                 Spacer()
                 
                 
                 Button(action: {
                     
-                    userViewModel.updateUser(name: userViewModel.name, sendCardGoal: userViewModel.sendCardGoal)
+                    userViewModel.updateUser(name: userViewModel.name, sendCardGoal: userViewModel.sendCardGoal, profileImage: userViewModel.profileImage)
                     // Proceed with any other actions, like dismissing the view
                     self.presentationMode.wrappedValue.dismiss()
                     
@@ -95,6 +148,7 @@ struct EditUserView: View {
                         .foregroundColor(.gray)
                         .frame(width: 300, height: 50)
                         .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorGreen))
+                        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 2)
                 }
                 .padding(.bottom, 30)
                 
@@ -106,6 +160,11 @@ struct EditUserView: View {
             LinearGradient(gradient: Gradient(colors: [.backgroundLight, .backgroundDark]), startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all) // Apply edgesIgnoringSafeArea to the background
         )
+        .sheet(isPresented: $showingCropView) {
+                       CropImageView(image: $userViewModel.profileImage)
+                        .edgesIgnoringSafeArea(.all) // Apply this modifier
+
+                   }
         .onAppear {
             if let currentUser = userViewModel.currentUser {
                 userViewModel.name = currentUser.name ?? ""

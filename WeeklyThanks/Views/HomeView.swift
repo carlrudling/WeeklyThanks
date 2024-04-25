@@ -127,6 +127,7 @@ struct HomeView: View {
                 }
                 .frame(width: 300, height: 50)
                 .background(RoundedRectangle(cornerRadius: 15).fill(Color.backgroundDarkBlue))
+                .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 2)
                 .padding(.bottom, 10)
                 .onAppear {
                     isAnimating = true
@@ -157,6 +158,7 @@ struct HomeView: View {
                 }
                     .frame(width: 300, height: 50)
                     .background(RoundedRectangle(cornerRadius: 15).fill(Color.buttonColorLight))
+                    .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 2)
                     .padding(.bottom, 40)
                    
             }

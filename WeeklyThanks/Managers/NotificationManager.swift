@@ -12,8 +12,6 @@ class NotificationManager {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             if granted {
                 print("Notification permission granted.")
-                self.scheduleMidWeekReminder()
-                self.scheduleEndOfWeekReminder()
             } else if let error = error {
                 print("Notification permission denied because: \(error.localizedDescription).")
             }

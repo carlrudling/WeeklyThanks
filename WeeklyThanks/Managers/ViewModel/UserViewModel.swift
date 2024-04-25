@@ -162,7 +162,7 @@ class UserViewModel: ObservableObject {
 
 
     // Updated UserViewModel function
-    func updateUser(name: String? = nil, sendCardGoal: Int? = nil) {
+    func updateUser(name: String? = nil, sendCardGoal: Int? = nil, profileImage: UIImage? = nil) {
         guard let currentUser = currentUser else { return }
 
         if let name = name {
@@ -175,10 +175,17 @@ class UserViewModel: ObservableObject {
             self.sendCardGoal = sendCardGoal // Update the ViewModel's published property
         }
 
+        if let image = profileImage {
+            if let imageData = image.jpegData(compressionQuality: 1.0) {
+                currentUser.profileImage = imageData
+                self.profileImage = image // Update the ViewModel's published property
+            }
+        }
+
         // Save the changes
         dataManager.saveContext()
-        // No need to call fetchCurrentUser() here unless you want to refresh other fields
     }
+
 
 
 

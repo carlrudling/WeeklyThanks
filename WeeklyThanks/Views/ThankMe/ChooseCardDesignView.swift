@@ -93,11 +93,13 @@ struct ChooseCardDesignView: View {
                     }
                     .padding() // Apply padding inside the HStack to ensure space around text and icon
                     .frame(width: 250, height: 40)
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.cardColorDark))
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.backgroundDarkBlue))
+                    .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 2)
                 }
                 .padding(.bottom, 20)
             }
         }
+        
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

@@ -70,6 +70,7 @@ struct RemoveReceiverView: View {
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
                     .background(RoundedRectangle(cornerRadius: 15).fill(Color.red.opacity(selectedReceivers.count > 0 ? 1.0 : 0.5)))
+                    .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 2)
                     .padding(.bottom, 10)
             }
 

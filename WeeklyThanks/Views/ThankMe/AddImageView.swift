@@ -7,6 +7,7 @@ struct AddImageView: View {
        @EnvironmentObject var userViewModel: UserViewModel
        @State private var showingImagePicker = false
        @State private var showingCropView = false
+    
        
        var body: some View {
            VStack {
@@ -87,6 +88,8 @@ struct AddImageView: View {
                 .padding()
                 .frame(width: 250, height: 40)
                 .background(RoundedRectangle(cornerRadius: 10).fill(Color.backgroundDarkBlue.opacity((userViewModel.profileImage != nil) ? 1.0 : 0.5)))
+                .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 2)
+
             }
             .disabled(userViewModel.profileImage == nil)
             .padding(.bottom, 20)
